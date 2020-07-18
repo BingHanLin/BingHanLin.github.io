@@ -1,5 +1,10 @@
 https://www.zhihu.com/question/21193762
-
+https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db
+https://zhuanlan.zhihu.com/p/35668237
 npm install hexo,
 npm install,
 npm install hexo-deployer-git
+
+
+hexo server
+hexo g -d
