@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Introduction For many engineering problems, we cannot obtain analytical (true) solutions. That&#39;s why we employ numerical methods to obtain the solutions.  However, the numerical methods or algorithms">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Truncation error &amp; Rounding error">
+<meta property="og:url" content="http://yoursite.com/2018/03/20/truncation%20error%20&%20rounding%20error/index.html">
+<meta property="og:site_name" content="BHL Notes">
+<meta property="og:description" content="Introduction For many engineering problems, we cannot obtain analytical (true) solutions. That&#39;s why we employ numerical methods to obtain the solutions.  However, the numerical methods or algorithms">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://od.lk/s/MTBfNDI3MTY1MjJf/Truncation%20Error%20%26%20Rounding%20Error_precision_accuracy.png">
+<meta property="og:image" content="https://bhlin.co.network/wp/wp-content/uploads/2018/03/%E6%9C%AA%E5%91%BD%E5%90%8D.png">
+<meta property="og:image" content="https://bhlin.co.network/wp/wp-content/uploads/2018/03/img60.png">
+<meta property="article:published_time" content="2018-03-19T16:08:00.000Z">
+<meta property="article:modified_time" content="2020-07-18T16:25:43.292Z">
+<meta property="article:author" content="Bing Han Lin">
+<meta property="article:tag" content="numerical method">
+<meta property="article:tag" content="Uncategorized">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://od.lk/s/MTBfNDI3MTY1MjJf/Truncation%20Error%20%26%20Rounding%20Error_precision_accuracy.png">
+
+<link rel="canonical" href="http://yoursite.com/2018/03/20/truncation%20error%20&%20rounding%20error/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Truncation error & Rounding error | BHL Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BHL Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">MY LEARNING TRAJECTORY</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/20/truncation%20error%20&%20rounding%20error/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Truncation error & Rounding error
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-20 00:08:00" itemprop="dateCreated datePublished" datetime="2018-03-20T00:08:00+08:00">2018-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-19 00:25:43" itemprop="dateModified" datetime="2020-07-19T00:25:43+08:00">2020-07-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="introduction">Introduction</h2>
+<p>For many engineering problems, we cannot obtain analytical (true) solutions. That's why we employ numerical methods to obtain the solutions.  However, the numerical methods or algorithms are usually accompanied by computing with finite precision and errors of approximation (rounding and truncation). Before we get into the details of the topic, it is important to distinguish between accuracy and precision. <a id="more"></a></p>
+<ul>
+<li><strong>Accuracy</strong>- How close is a computed or measured value to the true value.</li>
+<li><strong>Precision</strong> (or reproducibility) - How close is a computed or measured value to previously.</li>
+</ul>
+<p>The figure below illustrates the difference between accuracy and precision.  The term error represents the imprecision and inaccuracy of a numerical computation.</p>
+<p><img src="https://od.lk/s/MTBfNDI3MTY1MjJf/Truncation%20Error%20%26%20Rounding%20Error_precision_accuracy.png" alt="Alt text" /> <em>(refer to http://www.antarcticglaciers.org/glacial-geology/dating-glacial-sediments-2/precision-and-accuracy-glacial-geology/)</em></p>
+<hr />
+<h2 id="truncation-error">Truncation Error</h2>
+<p><strong>Definition</strong> － The error is produced by an approximation in numerical approach to representing the actual value. Truncation errors are often seen in procedures of series (e.g. power series, Taylor series) and other algorithms where mathematical procedures get truncated (e.g. integration, limitation). Here we take Taylor series to explain the causes of truncation error. Let's consider the solution of  derivation of <span class="math inline">\(f&#39;_i=f&#39;(x_i)\)</span> for example. Using Taylor expansion to approximate <span class="math inline">\(f_{i+1}=f&#39;(x_{i+1})\)</span> about $f_i=f(x_i) $ :</p>
+<p><span class="math display">\[
+\eqalign{f_{i+1}=f_i+hf&#39;_i+\frac{h^2}{2}f^{\prime\prime}_i+\frac{h^3}{6}f^{\prime\prime\prime}_i+\frac{h^4}{24}f^{\prime\prime\prime\prime}_i+...}
+\]</span></p>
+<p>Replace the <span class="math inline">\(f&#39;_i\)</span> term into left side, we can obtained,</p>
+<p><span class="math display">\[
+\eqalign{ f&#39; = \frac{f_{i+1}-f_i}{h}-\frac{h}{2}f^{\prime\prime}_i-\frac{h^2}{6}f^{\prime\prime\prime}_i-\frac{h^3}{24}f^{\prime\prime\prime\prime}_i+... = \frac{f_{i+1}-f_i}{h} +E}\]</span></p>
+<p>where $ h$ is a small step size,  $ E$ the truncation error. With a leading term $ - (h/2)f^{}_i$ , the truncation error become $ E- (h/2)f^{}_i + O(h^2)$ where the remaining terms in  $ O(h^2)$ can be neglected due to their small value. Since the dominating term of $ E$  is proportional to $ h$,  we say that the truncation error is of first order in $ h$. The first terms on the right side is also one of the form for forward difference scheme.  Similarly, error can also be estimate for backward difference approximation and central difference approximation.</p>
+<hr />
+<h2 id="rounding-errors">Rounding Errors</h2>
+<p><strong>Definition</strong> －The error produced by computer limited significant figures to represent the actual result. Because floating-point numbers have a limited number of digits, they cannot represent all real numbers accurately. When there are more digits than the format allows, the leftover ones are omitted (the number is rounded), and this cause errors. Some examples are list in the following table:</p>
+<p><img src="https://bhlin.co.network/wp/wp-content/uploads/2018/03/未命名.png" alt="Alt text" /> <em>refer to <a href="https://en.wikipedia.org/wiki/Round-off_error" target="_blank" rel="noopener">wikipedia</a></em></p>
+<hr />
+<h2 id="total-errors">Total Errors</h2>
+<p>Total errors in computational simulation(neglect other factors e.g.  artificial error, wrong data)  equal to the sum of truncation errors  and rounding errors. In order to eliminate the total error , the minimum value of truncation error and rounding error are needed.  Unfortunately , it is not possible to select a step size that keep both  to minimum because they have a relationship as following figure.</p>
+<p><img src="https://bhlin.co.network/wp/wp-content/uploads/2018/03/img60.png" alt="Alt text" /> <em>refer to <a href="https://me.ucsb.edu/~moehlis/APC591/tutorials/tutorial5/node3.html" target="_blank" rel="noopener">link</a></em></p>
+<p>But we can choose to use ideal step size to achieve the minimum total errors. The process usually starts from (a) Select a step size $h $, compute solution;  (b) Use $h/2 $, re-compute; (c) If new result closes to the previous, the $h $ is probably acceptable. If not, then reduce $h $ again.</p>
+<hr />
+<ul>
+<li>Reference:</li>
+</ul>
+<ol type="1">
+<li><a href="http://hplgit.github.io/INF5620/doc/pub/main_trunc-2up.pdf" target="_blank" rel="noopener">Truncation Error Analysis</a></li>
+<li><a href="http://www.cs.cornell.edu/~bindel/class/cs3220-s12/notes/lec22.pdf" target="_blank" rel="noopener">Truncation versus rounding</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Round-off_error" target="_blank" rel="noopener">Round-off error</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/numerical-method/" rel="tag"># numerical method</a>
+              <a href="/tags/Uncategorized/" rel="tag"># Uncategorized</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2018/06/11/file-structure-of-openfoam/" rel="next" title="File Structure of OpenFOAM">
+      File Structure of OpenFOAM <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#truncation-error"><span class="nav-number">2.</span> <span class="nav-text">Truncation Error</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rounding-errors"><span class="nav-number">3.</span> <span class="nav-text">Rounding Errors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#total-errors"><span class="nav-number">4.</span> <span class="nav-text">Total Errors</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bing Han Lin</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/BingHanLin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;BingHanLin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jaguar3096@gmail.com" title="E-Mail → mailto:jaguar3096@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bing Han Lin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
