@@ -1,6 +1,7 @@
 https://www.zhihu.com/question/21193762
 https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db
 https://zhuanlan.zhihu.com/p/35668237
+https://note.leodev.me/2016/09/01/Hexo-3-1-1-Staic-Blog-Build-Guide/
 npm install hexo,
 npm install,
 npm install hexo-deployer-git
@@ -8,3 +9,9 @@ npm install hexo-deployer-git
 
 hexo server
 hexo g -d
+
+latex
+https://roro4ever.github.io/2019/12/01/hexo-Next%E4%B8%BB%E9%A2%98%E6%B8%B2%E6%9F%93-latex-%E5%85%AC%E5%BC%8F%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95/hexo-next%E4%B8%BB%E9%A2%98%E6%B8%B2%E6%9F%93-latex-%E5%85%AC%E5%BC%8F%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95/
+
+custom html page
+https://onmyway133.github.io/blog/How-to-add-independent-page-in-hexo/
