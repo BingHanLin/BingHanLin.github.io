@@ -1,205 +1,251 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+---
+layout: false
+---
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
     <title>Bing Hang Lin Resume</title>
 
-    <style type="text/css">
-        * {
-            margin: 0;
-            padding: 0;
-        }
+    <!-- Meta -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- Google Font -->
+    <link
+        href='https://fonts.googleapis.com/css?family=Roboto:400,500,400italic,300italic,300,500italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/orbit-6.css">
 
-        body {
-            font: 16px Helvetica, Sans-Serif;
-            line-height: 24px;
-        }
-
-        .clear {
-            clear: both;
-        }
-
-        #page-wrap {
-            width: 800px;
-            margin: 40px auto 60px;
-        }
-
-        #pic {
-            float: right;
-            margin: -30px 0 0 0;
-        }
-
-        h1 {
-            margin: 0 0 16px 0;
-            padding: 0 0 16px 0;
-            font-size: 42px;
-            font-weight: bold;
-            letter-spacing: -2px;
-            border-bottom: 1px solid #999;
-        }
-
-        h2 {
-            font-size: 20px;
-            margin: 0 0 6px 0;
-            position: relative;
-        }
-
-        span {
-            font-style: italic;
-            font-family: Georgia, Serif;
-            font-size: 16px;
-            color: #999;
-            font-weight: normal;
-        }
-
-        p {
-            margin: 0 0 16px 0;
-        }
-
-        a {
-            color: #999;
-            text-decoration: none;
-            border-bottom: 1px dotted #999;
-        }
-
-        a:hover {
-            border-bottom-style: solid;
-            color: black;
-        }
-
-        ul {
-            margin: 0 0 32px 17px;
-        }
-
-        #objective {
-            width: 500px;
-            float: left;
-        }
-
-        #objective p {
-            font-family: Georgia, Serif;
-            font-style: italic;
-            color: #666;
-        }
-
-        dt {
-            font-style: italic;
-            font-weight: bold;
-            font-size: 18px;
-            text-align: right;
-            padding: 0 26px 0 0;
-            width: 150px;
-            float: left;
-            height: 100px;
-            border-right: 1px solid #999;
-        }
-
-        dd {
-            width: 600px;
-            float: right;
-        }
-
-        dd.clear {
-            float: none;
-            margin: 0;
-            height: 15px;
-        }
-    </style>
 </head>
 
 <body>
-
-    <div id="page-wrap">
-
-        <img src="images/me.png" alt="Photo of Me" id="pic" />
-
-        <div id="contact-info" class="vcard">
-
-            <!-- Microformats! -->
-
-            <h1 class="fn">Bing Han, Lin</h1>
-
-            <p>
-                Cell: <span class="tel">+886 911828122</span><br />
-                Email: <a class="email" href="mailto:jaguar3096@gmail.com">jaguar3096@gmail.com</a>
-            </p>
-        </div>
-
-        <div id="objective">
-            <p>
-                A Master of Marine Engineering focuses on numerical computation and fluid-structure interaction. Have an
-                open-minded willing to work with people from different background. Eager to develop my analytical skills
-                and knowledge in practical problems.
-            </p>
-        </div>
-
-        <div class="clear"></div>
-
-        <dl>
-            <dd class="clear"></dd>
-
-
-            <dt>WORK EXPERIENCE</dt>
-            <dd>
-                <h2>RESEARCH ASSISTANT, PART-TIME
-                </h2>
-                <span>National Sun Yat-sen University | July 2015 - May 2018</span>
-                <ul>
-                    <li> Conducted experiment with hydraulic models.</li>
-                    <li> Analyzed datasets obtained from experiment and numerical simulation.</li>
-                    <li> Edited and proofread academic articles for publication.</li>
-                    <li> Assistant to 3-years MOST project, managing accounting affairs and writing annual reports.
+    <div class="wrapper">
+        <div class="sidebar-wrapper">
+            <div class="profile-container">
+                <ul class="navbar-nav flex-column text-center">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/"><i class="fas fa-home fa-fw mr-2"></i>Home Page</a>
                     </li>
                 </ul>
-            </dd>
 
-            <dd class="clear"></dd>
+                <img class="profile" src="assets/images/profile.png" alt="" />
+                <h1 class="name">Bing Han, Lin</h1>
+                <h3 class="tagline">CFD Researcher</h3>
 
-            <dt>EDUCATION</dt>
-            <dd>
-                <h2>MASTER OF MARINE ENVIRONMENT AND ENGINEERING</h2>
-                <span>National Sun Yat-sen University | 2015 - 2018</span>
-                <ul>
-                    <li> Wrote the programs for data analysis and numerical simulation in MATLAB, Python, and C++.</li>
-                    <li> Dissertation title: “Method of fundamental solutions on simulating sloshing liquids in 2D
-                        tanks”. </li>
+            </div>
+            <!--//profile-container-->
+
+            <div class="contact-container container-block">
+                <ul class="list-unstyled contact-list">
+                    <li class="email"><i class="fas fa-envelope"></i><a
+                            href="mailto: jaguar3096@gmail.com">jaguar3096@gmail.com</a></li>
+                    <li class="phone"><i class="fas fa-phone"></i><a href="tel:+886 911828122">+886 911828122</a></li>
+                    <!-- <li class="website"><i class="fas fa-globe"></i><a
+                            href="https://themes.3rdwavemedia.com/bootstrap-templates/resume/orbit-free-resume-cv-bootstrap-theme-for-developers/"
+                            target="_blank">portfoliosite.com</a></li> -->
+                    <!-- <li class="linkedin"><i class="fab fa-linkedin-in"></i><a href="#"
+                            target="_blank">linkedin.com/in/alandoe</a></li> -->
+                    <li class="github"><i class="fab fa-github"></i><a href="#"
+                            target="_blank">github.com/BingHanLin</a>
+                    </li>
+                    <!-- <li class="twitter"><i class="fab fa-twitter"></i><a href="https://twitter.com/3rdwave_themes"
+                            target="_blank">@twittername</a></li> -->
                 </ul>
-            </dd>
+            </div>
+            <!--//contact-container-->
+            <div class="education-container container-block">
+                <h2 class="container-block-title">Education</h2>
+                <div class="item">
+                    <h4 class="degree">MSc in Marine Environment and Engineering</h4>
+                    <h5 class="meta">National Sun Yat-sen University</h5>
+                    <div class="time">2015 - 2018</div>
+                </div>
+                <!--//item-->
+                <div class="item">
+                    <h4 class="degree">BSc in Marine Environment and Engineering</h4>
+                    <h5 class="meta">National Sun Yat-sen University</h5>
+                    <div class="time">2011 - 2015</div>
+                </div>
+                <!--//item-->
+            </div>
+            <!--//education-container-->
 
-            <dd class="clear"></dd>
-
-            <dt>RESEARCH EXPERIENCE</dt>
-            <dd>
-                <h2>CO-AUTHOR & PRESENTER</h2>
-                <span>Asian Wave And Tidal Energy Conference, Singapore | October 2016</span>
-                <ul>
-                    <li>Title of conference paper: Design Optimization and Stability Analysis of Diffuser Augmented
-                        Duct. </li>
-                    <li>Designed and executed small-scale testing to validate numerical simulation in drag/lift force
-                        acting on the duct. </li>
+            <div class="languages-container container-block">
+                <h2 class="container-block-title">Languages</h2>
+                <ul class="list-unstyled interests-list">
+                    <li>Mandarin <span class="lang-desc">(Native)</span></li>
+                    <li>English <span class="lang-desc">(Fluent)</span></li>
                 </ul>
-            </dd>
+            </div>
+        </div>
+        <!--//sidebar-wrapper-->
 
-            <dd>
-                <h2>PRESENTER</h2>
-                <span>International Platform On Ocean Energy For Young Researcher, Japan | February 2016</span>
-                <ul>
-                    <li>Having a group discussion about the barrier and opportunity to Ocean Energy. </li>
-                    <li>Attend the tour of IOES facility </li>
-                </ul>
-            </dd>
+        <div class="main-wrapper">
 
-            <dd class="clear"></dd>
+            <section class="section summary-section">
+                <h2 class="section-title"><span class="icon-holder"><i class="fas fa-user"></i></span>Career Profile
+                </h2>
+                <div class="summary">
+                    <p>Focusing on numerical computation and fluid-structure interaction.
+                        Have an
+                        open-minded willing to work with people from different background. Eager to develop my
+                        analytical skills
+                        and knowledge in practical problems.</p>
+                </div>
+                <!--//summary-->
+            </section>
+            <!--//section-->
 
-        </dl>
+            <section class="section experiences-section">
+                <h2 class="section-title"><span class="icon-holder"><i class="fas fa-briefcase"></i></span>Experiences
+                </h2>
 
-        <div class="clear"></div>
+                <div class="item">
+                    <div class="meta">
+                        <div class="upper-row">
+                            <h3 class="job-title">CFD Researcher</h3>
+                            <div class="time">2019 - Present</div>
+                        </div>
+                        <!--//upper-row-->
+                        <div class="company">shonCloud Technology, China</div>
+                    </div>
+                    <!--//meta-->
+                    <div class="details">
+                        <ul>
+                            <li> Develop fluid dynamics solver based on MPS method.</li>
+                            <li> Design the GUI and test framework for solvers.</li>
+                        </ul>
+                    </div>
+                    <!--//details-->
+                </div>
+                <!--//item-->
 
+                <div class="item">
+                    <div class="meta">
+                        <div class="upper-row">
+                            <h3 class="job-title">Research Assistant, Part-Time</h3>
+                            <div class="time">2015 - 2018</div>
+                        </div>
+                        <!--//upper-row-->
+                        <div class="company">National Sun Yat-sen University, Taiwan</div>
+                    </div>
+                    <!--//meta-->
+                    <div class="details">
+                        <ul>
+                            <li> Conducted experiment with hydraulic models.</li>
+                            <li> Analyzed datasets obtained from experiment and numerical simulation.</li>
+                            <li> Edited and proofread academic articles for publication.</li>
+                        </ul>
+                    </div>
+                    <!--//details-->
+                </div>
+                <!--//item-->
+            </section>
+            <!--//section-->
+
+            <section class="section projects-section">
+                <h2 class="section-title"><span class="icon-holder"><i class="fas fa-archive"></i></span>Projects</h2>
+                <div class="intro">
+                    <!-- <p>You can list your side projects or open source libraries in this section. Lorem ipsum dolor sit
+                        amet, consectetur adipiscing elit. Vestibulum et ligula in nunc bibendum fringilla a eu lectus.
+                    </p> -->
+                </div>
+                <!--//intro-->
+                <div class="item">
+                    <span class="project-title"><a href="https://github.com/BingHanLin/RBFCM_CFD"
+                            target="_blank">RBFCM_CFD</a></span> - <span class="project-tagline">A simple CFD project
+                        that
+                        solves some classical fluid prolbems.</span>
+
+                </div>
+                <!--//item-->
+                <div class="item">
+                    <span class="project-title"><a href="https://github.com/BingHanLin/Curvilinear_Grid_FDM"
+                            target="_blank">Curvilinear_Grid_FDM</a></span> - <span class="project-tagline">A project
+                        that implement finite difference method on curvilinear grid.</span>
+                </div>
+                <!--//item-->
+                <div class="item">
+                    <span class="project-title"><a href="https://github.com/BingHanLin/MFS_Sloshing"
+                            target="_blank">MFS_Sloshing</a></span> - <span class="project-tagline">Solve 2D liquid
+                        sloshing problems with inviscid fluid by MFS method.</span>
+                </div>
+            </section>
+            <!--//section-->
+
+            <section class="skills-section section">
+                <h2 class="section-title"><span class="icon-holder"><i class="fas fa-rocket"></i></span>Skills &amp;
+                    Proficiency</h2>
+                <div class="skillset">
+                    <div class="item">
+                        <h3 class="level-title">C++ </h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 80%"
+                                aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <!--//item-->
+
+                    <div class="item">
+                        <h3 class="level-title">Python</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 80%"
+                                aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <!--//item-->
+
+                    <div class="item">
+                        <h3 class="level-title">Qt</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 70%"
+                                aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <!--//item-->
+
+                    <div class="item">
+                        <h3 class="level-title">HTML5 &amp; CSS</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 60%"
+                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+
+                    <!--//item-->
+
+                    <div class="item">
+                        <h3 class="level-title">CAD &amp; Photoshop</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 60%"
+                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <!--//item-->
+
+                </div>
+            </section>
+            <!--//skills-section-->
+
+        </div>
+        <!--//main-body-->
     </div>
 
+    <footer class="footer">
+        <div class="text-center">
+            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <i class="fas fa-heart"></i> by <a
+                    href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+        </div>
+        <!--//container-->
+    </footer>
+    <!--//footer-->
 </body>
 
 </html>
