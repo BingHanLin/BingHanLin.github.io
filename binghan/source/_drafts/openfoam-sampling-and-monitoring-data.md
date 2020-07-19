@@ -1,21 +1,23 @@
 ---
 title: 'OpenFOAM: Sampling and Monitoring Data'
 tags:
-  - My OpenFOAM Note
-  - OpenFOAM
-  - OpenFOAM
+    - OpenFOAM
+categories: 
+    - OpenFOAM Note
 id: '1672'
 date: 2019-04-04 08:32:02
 ---
 
-There are a set of general post-processing functions for sampling data across the domain for graphs and visualization. In this article, we use the _lid-driven cavity_ case set up in the tutorial to demonstrate these post-processing functions.
+There are a set of general post-processing functions for sampling data across the domain for graphs and visualization. In this article, we use the *lid-driven cavity* case set up in the tutorial to demonstrate these post-processing functions.
+
+<!-- more -->
 
 * * *
 
 Probing data
 ------------
 
-When we want to get the time series data of the fields on certain point locations, the functions _**boundaryCloud**_**,** _**internalCloud,**_ and _**probes**_ can help us. All functions work on the basis that the user provides some point locations and a list of fields, and the function writes out values of the fields on those locations in each time interval.
+When we want to get the time series data of the fields on certain point locations, the functions **boundaryCloud**, **internalCloud,** and **probes** can help us. All functions work on the basis that the user provides some point locations and a list of fields, and the function writes out values of the fields on those locations in each time interval.
 
 We use the [method](https://bhlin.co.network/wp/2019/04/04/openfoam-tutorial-extracting-numerical-data-from-case/#method1) mention in the previous post to include the functions. The configuration is started by adding the #includeFunc directive to functions in the _controlDict_ file.
 
@@ -25,11 +27,11 @@ We use the [method](https://bhlin.co.network/wp/2019/04/04/openfoam-tutorial-ext
         ...  other function objects here ...  
     }
 
-The _**probes**_ function is configured by copying the file to the local system directory using _**foamGet**_.
+The **probes** function is configured by copying the file to the local system directory using **foamGet**.
 
     foamGet probes
 
-Let's say we want to obtain the pressure and velocity value on certain locations, then specify the locations we need in probeLocations in the _**probes**_ file as follows.
+Let's say we want to obtain the pressure and velocity value on certain locations, then specify the locations we need in probeLocations in the **probes** file as follows.
 
     #includeEtc "caseDicts/postProcessing/probes/probes.cfg"
     
@@ -44,7 +46,7 @@ When the simulation is running, time-value data is written into _p_ and _U_ fil
 
 ![](https://bhlin.co.network/wp/wp-content/uploads/2019/04/螢幕快照-2019-04-15-160315.png)
 
-The pressure data record by _**probes**_ function.
+The pressure data record by **probes** function.
 
 * * *
 
@@ -59,7 +61,7 @@ The _singleGraph_ function samples data from a line defined by the user. Again, 
         ...  other function objects here ...  
     }
 
-Copy the configuration file of the _singleGraph_ function using _**foamGet**_.  
+Copy the configuration file of the _singleGraph_ function using **foamGet**.  
 
     foamGet singleGraph
 
@@ -69,13 +71,15 @@ In the configuration file we can specify:
 *   The fields need to be sampled.
 *   The type of sampling.
 
+In the configuration below, the _singleGraph_ function will extract velocity and pressure data from the 100 uniform distributed data points on the line. During the simulation, distance-value data is written into files in time directories within _postProcessing/singleGraph_.
+
     start   (0.05 0 0);
     end     (0.05 0.1 0);
     fields  (U p);
-    
+
     // Sampling and I/O settings
     #includeEtc "caseDicts/postProcessing/graphs/sampleDict.cfg"
-    
+
     // Override settings here, e.g.
     setConfig
     {
@@ -83,11 +87,11 @@ In the configuration file we can specify:
         axis    distance;    // x, y, z, xyz
         nPoints 100;
     }
-    
+
     // Must be last entry
     #includeEtc "caseDicts/postProcessing/graphs/graph.cfg"
 
-In the configuration above, the _singleGraph_ function will extract velocity and pressure data from the 100 uniform distributed data points on the line. During the simulation, distance-value data is written into files in time directories within _postProcessing/singleGraph_. We can quickly display the data for x-component of velocity, last time (0.5 in my case), by running gnuplot with the following commands.
+We can quickly display the data for x-component of velocity, last time (0.5 in my case), by running gnuplot with the following commands.
 
     gnuplot 
     gnuplot> set style data linespoints 
@@ -179,5 +183,4 @@ The graph being updated live.
 
 1.  [Examples of how to use some utilities and functionObjects](https://pingpong.chalmers.se/public/pp/public_courses/course07056/published/1497955220499/resourceId/3711490/content/UploadedResources/someUtilitiesAndFunctionObjects.pdf)
 2.  [Tutorial of how to plot residuals !](https://www.cfd-online.com/Forums/openfoam-community-contributions/64146-tutorial-how-plot-residuals.html)
-
-4.  [OpenFOAM :](http://hmf.enseeiht.fr/travaux/projnum/book/export/html/901) [Graphs and Monitoring](https://cfd.direct/openfoam/user-guide/v6-graphs-monitoring/)
+3.  [OpenFOAM :](http://hmf.enseeiht.fr/travaux/projnum/book/export/html/901) [Graphs and Monitoring](https://cfd.direct/openfoam/user-guide/v6-graphs-monitoring/)

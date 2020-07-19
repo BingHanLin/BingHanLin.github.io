@@ -1,7 +1,8 @@
 ---
 title: Truncation error & Rounding error
 tags:
-  - numerical method
+  - Numerical Method
+categories: 
   - Uncategorized
 id: '74'
 date: 2018-03-20 00:08:00
@@ -19,7 +20,8 @@ For many engineering problems, we cannot obtain analytical (true) solutions. Tha
 
 The figure below illustrates the difference between accuracy and precision.  The term error represents the imprecision and inaccuracy of a numerical computation.
 
-![Alt text](https://od.lk/s/MTBfNDI3MTY1MjJf/Truncation%20Error%20%26%20Rounding%20Error_precision_accuracy.png) _(refer to http://www.antarcticglaciers.org/glacial-geology/dating-glacial-sediments-2/precision-and-accuracy-glacial-geology/)_
+![Accuracy and precision](http://cdn.antarcticglaciers.org/wp-content/uploads/2013/11/precision_accuracy.png)
+*(refer to http://www.antarcticglaciers.org/glacial-geology/dating-glacial-sediments-2/precision-and-accuracy-glacial-geology/)*
 
 * * *
 

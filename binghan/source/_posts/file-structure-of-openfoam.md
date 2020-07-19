@@ -1,11 +1,12 @@
 ---
 title: File Structure of OpenFOAM
 tags:
-  - My OpenFOAM Note
-  - OpenFOAM
-  - OpenFOAM
+    - OpenFOAM
+categories: 
+    - OpenFOAM Note
 id: '892'
 date: 2018-06-11 19:15:22
+
 ---
 
 Installation directory
@@ -16,7 +17,9 @@ Let's start from the installation dirctory, you can use the Linux command **"tre
     tree -d -L 1 $WM_PROJECT_DIR
     
 
-This show you the folders in the `$WM_PROJECT_DIR`(installation dirctory). You can also find other files in this directory, but most importantly one is **Allwmake** which compiles all of OpenFOAM by calling other Allwmake scripts. All the directories are introduced as follow: ![](https://bhlin.co.network/wp/wp-content/uploads/2018/06/openfoam-structure.jpg)
+This show you the folders in the `$WM_PROJECT_DIR`(installation dirctory). You can also find other files in this directory, but most importantly one is **Allwmake** which compiles all of OpenFOAM by calling other Allwmake scripts. All the directories are introduced as follow: 
+
+![](https://bhlin.co.network/wp/wp-content/uploads/2018/06/openfoam-structure.jpg)
 
 1.  **applications:** The directory contains the source files of all the executables which is created using the **C++** libraries. Here is a short description of the directories under applications .
     *   **solvers** Contains source code for the distributed solvers.
