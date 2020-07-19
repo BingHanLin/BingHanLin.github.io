@@ -30,9 +30,8 @@
 <meta property="og:image" content="https://bhlin.co.network/wp/wp-content/uploads/2018/06/openfoam-structure.jpg">
 <meta property="og:image" content="https://bhlin.co.network/wp/wp-content/uploads/2018/06/user281x.png">
 <meta property="article:published_time" content="2018-06-11T11:15:22.000Z">
-<meta property="article:modified_time" content="2020-07-18T15:37:39.515Z">
+<meta property="article:modified_time" content="2020-07-19T02:48:33.384Z">
 <meta property="article:author" content="Bing Han Lin">
-<meta property="article:tag" content="My OpenFOAM Note">
 <meta property="article:tag" content="OpenFOAM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://bhlin.co.network/wp/wp-content/uploads/2018/06/openfoam-structure.jpg">
@@ -128,6 +127,16 @@
     <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
@@ -191,8 +200,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-18 23:37:39" itemprop="dateModified" datetime="2020-07-18T23:37:39+08:00">2020-07-18</time>
+                <time title="Modified: 2020-07-19 10:48:33" itemprop="dateModified" datetime="2020-07-19T10:48:33+08:00">2020-07-19</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenFOAM-Note/" itemprop="url" rel="index"><span itemprop="name">OpenFOAM Note</span></a>
+                </span>
+            </span>
 
           
 
@@ -207,7 +225,8 @@
       
         <h2 id="installation-directory">Installation directory</h2>
 <p>Let's start from the installation dirctory, you can use the Linux command <strong>&quot;tree&quot;</strong> to examine the source code directory organization. <a id="more"></a> tree -d -L 1 $WM_PROJECT_DIR</p>
-<p>This show you the folders in the <code>$WM_PROJECT_DIR</code>(installation dirctory). You can also find other files in this directory, but most importantly one is <strong>Allwmake</strong> which compiles all of OpenFOAM by calling other Allwmake scripts. All the directories are introduced as follow: <img src="https://bhlin.co.network/wp/wp-content/uploads/2018/06/openfoam-structure.jpg" /></p>
+<p>This show you the folders in the <code>$WM_PROJECT_DIR</code>(installation dirctory). You can also find other files in this directory, but most importantly one is <strong>Allwmake</strong> which compiles all of OpenFOAM by calling other Allwmake scripts. All the directories are introduced as follow:</p>
+<p><img src="https://bhlin.co.network/wp/wp-content/uploads/2018/06/openfoam-structure.jpg" /></p>
 <ol type="1">
 <li><strong>applications:</strong> The directory contains the source files of all the executables which is created using the <strong>C++</strong> libraries. Here is a short description of the directories under applications .
 <ul>
@@ -287,7 +306,6 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/My-OpenFOAM-Note/" rel="tag"># My OpenFOAM Note</a>
               <a href="/tags/OpenFOAM/" rel="tag"># OpenFOAM</a>
           </div>
 
@@ -377,9 +395,17 @@
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
-        <span class="site-state-item-name">tags</span>
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
