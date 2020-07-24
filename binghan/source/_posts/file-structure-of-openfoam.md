@@ -19,7 +19,8 @@ Let's start from the installation dirctory, you can use the Linux command **"tre
 
 This show you the folders in the `$WM_PROJECT_DIR`(installation dirctory). You can also find other files in this directory, but most importantly one is **Allwmake** which compiles all of OpenFOAM by calling other Allwmake scripts. All the directories are introduced as follow: 
 
-![](https://bhlin.co.network/wp/wp-content/uploads/2018/06/openfoam-structure.jpg)
+![openFOAM file structure](https://i.imgur.com/0qbHbvv.jpg)
+*openFOAM file structure*
 
 1.  **applications:** The directory contains the source files of all the executables which is created using the **C++** libraries. Here is a short description of the directories under applications .
     *   **solvers** Contains source code for the distributed solvers.
@@ -55,7 +56,8 @@ Case directory (Working diretory)
 
 The basic directory structure for a OpenFOAM case, that contains the minimum set of files required to run an application, is shown in following figure and described as follows:
 
-![](https://bhlin.co.network/wp/wp-content/uploads/2018/06/user281x.png) Source : https://cfd.direct/openfoam/user-guide/case-file-structure
+![case directory](https://i.imgur.com/kb27u57.png) 
+*[source](https://cfd.direct/openfoam/user-guide/case-file-structure)*
 
 *   **constant** Contains a full description of the case **mesh** in a subdirectory polyMesh and files specifying physical properties for the application concerned, e.g. transportProperties.
 *   **system** For setting parameters associated with the solution procedure itself. It contains at least the following 3 files: **_controlDict_** where run control parameters are set including start/end time, time step and parameters for data output; **_fvSchemes_** where discretisation schemes used in the solution may be selected at run-time; and, **_fvSolution_** where the equation solvers, tolerances and other algorithm controls are set for the run.

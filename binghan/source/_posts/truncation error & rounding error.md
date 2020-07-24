@@ -20,8 +20,8 @@ For many engineering problems, we cannot obtain analytical (true) solutions. Tha
 
 The figure below illustrates the difference between accuracy and precision.  The term error represents the imprecision and inaccuracy of a numerical computation.
 
-![Accuracy and precision](http://cdn.antarcticglaciers.org/wp-content/uploads/2013/11/precision_accuracy.png)
-*(refer to http://www.antarcticglaciers.org/glacial-geology/dating-glacial-sediments-2/precision-and-accuracy-glacial-geology/)*
+![Accuracy and precision](https://i.imgur.com/72ixmAz.png)
+*[source](http://www.antarcticglaciers.org/glacial-geology/dating-glacial-sediments-2/precision-and-accuracy-glacial-geology/)*
 
 * * *
 
@@ -48,8 +48,8 @@ Rounding Errors
 
 **Definition** －The error produced by computer limited significant figures to represent the actual result. Because floating-point numbers have a limited number of digits, they cannot represent all real numbers accurately. When there are more digits than the format allows, the leftover ones are omitted (the number is rounded), and this cause errors. Some examples are list in the following table:
 
-![Alt text](https://bhlin.co.network/wp/wp-content/uploads/2018/03/未命名.png)
-*refer to [wikipedia](https://en.wikipedia.org/wiki/Round-off_error)*
+![rounding errors table](https://i.imgur.com/RH1LISE.png)
+*[source](https://en.wikipedia.org/wiki/Round-off_error)*
 
 * * *
 
@@ -58,8 +58,8 @@ Total Errors
 
 Total errors in computational simulation(neglect other factors e.g.  artificial error, wrong data)  equal to the sum of truncation errors  and rounding errors. In order to eliminate the total error , the minimum value of truncation error and rounding error are needed.  Unfortunately , it is not possible to select a step size that keep both  to minimum because they have a relationship as following figure.
 
-![Alt text](https://bhlin.co.network/wp/wp-content/uploads/2018/03/img60.png) 
-*refer to [link](https://me.ucsb.edu/~moehlis/APC591/tutorials/tutorial5/node3.html)*
+![total error](https://i.imgur.com/G9Zt9J7.png) 
+*[source](https://me.ucsb.edu/~moehlis/APC591/tutorials/tutorial5/node3.html)*
 
 But we can choose to use ideal step size to achieve the minimum total errors. The process usually starts from (a) Select a step size $h $, compute solution;  (b) Use $h/2 $, re-compute; (c) If new result closes to the previous, the $h $ is probably acceptable. If not, then reduce $h $ again.
 
