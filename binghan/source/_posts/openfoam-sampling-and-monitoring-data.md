@@ -44,7 +44,8 @@ Let's say we want to obtain the pressure and velocity value on certain locations
 
 When the simulation is running, time-value data is written into _p_ and _U_ files in _postProcessing/probes/0_.
 
-![](https://bhlin.co.network/wp/wp-content/uploads/2019/04/螢幕快照-2019-04-15-160315.png)
+![Time-Value Data](https://i.imgur.com/BWJIgbO.png)
+*Time-Value Data*
 
 The pressure data record by **probes** function.
 
@@ -97,7 +98,8 @@ We can quickly display the data for x-component of velocity, last time (0.5 in m
     gnuplot> set style data linespoints 
     gnuplot> plot "postProcessing/singleGraph/0.5/line_U.xy" u 2:1
 
-![](https://bhlin.co.network/wp/wp-content/uploads/2019/04/DD.png)
+![Velocity along the line](https://i.imgur.com/1fFxbnW.png)
+*Velocity-x Along the Line*
 
 The x-component of velocity along the line.
 
@@ -141,7 +143,8 @@ In this demonstration, we specify the target surface by **cutting plane** which 
 
 Then surfaces function produces VTK format files of the cutting plane with pressure and velocity data in time directories in the the _postProcessing/surfaces_ directory. The user can display the cutting plane by opening these VTK files in _ParaView_ (type paraview).
 
-![](https://bhlin.co.network/wp/wp-content/uploads/2019/04/DD-1.png)
+![Visualization of Velocity Data](https://i.imgur.com/9zf4rnS.png)
+*Visualization of Velocity Data*
 
 Visualization of velocity data from VTK file.
 
@@ -173,7 +176,8 @@ Then run _foamMonitor_ before the simulation is complete.
 
     foamMonitor -l postProcessing/residuals/0/residuals.dat
 
-![](https://bhlin.co.network/wp/wp-content/uploads/2019/04/Webp.net-gifmaker.gif)
+![foamMonitor](https://i.imgur.com/33DzsTv.gif)
+*foamMonitor*
 
 The graph being updated live.
 
