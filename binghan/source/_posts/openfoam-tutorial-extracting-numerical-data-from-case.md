@@ -63,7 +63,8 @@ An example
 
 In the case of two-dimensional incompressible flow around an airfoil (see the airFoil2D case in tutorial directory ), we will record **residuals during the simulation** and obtain **force after the simulation**. The airfoil locates in the center of the rectangular domain with three inlet sides and one outlet side shown as follow.
 
-![](https://bhlin.co.network/wp/wp-content/uploads/2019/03/5.png)
+![Computational Domain](https://i.imgur.com/vEcMXc1.png)
+*Computational Domain*
 
 To obtain the residuals data, we need include the _residuals_ function in the _controlDict_ file.
 
@@ -81,9 +82,9 @@ When the function is executed **during a simulation**, we may wish to monitor th
 
 If the command is executed before the simulation is complete, then we can see the graph being updated live.
 
-![](https://bhlin.co.network/wp/wp-content/uploads/2019/04/螢幕快照-2019-04-04-095045.png)
-
-![](https://bhlin.co.network/wp/wp-content/uploads/2019/04/螢幕快照-2019-04-04-095054.png)
+![Data Monitor1](https://i.imgur.com/HplSAlG.png)
+![Data Monitor2](https://i.imgur.com/4Rgf99b.png)
+*Data Monitor*
 
 Note: The simpleFoam is the steady state solver. The axis "Time" here means the number of the iteration.
 
@@ -95,7 +96,8 @@ This command is slightly different with the one we mention [above](#postprocessi
 
 The force data then can be found in the forces.dat in postProcessing directory. In the _forces.dat_ we have tuple which holds the pressure, viscous and porous forces/moments act on the airfoil with 3 dimensions.
 
-![](https://bhlin.co.network/wp/wp-content/uploads/2019/04/螢幕快照-2019-04-04-104422-1-1024x283.png)
+![Data Output](https://i.imgur.com/SPjVYE0.png)
+*Data Output*
 
 * * *
 
