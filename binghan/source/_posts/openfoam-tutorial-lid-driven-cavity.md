@@ -27,7 +27,9 @@ Setting up the case
 
 ### Running directory
 
-As a first step, we copy the cavity case directory to the running directory. `cp -r $FOAM_TUTORIALS/incompressible/icoFoam/cavity/cavity <your running directory>`
+As a first step, we copy the cavity case directory to the running directory.
+
+`cp -r $FOAM_TUTORIALS/incompressible/icoFoam/cavity/cavity <your running directory>`
 
 ### Mesh generation
 
