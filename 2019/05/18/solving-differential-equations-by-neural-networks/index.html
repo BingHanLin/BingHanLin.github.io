@@ -20,28 +20,37 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="BHL Notes">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solving Differential Equations by Neural Networks">
+<meta property="og:url" content="http://yoursite.com/2019/05/18/solving-differential-equations-by-neural-networks/index.html">
 <meta property="og:site_name" content="BHL Notes">
+<meta property="og:description" content="Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/GSxyuba.png">
+<meta property="og:image" content="https://i.imgur.com/y3tE8ad.png">
+<meta property="og:image" content="https://i.imgur.com/AQkB43d.png">
+<meta property="article:published_time" content="2019-05-18T11:17:20.000Z">
+<meta property="article:modified_time" content="2020-09-10T15:51:01.823Z">
 <meta property="article:author" content="Bing Han Lin">
+<meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/GSxyuba.png">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2019/05/18/solving-differential-equations-by-neural-networks/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>BHL Notes</title>
+  <title>Solving Differential Equations by Neural Networks | BHL Notes</title>
   
 
 
@@ -155,9 +164,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -173,10 +183,9 @@
       <meta itemprop="name" content="BHL Notes">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/18/solving-differential-equations-by-neural-networks/" class="post-title-link" itemprop="url">Solving Differential Equations by Neural Networks</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Solving Differential Equations by Neural Networks
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -215,7 +224,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can learn (fit) patterns from data with the complicated distribution. With the same concept, train a Neural network to fit the differential equations could also be possible. In this post, I want to show how to applied a simple feed-forward NNs to solve differential equations (ODE, PDE).</p>
+        <p>Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can learn (fit) patterns from data with the complicated distribution. With the same concept, train a Neural network to fit the differential equations could also be possible. In this post, I want to show how to applied a simple feed-forward NNs to solve differential equations (ODE, PDE).</p>
 <p>The theoretical details and computational implementations are inspired by the following paper and blog. For those who interest in the more details, please refer to these links:</p>
 <ol type="1">
 <li><a href="https://arxiv.org/pdf/physics/9705023.pdf" target="_blank" rel="noopener">Artificial Neural Networks for Solving Ordinary and Partial Differential Equations</a>, I. E. Lagaris, A. Likas and D. I. Fotiadis, 1997</li>
@@ -315,512 +324,33 @@ x,y \in \left[ 0,1 \right]
 <li><a href="https://becominghuman.ai/neural-networks-for-solving-differential-equations-fa230ac5e04c" target="_blank" rel="noopener">Neural networks for solving differential equations</a>, Alexandr Honchar, 2017</li>
 </ol>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/openfoam-tutorial-extracting-numerical-data-from-case/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bing Han Lin">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BHL Notes">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/23/openfoam-tutorial-extracting-numerical-data-from-case/" class="post-title-link" itemprop="url">OpenFOAM: Extracting Numerical Data From  Case</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-04-23 11:24:09" itemprop="dateCreated datePublished" datetime="2019-04-23T11:24:09+08:00">2019-04-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-25 14:50:58" itemprop="dateModified" datetime="2020-07-25T14:50:58+08:00">2020-07-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenFOAM-Note/" itemprop="url" rel="index"><span itemprop="name">OpenFOAM Note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="run-time-data-processing">Run-time data processing</h2>
-<p>When we want to process data <strong>during a simulation</strong>, they need to configure the case accordingly. The two possible configuration processes are shown as follows, using an example of monitoring <strong>flow rate</strong> at an outlet patch named <strong>outlet</strong>.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/04/23/openfoam-tutorial-extracting-numerical-data-from-case/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/openfoam-sampling-and-monitoring-data/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bing Han Lin">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BHL Notes">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/04/openfoam-sampling-and-monitoring-data/" class="post-title-link" itemprop="url">OpenFOAM: Sampling and Monitoring Data</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-04-04 08:32:02" itemprop="dateCreated datePublished" datetime="2019-04-04T08:32:02+08:00">2019-04-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-25 15:00:48" itemprop="dateModified" datetime="2020-07-25T15:00:48+08:00">2020-07-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenFOAM-Note/" itemprop="url" rel="index"><span itemprop="name">OpenFOAM Note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>There are a set of general post-processing functions for sampling data across the domain for graphs and visualization. In this article, we use the <em>lid-driven cavity</em> case set up in the tutorial to demonstrate these post-processing functions.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/04/04/openfoam-sampling-and-monitoring-data/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/23/openfoam-tutorial-extracting-numerical-data-from-case/" rel="prev" title="OpenFOAM: Extracting Numerical Data From  Case">
+      <i class="fa fa-chevron-left"></i> OpenFOAM: Extracting Numerical Data From  Case
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/10/openfoam-tutorial-lid-driven-cavity/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bing Han Lin">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BHL Notes">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/10/openfoam-tutorial-lid-driven-cavity/" class="post-title-link" itemprop="url">OpenFOAM Tutorial - Lid Driven Cavity</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-07-10 01:26:47" itemprop="dateCreated datePublished" datetime="2018-07-10T01:26:47+08:00">2018-07-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-10 22:39:31" itemprop="dateModified" datetime="2020-09-10T22:39:31+08:00">2020-09-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenFOAM-Note/" itemprop="url" rel="index"><span itemprop="name">OpenFOAM Note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="lid-driven-cavity-flow">Lid-driven cavity flow</h2>
-<p>The lid-driven cavity flow tutorial is the easiest and most well documented tutorial on OpenFOAM. A incompressible flow in a two-dimensional square domain is shown in figure below. The top wall moves in the <span class="math inline">\(x\)</span>-direction at a speed of 1 m/s while the other 3 are stationary. Initially, the flow will be assumed laminar and will be solved on a uniform and non mesh using the <strong>icoFoam</strong> solver for laminar, isothermal, incompressible flow. Then, the effect of increased mesh resolution and mesh grading towards the walls will be investigated.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/07/10/openfoam-tutorial-lid-driven-cavity/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/file-structure-of-openfoam/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bing Han Lin">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BHL Notes">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/06/11/file-structure-of-openfoam/" class="post-title-link" itemprop="url">File Structure of OpenFOAM</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-06-11 19:15:22" itemprop="dateCreated datePublished" datetime="2018-06-11T19:15:22+08:00">2018-06-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-25 00:38:54" itemprop="dateModified" datetime="2020-07-25T00:38:54+08:00">2020-07-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenFOAM-Note/" itemprop="url" rel="index"><span itemprop="name">OpenFOAM Note</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="installation-directory">Installation directory</h2>
-<p>Let's start from the installation dirctory, you can use the Linux command <strong>&quot;tree&quot;</strong> to examine the source code directory organization.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/06/11/file-structure-of-openfoam/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/20/truncation%20error%20&%20rounding%20error/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bing Han Lin">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BHL Notes">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/03/20/truncation%20error%20&%20rounding%20error/" class="post-title-link" itemprop="url">Truncation error & Rounding error</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-20 00:08:00" itemprop="dateCreated datePublished" datetime="2018-03-20T00:08:00+08:00">2018-03-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-25 00:46:29" itemprop="dateModified" datetime="2020-07-25T00:46:29+08:00">2020-07-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Uncategorized/" itemprop="url" rel="index"><span itemprop="name">Uncategorized</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="introduction">Introduction</h2>
-<p>For many engineering problems, we cannot obtain analytical (true) solutions. That's why we employ numerical methods to obtain the solutions.  However, the numerical methods or algorithms are usually accompanied by computing with finite precision and errors of approximation (rounding and truncation). Before we get into the details of the topic, it is important to distinguish between accuracy and precision.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/03/20/truncation%20error%20&%20rounding%20error/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/19/runge-kutta-4th-order/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bing Han Lin">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BHL Notes">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/03/19/runge-kutta-4th-order/" class="post-title-link" itemprop="url">Runge Kutta 4th Order</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-03-19 22:49:27" itemprop="dateCreated datePublished" datetime="2018-03-19T22:49:27+08:00">2018-03-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-10 23:29:29" itemprop="dateModified" datetime="2020-09-10T23:29:29+08:00">2020-09-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Uncategorized/" itemprop="url" rel="index"><span itemprop="name">Uncategorized</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="introduction">Introduction</h2>
-<p>Runge-Kutta method is a numerical procedure for approximating values for the solution of ordinary differential equations (ODEs) with a given initial value. The simplest Runge–Kutta method has the same form as Euler method.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/03/19/runge-kutta-4th-order/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -873,6 +403,7 @@ x,y \in \left[ 0,1 \right]
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ordinary-differential-equation"><span class="nav-number">1.</span> <span class="nav-text">Ordinary Differential Equation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#example"><span class="nav-number">1.1.</span> <span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#partial-differential-equation"><span class="nav-number">2.</span> <span class="nav-text">Partial Differential Equation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#example-1"><span class="nav-number">2.1.</span> <span class="nav-text">Example</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
