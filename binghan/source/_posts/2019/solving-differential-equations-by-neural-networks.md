@@ -3,13 +3,14 @@ title: Solving Differential Equations by Neural Networks
 tags:
   - Machine Learning
 categories: 
-  - Machine Learning
+  - Machine Learning Note
 id: '1825'
 date: 2019-05-18 19:17:20
 mathjax: true
 ---
 
 Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can learn (fit) patterns from data with the complicated distribution. With the same concept, train a Neural network to fit the differential equations could also be possible. In this post, I want to show how to applied a simple feed-forward NNs to solve differential equations (ODE, PDE).
+<!-- more -->
 
 The theoretical details and computational implementations are inspired by the following paper and blog. For those who interest in the more details, please refer to these links:
 
