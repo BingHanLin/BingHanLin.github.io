@@ -117,7 +117,7 @@ Finally, the **SOR method** can be written as,
 
 $$
 \eqalign{
-    \mathbf{(D+\omega L)x^{k+1} = [(1-\omega)D-\omega U]x^k+\omega b}
+    (\mathbf{D}+\omega\mathbf{L})\mathbf{x}^{k+1} =\left[(1-\omega)\mathbf{D}-\omega\mathbf{U}\right]\mathbf{x}^k+\omega\mathbf{b}
 }
 $$
 
@@ -131,3 +131,6 @@ If $\omega = 1$, the **SOR method** simplifies to the Gauss-Seidel method. The 
 2.  [Iterative methods for matrix equations](http://www.it.uom.gr/teaching/linearalgebra/ExamplesToIterativeMethods.pdf
 )
 3.  [Iterative Methods: The SOR Method](https://www.maa.org/press/periodicals/loci/joma/iterative-methods-for-solving-iaxi-ibi-the-sor-method)
+
+
+https://slideplayer.com/slide/4787543/
