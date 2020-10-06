@@ -20,25 +20,24 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Run-time data processing When we want to process data during a simulation, they need to configure the case accordingly. The two possible configuration processes are shown as follows, using an example">
+  <meta name="description" content="Introduction For many engineering problems, we cannot obtain analytical (true) solutions. That&#39;s why we employ numerical methods to obtain the solutions.  However, the numerical methods or algorithms">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenFOAM: Extracting Numerical Data From  Case">
-<meta property="og:url" content="http://yoursite.com/2019/04/23/openfoam-tutorial-extracting-numerical-data-from-case/index.html">
+<meta property="og:title" content="Truncation error &amp; Rounding error">
+<meta property="og:url" content="http://yoursite.com/2018/truncation%20error%20&%20rounding%20error/index.html">
 <meta property="og:site_name" content="BHL Notes">
-<meta property="og:description" content="Run-time data processing When we want to process data during a simulation, they need to configure the case accordingly. The two possible configuration processes are shown as follows, using an example">
+<meta property="og:description" content="Introduction For many engineering problems, we cannot obtain analytical (true) solutions. That&#39;s why we employ numerical methods to obtain the solutions.  However, the numerical methods or algorithms">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.imgur.com/vEcMXc1.png">
-<meta property="og:image" content="https://i.imgur.com/HplSAlG.png">
-<meta property="og:image" content="https://i.imgur.com/4Rgf99b.png">
-<meta property="og:image" content="https://i.imgur.com/SPjVYE0.png">
-<meta property="article:published_time" content="2019-04-23T03:24:09.000Z">
-<meta property="article:modified_time" content="2020-07-25T06:50:58.422Z">
+<meta property="og:image" content="https://i.imgur.com/72ixmAz.png">
+<meta property="og:image" content="https://i.imgur.com/RH1LISE.png">
+<meta property="og:image" content="https://i.imgur.com/G9Zt9J7.png">
+<meta property="article:published_time" content="2018-03-19T16:08:00.000Z">
+<meta property="article:modified_time" content="2020-09-19T15:38:09.438Z">
 <meta property="article:author" content="Bing Han Lin">
-<meta property="article:tag" content="OpenFOAM">
+<meta property="article:tag" content="Numerical Method">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.imgur.com/vEcMXc1.png">
+<meta name="twitter:image" content="https://i.imgur.com/72ixmAz.png">
 
-<link rel="canonical" href="http://yoursite.com/2019/04/23/openfoam-tutorial-extracting-numerical-data-from-case/">
+<link rel="canonical" href="http://yoursite.com/2018/truncation%20error%20&%20rounding%20error/">
 
 
 <script id="page-configurations">
@@ -51,7 +50,7 @@
   };
 </script>
 
-  <title>OpenFOAM: Extracting Numerical Data From  Case | BHL Notes</title>
+  <title>Truncation error & Rounding error | BHL Notes</title>
   
 
 
@@ -172,7 +171,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/openfoam-tutorial-extracting-numerical-data-from-case/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/truncation%20error%20&%20rounding%20error/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -185,7 +184,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          OpenFOAM: Extracting Numerical Data From  Case
+          Truncation error & Rounding error
         </h1>
 
         <div class="post-meta">
@@ -195,14 +194,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-04-23 11:24:09" itemprop="dateCreated datePublished" datetime="2019-04-23T11:24:09+08:00">2019-04-23</time>
+              <time title="Created: 2018-03-20 00:08:00" itemprop="dateCreated datePublished" datetime="2018-03-20T00:08:00+08:00">2018-03-20</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-25 14:50:58" itemprop="dateModified" datetime="2020-07-25T14:50:58+08:00">2020-07-25</time>
+                <time title="Modified: 2020-09-19 23:38:09" itemprop="dateModified" datetime="2020-09-19T23:38:09+08:00">2020-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -210,7 +209,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenFOAM-Note/" itemprop="url" rel="index"><span itemprop="name">OpenFOAM Note</span></a>
+                  <a href="/categories/Uncategorized/" itemprop="url" rel="index"><span itemprop="name">Uncategorized</span></a>
                 </span>
             </span>
 
@@ -225,63 +224,41 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="run-time-data-processing">Run-time data processing</h2>
-<p>When we want to process data <strong>during a simulation</strong>, they need to configure the case accordingly. The two possible configuration processes are shown as follows, using an example of monitoring <strong>flow rate</strong> at an outlet patch named <strong>outlet</strong>.</p>
-<a id="more"></a>
-<h3 id="method-1">Method 1:</h3>
-<p>Firstly, we should include the flowRatePatch function in functions sub-dictionary in the case <em>controlDict</em> file, using the <em>#includeFunc</em> directive as follow.</p>
-<pre><code>functions 
-{ 
-    #includeFunc  flowRatePatch 
-    //...  other function objects here ...//  
-}</code></pre>
-<p>This configuration process will include the functionality in the flowRatePatch configuration file, located in the directory hierarchy beginning with $FOAM_ETC/caseDicts/postProcessing.</p>
-<p>The configuration of <strong>flowRatePatch</strong> requires the name of the patch to be supplied. To do this, we copy the <strong>flowRatePatch file</strong> into their case system directory. The <em>foamGet</em> script can copy the file conveniently, e.g.</p>
-<pre><code>foamGet flowRatePatch</code></pre>
-<p>Now, we have a <strong>flowRatePatch file</strong> in the local case <em>system</em> directory. The patch name can be edited in this <strong>copied file</strong> to be <strong>outlet</strong>. The solver will get an included function in the local case system directory, in precedence over the function in $FOAM_ETC/caseDicts/postProcessing.</p>
-<p>During the simulation, the flow rate through the patch <strong>outlet</strong> will be calculated and written out into a file within a directory named <em>postProcessing</em> under the case directory.</p>
-<h3 id="method-2">Method 2:</h3>
-<p>In this configuration process, we introduce another way to supply the name of the patch. Patch name can be easily specified by giving an <strong>argument</strong> to the <strong>flowRatePatch</strong> in the #includeFunc directive.</p>
-<pre><code>functions 
-{ 
-    #includeFunc  flowRatePatch(name=outlet) 
-    //...  other function objects here ...//  
-}</code></pre>
-<p>Some functions require the setting of many parameters, e.g. forces, forceCoeffs, surfaces, etc. For those functions, it is more reliable and convenient to copy and configure the function using method 1 rather than through arguments (method 2).</p>
+        <h2 id="introduction">Introduction</h2>
+<p>For many engineering problems, we cannot obtain analytical (true) solutions. That's why we employ numerical methods to obtain the solutions.  However, the numerical methods or algorithms are usually accompanied by computing with finite precision and errors of approximation (rounding and truncation). Before we get into the details of the topic, it is important to distinguish between accuracy and precision. <a id="more"></a></p>
+<ul>
+<li><strong>Accuracy</strong>- How close is a computed or measured value to the true value.</li>
+<li><strong>Precision</strong> (or reproducibility) - How close is a computed or measured value to previously.</li>
+</ul>
+<p>The figure below illustrates the difference between accuracy and precision.  The term error represents the imprecision and inaccuracy of a numerical computation.</p>
+<p><img src="https://i.imgur.com/72ixmAz.png" alt="Accuracy and precision" /> <em><a href="http://www.antarcticglaciers.org/glacial-geology/dating-glacial-sediments-2/precision-and-accuracy-glacial-geology/" target="_blank" rel="noopener">source</a></em></p>
 <hr />
-<h2 id="postprocessing">Post-processing of data</h2>
-<p>We can execute post-processing functions <strong>after the simulation</strong> is complete using the <em>postProcess</em> utility. The same example of <strong>flowRatePatch</strong> function can be done by executing the following script in the terminal under the case directory.</p>
-<pre><code>postProcess -func &quot;flowRatePatch(name=outlet)&quot;</code></pre>
+<h2 id="truncation-error">Truncation Error</h2>
+<p><strong>Definition</strong> － The error is produced by an approximation in numerical approach to representing the actual value. Truncation errors are often seen in procedures of series (e.g. power series, Taylor series) and other algorithms where mathematical procedures get truncated (e.g. integration, limitation). Here we take Taylor series to explain the causes of truncation error. Let's consider the solution of  derivation of <span class="math inline">\(f&#39;_i=f&#39;(x_i)\)</span> for example. Using Taylor expansion to approximate <span class="math inline">\(f_{i+1}=f&#39;(x_{i+1})\)</span> about $f_i=f(x_i) $ :</p>
+<p><span class="math display">\[
+\eqalign{f_{i+1}=f_i+hf&#39;_i+\frac{h^2}{2}f^{\prime\prime}_i+\frac{h^3}{6}f^{\prime\prime\prime}_i+\frac{h^4}{24}f^{\prime\prime\prime\prime}_i+...}
+\]</span></p>
+<p>Replace the <span class="math inline">\(f&#39;_i\)</span> term into left side, we can obtained,</p>
+<p><span class="math display">\[
+\eqalign{ f&#39; = \frac{f_{i+1}-f_i}{h}-\frac{h}{2}f^{\prime\prime}_i-\frac{h^2}{6}f^{\prime\prime\prime}_i-\frac{h^3}{24}f^{\prime\prime\prime\prime}_i+... = \frac{f_{i+1}-f_i}{h} +E}\]</span></p>
+<p>where $ h$ is a small step size,  $ E$ the truncation error. With a leading term $ - (h/2)f^{}_i$ , the truncation error become $ E- (h/2)f^{}_i + O(h^2)$ where the remaining terms in  $ O(h^2)$ can be neglected due to their small value. Since the dominating term of $ E$  is proportional to $ h$,  we say that the truncation error is of first order in $ h$. The first terms on the right side is also one of the form for forward difference scheme.  Similarly, error can also be estimate for backward difference approximation and central difference approximation.</p>
 <hr />
-<h2 id="an-example">An example</h2>
-<p>In the case of two-dimensional incompressible flow around an airfoil (see the airFoil2D case in tutorial directory ), we will record <strong>residuals during the simulation</strong> and obtain <strong>force after the simulation</strong>. The airfoil locates in the center of the rectangular domain with three inlet sides and one outlet side shown as follow.</p>
-<p><img src="https://i.imgur.com/vEcMXc1.png" alt="Computational Domain" /> <em>Computational Domain</em></p>
-<p>To obtain the residuals data, we need include the <em>residuals</em> function in the <em>controlDict</em> file.</p>
-<pre><code>functions 
-{ 
-    #includeFunc  residuals
-    //...  other function objects here ...//  
-}</code></pre>
-<p>The default fields that residuals function captures are <em>p</em> and <em>U</em>. If we wish to get other fields, we should either make copy the <em>residuals</em> file in their <em>system</em> and edit the fields entry (method 1) or define the <strong>arguments</strong> to the residuals function in the <em>controlDict</em> file (method 2).</p>
-<p>When the function is executed <strong>during a simulation</strong>, we may wish to monitor the data <strong>live on screen</strong>. To do this, we need to run the <em>foamMonitor</em> script (i will explain it in next note) in the terminal as follow.</p>
-<pre><code>foamMonitor -l postProcessing/residuals/0/residuals.dat</code></pre>
-<p>If the command is executed before the simulation is complete, then we can see the graph being updated live.</p>
-<p><img src="https://i.imgur.com/HplSAlG.png" alt="Data Monitor1" /> <img src="https://i.imgur.com/4Rgf99b.png" alt="Data Monitor2" /> <em>Data Monitor</em></p>
-<p>Note: The simpleFoam is the steady state solver. The axis &quot;Time&quot; here means the number of the iteration.</p>
-<p>After the simulation, we want to extract the <strong>force</strong> act on the airfoil. The <em>forcesIncompressible</em> function can help us get the force data from the case. Let's type the command below in the terminal.</p>
-<pre><code>simpleFoam -postProcess -func &quot;forcesIncompressible(patches=(foilwalls))&quot;</code></pre>
-<p>This command is slightly different with the one we mention <a href="#postprocessing">above</a>. To who interest in the detail of the command in this form can refer to the <a href="https://cfd.direct/openfoam/user-guide/v6-post-processing-cli/#x31-2500006.2.4" target="_blank" rel="noopener">CFD Direct</a>.</p>
-<p>The force data then can be found in the forces.dat in postProcessing directory. In the <em>forces.dat</em> we have tuple which holds the pressure, viscous and porous forces/moments act on the airfoil with 3 dimensions.</p>
-<p><img src="https://i.imgur.com/SPjVYE0.png" alt="Data Output" /> <em>Data Output</em></p>
+<h2 id="rounding-errors">Rounding Errors</h2>
+<p><strong>Definition</strong> －The error produced by computer limited significant figures to represent the actual result. Because floating-point numbers have a limited number of digits, they cannot represent all real numbers accurately. When there are more digits than the format allows, the leftover ones are omitted (the number is rounded), and this cause errors. Some examples are list in the following table:</p>
+<p><img src="https://i.imgur.com/RH1LISE.png" alt="rounding errors table" /> <em><a href="https://en.wikipedia.org/wiki/Round-off_error" target="_blank" rel="noopener">source</a></em></p>
+<hr />
+<h2 id="total-errors">Total Errors</h2>
+<p>Total errors in computational simulation(neglect other factors e.g.  artificial error, wrong data)  equal to the sum of truncation errors  and rounding errors. In order to eliminate the total error , the minimum value of truncation error and rounding error are needed.  Unfortunately , it is not possible to select a step size that keep both  to minimum because they have a relationship as following figure.</p>
+<p><img src="https://i.imgur.com/G9Zt9J7.png" alt="total error" /> <em><a href="https://me.ucsb.edu/~moehlis/APC591/tutorials/tutorial5/node3.html" target="_blank" rel="noopener">source</a></em></p>
+<p>But we can choose to use ideal step size to achieve the minimum total errors. The process usually starts from (a) Select a step size $h $, compute solution;  (b) Use $h/2 $, re-compute; (c) If new result closes to the previous, the $h $ is probably acceptable. If not, then reduce $h $ again.</p>
 <hr />
 <ul>
 <li>Reference:</li>
 </ul>
 <ol type="1">
-<li><a href="https://cfd.direct/openfoam/user-guide/v6-post-processing-cli/" target="_blank" rel="noopener">Post-Processing CLI</a></li>
-<li><a href="https://www.cfd-online.com/Forums/openfoam-community-contributions/64146-tutorial-how-plot-residuals.html" target="_blank" rel="noopener">Tutorial of how to plot residuals !</a></li>
-<li><a href="https://n.ethz.ch/~aluecker/toolscourse/html-chunk/sect1_lift_drag_study.html" target="_blank" rel="noopener">Lift and Drag Study of an Airfoil</a></li>
-<li><a href="http://hmf.enseeiht.fr/travaux/projnum/book/export/html/901" target="_blank" rel="noopener">OpenFOAM : Run-time post-processing</a></li>
+<li><a href="http://hplgit.github.io/INF5620/doc/pub/main_trunc-2up.pdf" target="_blank" rel="noopener">Truncation Error Analysis</a></li>
+<li><a href="http://www.cs.cornell.edu/~bindel/class/cs3220-s12/notes/lec22.pdf" target="_blank" rel="noopener">Truncation versus rounding</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Round-off_error" target="_blank" rel="noopener">Round-off error</a></li>
 </ol>
 
     </div>
@@ -292,7 +269,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/OpenFOAM/" rel="tag"># OpenFOAM</a>
+              <a href="/tags/Numerical-Method/" rel="tag"># Numerical Method</a>
           </div>
 
         
@@ -301,12 +278,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/04/04/openfoam-sampling-and-monitoring-data/" rel="prev" title="OpenFOAM: Sampling and Monitoring Data">
-      <i class="fa fa-chevron-left"></i> OpenFOAM: Sampling and Monitoring Data
+    <a href="/2018/runge-kutta-4th-order/" rel="prev" title="Runge Kutta 4th Order">
+      <i class="fa fa-chevron-left"></i> Runge Kutta 4th Order
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/05/18/solving-differential-equations-by-neural-networks/" rel="next" title="Solving Differential Equations by Neural Networks">
-      Solving Differential Equations by Neural Networks <i class="fa fa-chevron-right"></i>
+    <a href="/2018/file-structure-of-openfoam/" rel="next" title="File Structure of OpenFOAM">
+      File Structure of OpenFOAM <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -366,7 +343,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#run-time-data-processing"><span class="nav-number">1.</span> <span class="nav-text">Run-time data processing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#method-1"><span class="nav-number">1.1.</span> <span class="nav-text">Method 1:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#method-2"><span class="nav-number">1.2.</span> <span class="nav-text">Method 2:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#postprocessing"><span class="nav-number">2.</span> <span class="nav-text">Post-processing of data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#an-example"><span class="nav-number">3.</span> <span class="nav-text">An example</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#truncation-error"><span class="nav-number">2.</span> <span class="nav-text">Truncation Error</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rounding-errors"><span class="nav-number">3.</span> <span class="nav-text">Rounding Errors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#total-errors"><span class="nav-number">4.</span> <span class="nav-text">Total Errors</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -380,7 +357,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -487,6 +464,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

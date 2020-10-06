@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/18/solving-differential-equations-by-neural-networks/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/Iterative-Methods-Based-On-Splitting-Matrix/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2019/05/18/solving-differential-equations-by-neural-networks/" class="post-title-link" itemprop="url">Solving Differential Equations by Neural Networks</a>
+            <a href="/2020/Iterative-Methods-Based-On-Splitting-Matrix/" class="post-title-link" itemprop="url">Iterative Methods Based On Splitting Matrix</a>
         </h2>
 
         <div class="post-meta">
@@ -185,14 +185,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-05-18 19:17:20" itemprop="dateCreated datePublished" datetime="2019-05-18T19:17:20+08:00">2019-05-18</time>
+              <time title="Created: 2020-10-04 09:00:36" itemprop="dateCreated datePublished" datetime="2020-10-04T09:00:36+08:00">2020-10-04</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-10 23:51:01" itemprop="dateModified" datetime="2020-09-10T23:51:01+08:00">2020-09-10</time>
+                <time title="Modified: 2020-10-06 21:59:19" itemprop="dateModified" datetime="2020-10-06T21:59:19+08:00">2020-10-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -200,7 +200,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a>
+                  <a href="/categories/Uncategorized/" itemprop="url" rel="index"><span itemprop="name">Uncategorized</span></a>
                 </span>
             </span>
 
@@ -215,106 +215,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can learn (fit) patterns from data with the complicated distribution. With the same concept, train a Neural network to fit the differential equations could also be possible. In this post, I want to show how to applied a simple feed-forward NNs to solve differential equations (ODE, PDE).</p>
-<p>The theoretical details and computational implementations are inspired by the following paper and blog. For those who interest in the more details, please refer to these links:</p>
-<ol type="1">
-<li><a href="https://arxiv.org/pdf/physics/9705023.pdf" target="_blank" rel="noopener">Artificial Neural Networks for Solving Ordinary and Partial Differential Equations</a>, I. E. Lagaris, A. Likas and D. I. Fotiadis, 1997</li>
-<li><a href="https://becominghuman.ai/neural-networks-for-solving-differential-equations-fa230ac5e04c" target="_blank" rel="noopener">Neural networks for solving differential equations</a>, Alexandr Honchar, 2017</li>
-</ol>
-<p>Different from the works in Alexandr Honchar's post, I reimplement the computational process with <strong>Tensorflow</strong> - a popular deep learning framework developed by Google. </p>
-<hr />
-<h2 id="ordinary-differential-equation">Ordinary Differential Equation</h2>
-<p>Let's start with a simple ordinary differential equation (ODE) in the form of</p>
+          <h2 id="introduction">Introduction</h2>
+<p>Consider the linear equation system</p>
 <p><span class="math display">\[
-\eqalign{ \frac{\mathrm{d}\Psi}{\mathrm{d}x}=f(x,\Psi) .}
+\eqalign{\mathbf{Ax = b} }
 \]</span></p>
-<p>Same with the traditional numerical method, we obtain the numerical solution of $(x)$ on a set of grids. The solution is approximated on each grid (node) with neural network architecture, therefore, we have <strong>one input neuron</strong> (or two input neurons for 2D problems), one hidden layer, and <strong>one output neuron</strong> to predict solution (scalar value) of the differential equation on each grid. The architecture of the neural network look likes this:</p>
-<p><img src="https://i.imgur.com/GSxyuba.png" /></p>
-<p>Schematic of NN.</p>
-<p>Take initial (IC) or boundary (BC) conditions into account, we choose a form for the trial function <span class="math inline">\(\Psi_t\)</span> such that satisfies the ICs or BCs. This is achieved by writing it as a sum of two terms:</p>
-<p><span class="math display">\[
-\eqalign{  
-\Psi_t(\vec{x})=A(\vec{x})+F(\vec{x},N(\vec{x},\vec{p})).  
-}
-\]</span></p>
-<p>Where <span class="math inline">\(N(\vec{x},\vec{p})\)</span> is a <strong>single-output feedforward neural network</strong> with parameters (weights and biases) <span class="math inline">\(\vec{p}\)</span> and n (depents on the dimension of the problem) input units fed with the input vector <span class="math inline">\(\vec{x}\)</span>, the first term <span class="math inline">\(A(\vec{x})\)</span> contains no adjustable parameters and satisfies the ICs or BCs, and the second term <span class="math inline">\(F\)</span> is constructed so as not to contribute to the ICs or BCs (give zero on those positions).</p>
-<p>Since the trial function <span class="math inline">\(\Psi_t\)</span> satisfies the ICs or BCs, the rest of work is to adjusted weights and biases makes <span class="math inline">\(\Psi_t\)</span> satisfies the governing equations. Thus, the problem is transformed into a minimization problem as follow:</p>
-<p><span class="math display">\[
-\eqalign{ E \left[ \vec{p} \right]= \sum_i\left[{ \frac{\mathrm{d}\Psi(x_i)}{\mathrm{d}x}-f(x_i,\Psi_t(x_i)) } \right]^2 }
-\]</span></p>
-<p>where the <span class="math inline">\(x_i\)</span> are locations of each grid. The target of our <strong>neural network</strong> is to optimize the parameters to minimize the function above, so-called <strong>loss function</strong>. For the detail of the python code, please refer to <a href="https://github.com/BingHanLin/My_ML_Notes/tree/master/Neural%20Networks%20for%20Differential%20Equations" target="_blank" rel="noopener">here</a>.</p>
-<h3 id="example">Example</h3>
-<p>With the acknowledge above, we consider the example of first order ODE to illustrate the method:</p>
-<p><span class="math display">\[
-\eqalign{ \frac{d\Psi}{dx}+(x+\frac{1+3x^2}{1+x+x^3})\Psi=x^3+2x+x^2\frac{1+3x^2}{1+x+x^3}} 
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-\eqalign{ x \in \left[ 0,1 \right], \quad \Psi(0)=1 .} 
-\]</span></p>
-<p>The trial solution <span class="math inline">\(\Psi_t\)</span> is written as</p>
-<p><span class="math display">\[
-\eqalign{ \Psi_t(\vec{x})=1+xN(\vec{x},\vec{p}) .}
-\]</span></p>
-<p>Thus, <span class="math inline">\(\frac{\mathrm{d}\Psi(x)}{\mathrm{d}x}\)</span> can be obtained easily:</p>
-<p><span class="math display">\[
-\eqalign{\frac{\mathrm{d} \Psi(x)}{\mathrm{d}x} = N(\vec{x}) + x\frac{\mathrm{d} N(\vec{x})}{\mathrm{d}x} .}
-\]</span></p>
-<p>In this example, we used a multilayer perceptron having one hidden layer with 10 hidden units and one linear output unit. The activate function of each hidden unit is chosen to be the sigmoid function:</p>
-<p><span class="math display">\[
-\eqalign{\sigma(x) = \frac{1}{1+e^{-x}} }
-\]</span></p>
-<p>The analytic solution of this problem is:</p>
-<p><span class="math display">\[
-\Psi_{a}(x) = \frac{e^{-x^2}/2}{1+x+x^3}  
-\]</span></p>
-<p>We set up a grid in the range <span class="math inline">\(\left[ 0, 1 \right]\)</span> with 10 nodes and train our <strong>neural network</strong> on these locations. Result of training the neural network for 1000 iterations is shown in the figure below:</p>
-<p><img src="https://i.imgur.com/y3tE8ad.png" /></p>
-<p>Result of predict solution from the neural network.</p>
-<p>The result could be improved by many ways such as adding more grid points, adding more neurons in the hidden layer, etc. But this is out of the scope of this post. For the detail of the python code, please refer to <a href="https://github.com/BingHanLin/My_ML_Notes/tree/master/Neural%20Networks%20for%20Differential%20Equations" target="_blank" rel="noopener">here</a>.</p>
-<hr />
-<h2 id="partial-differential-equation">Partial Differential Equation</h2>
-<p>There is no difference between the processes for solving ODEs and PDEs by this method. Only the number of the <strong>input neuron</strong> needs to be changed (two or more input neurons) according to the problems.</p>
-<h3 id="example-1">Example</h3>
-<p>Consider the following PDE :</p>
-<p><span class="math display">\[
-\nabla{\Psi}^2(x,y) = e^{-x}(x-2+y^3+6y)
-\]</span></p>
-<p>and,</p>
-<p><span class="math display">\[
-x,y \in \left[ 0,1 \right] 
-\]</span></p>
-<p><span class="math display">\[
-\Psi(0,y) = y^3, \quad \Psi(1,y) = (1+y^3)e^{-1}
-\]</span></p>
-<p><span class="math display">\[
-\Psi(x,0) = xe^{-x}, \quad \Psi(x,1) = (x+1)e^{-x}
-\]</span></p>
-<p>The trial solution which satisfies the constraints above is assumed to be:</p>
-<p><span class="math display">\[
-\Psi_t(x,y) = A(x,y)+x(1-x)y(1-y)N(x,y,\vec{p})
-\]</span></p>
-<p>where <span class="math inline">\(A(x,y)\)</span> is defined below:</p>
-<p><span class="math display">\[
-\eqalign{A(x,y) =&amp; (1-x)y^3+x(1+y^3)e^{-1}+(1-y)x(e^{-x}-e^{-1}) \\ &amp;+y\left[ (1+x)e^{-x}-(1-x-2xe^{-1}) \right] }
-\]</span></p>
-<p>The analytic solution of this problem is:</p>
-<p><span class="math display">\[
-\eqalign{\Psi_{a}(x, y) = e^{-x}(x+y^3)}
-\]</span></p>
-<p>We set up a mesh grid in the range of $x,y $ with 100 uniform distribution points. Result of training the neural network for 500 iterations is shown in the figure below:</p>
-<p><img src="https://i.imgur.com/AQkB43d.png" /></p>
-<p>Result of predict solution from the neural network.</p>
-<p>For the detail of the python code, please refer to <a href="https://github.com/BingHanLin/My_ML_Notes/tree/master/Neural%20Networks%20for%20Differential%20Equations" target="_blank" rel="noopener">here</a>.</p>
-<hr />
-<ul>
-<li>Reference:</li>
-</ul>
-<ol type="1">
-<li><a href="https://arxiv.org/pdf/physics/9705023.pdf" target="_blank" rel="noopener">Artificial Neural Networks for Solving Ordinary and Partial Differential Equations</a>, I. E. Lagaris, A. Likas and D. I. Fotiadis, 1997</li>
-<li><a href="https://becominghuman.ai/neural-networks-for-solving-differential-equations-fa230ac5e04c" target="_blank" rel="noopener">Neural networks for solving differential equations</a>, Alexandr Honchar, 2017</li>
-</ol>
-
+<p>where <span class="math inline">\(\mathbf{A} \in \mathcal{R}^{n \times n}\)</span> is a nonsigular matrix and <span class="math inline">\(\mathbf{x}\)</span> , <span class="math inline">\(\mathbf{b} \in \mathcal{R}^{n}\)</span>.</p>
+<p>A large class of iterative methods for solving linear equation system involve splitting the matrix <span class="math inline">\(\mathbf{A}\)</span> into the difference between two new matrices <span class="math inline">\(\mathbf{S}\)</span> and <span class="math inline">\(\mathbf{T}\)</span> :</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/Iterative-Methods-Based-On-Splitting-Matrix/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -333,7 +248,7 @@ x,y \in \left[ 0,1 \right]
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/openfoam-tutorial-extracting-numerical-data-from-case/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/solving-differential-equations-by-neural-networks/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -347,7 +262,88 @@ x,y \in \left[ 0,1 \right]
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2019/04/23/openfoam-tutorial-extracting-numerical-data-from-case/" class="post-title-link" itemprop="url">OpenFOAM: Extracting Numerical Data From  Case</a>
+            <a href="/2019/solving-differential-equations-by-neural-networks/" class="post-title-link" itemprop="url">Solving Differential Equations by Neural Networks</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-05-18 19:17:20" itemprop="dateCreated datePublished" datetime="2019-05-18T19:17:20+08:00">2019-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-19 23:38:01" itemprop="dateModified" datetime="2020-09-19T23:38:01+08:00">2020-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning-Note/" itemprop="url" rel="index"><span itemprop="name">Machine Learning Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can learn (fit) patterns from data with the complicated distribution. With the same concept, train a Neural network to fit the differential equations could also be possible. In this post, I want to show how to applied a simple feed-forward NNs to solve differential equations (ODE, PDE).
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/solving-differential-equations-by-neural-networks/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/openfoam-tutorial-extracting-numerical-data-from-case/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/openfoam-tutorial-extracting-numerical-data-from-case/" class="post-title-link" itemprop="url">OpenFOAM: Extracting Numerical Data From  Case</a>
         </h2>
 
         <div class="post-meta">
@@ -364,7 +360,7 @@ x,y \in \left[ 0,1 \right]
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-25 14:50:58" itemprop="dateModified" datetime="2020-07-25T14:50:58+08:00">2020-07-25</time>
+                <time title="Modified: 2020-09-19 23:37:50" itemprop="dateModified" datetime="2020-09-19T23:37:50+08:00">2020-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -391,7 +387,7 @@ x,y \in \left[ 0,1 \right]
 <p>When we want to process data <strong>during a simulation</strong>, they need to configure the case accordingly. The two possible configuration processes are shown as follows, using an example of monitoring <strong>flow rate</strong> at an outlet patch named <strong>outlet</strong>.</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2019/04/23/openfoam-tutorial-extracting-numerical-data-from-case/#more" rel="contents">
+              <a class="btn" href="/2019/openfoam-tutorial-extracting-numerical-data-from-case/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -415,7 +411,7 @@ x,y \in \left[ 0,1 \right]
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/openfoam-sampling-and-monitoring-data/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/openfoam-sampling-and-monitoring-data/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -429,7 +425,7 @@ x,y \in \left[ 0,1 \right]
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2019/04/04/openfoam-sampling-and-monitoring-data/" class="post-title-link" itemprop="url">OpenFOAM: Sampling and Monitoring Data</a>
+            <a href="/2019/openfoam-sampling-and-monitoring-data/" class="post-title-link" itemprop="url">OpenFOAM: Sampling and Monitoring Data</a>
         </h2>
 
         <div class="post-meta">
@@ -446,7 +442,7 @@ x,y \in \left[ 0,1 \right]
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-25 15:00:48" itemprop="dateModified" datetime="2020-07-25T15:00:48+08:00">2020-07-25</time>
+                <time title="Modified: 2020-09-19 23:37:48" itemprop="dateModified" datetime="2020-09-19T23:37:48+08:00">2020-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -472,7 +468,7 @@ x,y \in \left[ 0,1 \right]
           <p>There are a set of general post-processing functions for sampling data across the domain for graphs and visualization. In this article, we use the <em>lid-driven cavity</em> case set up in the tutorial to demonstrate these post-processing functions.</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2019/04/04/openfoam-sampling-and-monitoring-data/#more" rel="contents">
+              <a class="btn" href="/2019/openfoam-sampling-and-monitoring-data/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -496,7 +492,7 @@ x,y \in \left[ 0,1 \right]
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/10/openfoam-tutorial-lid-driven-cavity/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/openfoam-tutorial-lid-driven-cavity/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -510,7 +506,7 @@ x,y \in \left[ 0,1 \right]
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/07/10/openfoam-tutorial-lid-driven-cavity/" class="post-title-link" itemprop="url">OpenFOAM Tutorial - Lid Driven Cavity</a>
+            <a href="/2018/openfoam-tutorial-lid-driven-cavity/" class="post-title-link" itemprop="url">OpenFOAM Tutorial - Lid Driven Cavity</a>
         </h2>
 
         <div class="post-meta">
@@ -527,7 +523,7 @@ x,y \in \left[ 0,1 \right]
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-10 22:39:31" itemprop="dateModified" datetime="2020-09-10T22:39:31+08:00">2020-09-10</time>
+                <time title="Modified: 2020-09-19 23:37:54" itemprop="dateModified" datetime="2020-09-19T23:37:54+08:00">2020-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -554,7 +550,7 @@ x,y \in \left[ 0,1 \right]
 <p>The lid-driven cavity flow tutorial is the easiest and most well documented tutorial on OpenFOAM. A incompressible flow in a two-dimensional square domain is shown in figure below. The top wall moves in the <span class="math inline">\(x\)</span>-direction at a speed of 1 m/s while the other 3 are stationary. Initially, the flow will be assumed laminar and will be solved on a uniform and non mesh using the <strong>icoFoam</strong> solver for laminar, isothermal, incompressible flow. Then, the effect of increased mesh resolution and mesh grading towards the walls will be investigated.</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/07/10/openfoam-tutorial-lid-driven-cavity/#more" rel="contents">
+              <a class="btn" href="/2018/openfoam-tutorial-lid-driven-cavity/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -578,7 +574,7 @@ x,y \in \left[ 0,1 \right]
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/file-structure-of-openfoam/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/file-structure-of-openfoam/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -592,7 +588,7 @@ x,y \in \left[ 0,1 \right]
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/06/11/file-structure-of-openfoam/" class="post-title-link" itemprop="url">File Structure of OpenFOAM</a>
+            <a href="/2018/file-structure-of-openfoam/" class="post-title-link" itemprop="url">File Structure of OpenFOAM</a>
         </h2>
 
         <div class="post-meta">
@@ -609,7 +605,7 @@ x,y \in \left[ 0,1 \right]
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-25 00:38:54" itemprop="dateModified" datetime="2020-07-25T00:38:54+08:00">2020-07-25</time>
+                <time title="Modified: 2020-09-19 23:37:36" itemprop="dateModified" datetime="2020-09-19T23:37:36+08:00">2020-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -633,10 +629,10 @@ x,y \in \left[ 0,1 \right]
 
       
           <h2 id="installation-directory">Installation directory</h2>
-<p>Let's start from the installation dirctory, you can use the Linux command <strong>&quot;tree&quot;</strong> to examine the source code directory organization.
+<p>Let's start from the installation dirctory, you can use the Linux command <strong>"tree"</strong> to examine the source code directory organization.
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/06/11/file-structure-of-openfoam/#more" rel="contents">
+              <a class="btn" href="/2018/file-structure-of-openfoam/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -660,7 +656,7 @@ x,y \in \left[ 0,1 \right]
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/20/truncation%20error%20&%20rounding%20error/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/truncation%20error%20&%20rounding%20error/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -674,7 +670,7 @@ x,y \in \left[ 0,1 \right]
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/03/20/truncation%20error%20&%20rounding%20error/" class="post-title-link" itemprop="url">Truncation error & Rounding error</a>
+            <a href="/2018/truncation%20error%20&%20rounding%20error/" class="post-title-link" itemprop="url">Truncation error & Rounding error</a>
         </h2>
 
         <div class="post-meta">
@@ -691,7 +687,7 @@ x,y \in \left[ 0,1 \right]
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-25 00:46:29" itemprop="dateModified" datetime="2020-07-25T00:46:29+08:00">2020-07-25</time>
+                <time title="Modified: 2020-09-19 23:38:09" itemprop="dateModified" datetime="2020-09-19T23:38:09+08:00">2020-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -718,7 +714,7 @@ x,y \in \left[ 0,1 \right]
 <p>For many engineering problems, we cannot obtain analytical (true) solutions. That's why we employ numerical methods to obtain the solutions.  However, the numerical methods or algorithms are usually accompanied by computing with finite precision and errors of approximation (rounding and truncation). Before we get into the details of the topic, it is important to distinguish between accuracy and precision.
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/03/20/truncation%20error%20&%20rounding%20error/#more" rel="contents">
+              <a class="btn" href="/2018/truncation%20error%20&%20rounding%20error/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -742,7 +738,7 @@ x,y \in \left[ 0,1 \right]
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/19/runge-kutta-4th-order/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/runge-kutta-4th-order/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -756,7 +752,7 @@ x,y \in \left[ 0,1 \right]
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/03/19/runge-kutta-4th-order/" class="post-title-link" itemprop="url">Runge Kutta 4th Order</a>
+            <a href="/2018/runge-kutta-4th-order/" class="post-title-link" itemprop="url">Runge Kutta 4th Order</a>
         </h2>
 
         <div class="post-meta">
@@ -773,7 +769,7 @@ x,y \in \left[ 0,1 \right]
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-10 23:29:29" itemprop="dateModified" datetime="2020-09-10T23:29:29+08:00">2020-09-10</time>
+                <time title="Modified: 2020-09-19 23:37:58" itemprop="dateModified" datetime="2020-09-19T23:37:58+08:00">2020-09-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -800,7 +796,7 @@ x,y \in \left[ 0,1 \right]
 <p>Runge-Kutta method is a numerical procedure for approximating values for the solution of ordinary differential equations (ODEs) with a given initial value. The simplest Runge–Kutta method has the same form as Euler method.
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/03/19/runge-kutta-4th-order/#more" rel="contents">
+              <a class="btn" href="/2018/runge-kutta-4th-order/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -886,7 +882,7 @@ x,y \in \left[ 0,1 \right]
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
