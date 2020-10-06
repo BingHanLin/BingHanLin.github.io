@@ -69,6 +69,40 @@ With the known values $\mathbf{x}^{k}$ in preivous iteration level $k$, the comp
 
 One may immediately notice a way to improve procedure by using the newly computed values to obtain the $\mathbf x^{k+1}$ once they are available. Indeed, implementation of this idea becomes the Gauss-Seidel method, which has better convergence rate. The Jacobi method is rarely used in practice due to it **low convergence rate**, but it provides a good basis for developing the advanced methods.
 
+```julia Jacobi Method
+function jacobi(mat::Array{Float64,2}, sol::Array{Float64,1}, rhs::Array{Float64,1},
+                maxIter::Int=100, tol::Float64=1.0e-8)
+
+    nbrows, nbcols = size(mat)
+    result = deepcopy(sol)
+    residuals = Array{Float64,1}(undef, 0)
+
+    
+    numIter = 0
+    while numIter < maxIter
+        numIter+=1
+        
+        deltaSol = rhs - mat*result
+        
+        for i=1:nbrows
+            deltaSol[i] = deltaSol[i]/mat[i,i]
+        end
+        
+        result = result + deltaSol
+        
+        nrm = norm(deltaSol)
+        
+        push!(residuals,nrm)
+        
+        if nrm <= tol
+            return result, numIter, residuals
+        end
+    end
+
+    return result, numIter, residuals
+end
+```
+
 * * *
 Gauss-Seidel Method
 -------------------
@@ -82,6 +116,47 @@ $$
 
 Each component of the current iteration level depends upon all previously computed value. Unlike the Jacobi method, **only one storage vector is required during the computation** in practice, which can be advantageous for solving very large problems. In the next section, an extrapolation factor $\omega$ will be added into the equations of the Gauss-Seidel method, which gives us the Successive Over-Relaxation method.
 
+```julia Gauss-Seidel Method
+function gaussSeidel(mat::Array{Float64,2}, sol::Array{Float64,1}, rhs::Array{Float64,1},
+                maxIter::Int=100, tol::Float64=1.0e-8)
+
+    nbrows, nbcols = size(mat)
+    result = deepcopy(sol)
+    deltaSol = deepcopy(sol)
+    residuals = Array{Float64,1}(undef, 0)
+
+    
+    numIter = 0
+    while numIter < maxIter
+        
+        numIter+=1
+        
+        for i=1:nbrows
+            oldResult = result[i]
+            result[i] = rhs[i]
+            
+            for j=1:nbcols
+                if i!=j
+                    result[i]-=mat[i,j]*result[j]
+                end
+            end
+            result[i]/=mat[i,i]
+            
+            deltaSol[i]=result[i]-oldResult
+        end
+        
+        nrm = norm(deltaSol)
+        
+        push!(residuals,nrm)
+        
+        if nrm <= tol
+            return result, numIter, residuals
+        end
+        
+    end
+    return result, numIter, residuals
+end
+```
 
 * * *
 Successive Over-Relaxation Method(SOR)
@@ -123,6 +198,50 @@ $$
 
 If $\omega = 1$, the **SOR method** simplifies to the Gauss-Seidel method. The choice of relaxation factor $\omega$ is not necessarily easy, and depends upon the properties of the coefficient matrix. Frequently, some heuristic estimate is used, such as $\omega=2-O(h)$ where $h$ is the mesh spacing of the discretization of the underlying physical domain. In general $\omega$ is inside the interval $ (1,2) $.
 
+```julia Successive Over-Relaxation Method
+function SOR(mat::Array{Float64,2}, sol::Array{Float64,1}, rhs::Array{Float64,1}, omega::Float64,
+                maxIter::Int=100, tol::Float64=1.0e-8)
+
+    nbrows, nbcols = size(mat)
+    result = deepcopy(sol)
+    deltaSol = deepcopy(sol)
+    residuals = Array{Float64,1}(undef, 0)
+
+    
+    numIter = 0
+    while numIter < maxIter
+        
+        numIter+=1
+
+        for i=1:nbrows
+            oldResult = result[i]
+            result[i] = rhs[i]
+            
+            for j=1:nbcols
+                if i!=j
+                    result[i]-=mat[i,j]*result[j]
+                end
+            end
+            
+            result[i]*=omega
+            result[i]/=mat[i,i]
+            result[i]+=(1-omega)*oldResult
+            
+            deltaSol[i]=result[i]-oldResult
+        end
+        
+        nrm = norm(deltaSol)
+        push!(residuals,nrm)
+        
+        if nrm <= tol
+            return result, numIter, residuals
+        end
+        
+    end
+    return result, numIter, residuals
+end
+```
+
 * * *
 
 *   Reference:
@@ -131,6 +250,5 @@ If $\omega = 1$, the **SOR method** simplifies to the Gauss-Seidel method. The 
 2.  [Iterative methods for matrix equations](http://www.it.uom.gr/teaching/linearalgebra/ExamplesToIterativeMethods.pdf
 )
 3.  [Iterative Methods: The SOR Method](https://www.maa.org/press/periodicals/loci/joma/iterative-methods-for-solving-iaxi-ibi-the-sor-method)
+3.  [Iterative Methods for System of Equations](https://slideplayer.com/slide/4787543/)
 
-
-https://slideplayer.com/slide/4787543/
