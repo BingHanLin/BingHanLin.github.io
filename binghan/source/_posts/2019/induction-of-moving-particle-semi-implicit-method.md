@@ -80,7 +80,7 @@ $$
 } 
 $$
 
-In the MPS method a fluid is represented by moving particles with constant mass. Thus, **the incompressibily of the fluid is guaranteed by keeping the particle number density** ($\langle n \rangle_i$) **of the fluid constant.** The continuity equation is also satisfied automatically by keeping the total number of particles and the mass of individual particles constant.
+In the MPS method a fluid is represented by moving particles with constant mass. Thus, **the incompressibily of the fluid is guaranteed by keeping the particle number density $\langle n \rangle_i$ of the fluid constant.** The continuity equation is also satisfied automatically by keeping the total number of particles and the mass of individual particles constant.
 
 * * *
 
@@ -119,7 +119,7 @@ $$
 \eqalign{ 
 \lambda = \frac{\int_{V} w(r)r^2 dv}{\int_{V} w(r) dv} = \frac{\sum_{i \neq j} w \left( | \mathbf{r}_j - \mathbf{r}_i | \right) | \mathbf{r}_ j - \mathbf{r}_i |^2 }{ \sum_{i \neq j} w \left( | \mathbf{r}_j - \mathbf{r}_i | \right) } 
 }
-$$.
+$$
 
 ### Divergence operator
 
@@ -129,6 +129,42 @@ $$
 \frac{ \left( \mathbf{u}_j - \mathbf{u}_i \right) \cdot\left(\mathbf{r} _j - \mathbf{r}_i \right)}{| \mathbf{r} _j - \mathbf{r}_i |^2} w\left( | \mathbf{r} _j - \mathbf{r}_i | \right )  
 } 
 $$
+
+* * *
+
+Model of incompressibility
+-------------------------------
+
+Incompressibility is represented by keeping the particle number density  constant $n^0$. When the particle number density $n^*$ is not equal to
+$n^0$, it is implicitly corrected to $n^0$ by
+
+$$
+\eqalign{ 
+n^* +\Delta n^{'} = n^0 .
+}$$
+
+Thus, we have
+
+$$
+\eqalign{ 
+\frac{1}{n^0} \frac{\Delta n^{'}}{\Delta t}= -\nabla \cdot \Delta \mathbf{u}^{'}.
+}$$
+
+The velocity correction value $ \Delta \mathbf{u}^{'}$, is derived from the implicit pressure gradient term as
+
+$$
+\eqalign{ 
+  \Delta \mathbf{u}^{'} = -\frac{\Delta t}{\rho} \nabla P^{n+1}
+}$$
+
+A Poisson equation of pressure is obtained:
+
+$$
+\eqalign{ 
+  \nabla^2 P_i^{n+1} = -\frac{\rho}{\Delta t^2}\frac{n_i^*-n^0}{n^0} 
+}$$
+
+
 
 * * *
 
