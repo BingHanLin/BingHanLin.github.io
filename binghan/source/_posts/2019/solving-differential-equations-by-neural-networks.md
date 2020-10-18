@@ -112,7 +112,7 @@ There is no difference between the processes for solving ODEs and PDEs by this m
 Consider the following PDE :
 
 $$
-\nabla{\Psi}^2(x,y) = e^{-x}(x-2+y^3+6y)
+\nabla^2{\Psi}(x,y) = e^{-x}(x-2+y^3+6y)
 $$
 
 and,  
