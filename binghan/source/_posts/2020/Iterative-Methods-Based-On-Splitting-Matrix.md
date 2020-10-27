@@ -179,7 +179,7 @@ $$
 As mentioned above, the idea of the **SOR method** is to iterate by moving further along the direction $(\mathbf{x}^{k+1}-\mathbf{x}^{k})$.
 
 $$
-\eqalign{\mathbf{x}^{k+1} = \mathbf{x}^{k} -\omega(\mathbf{x}^{k+1}-\mathbf{x}^{k}) }.  
+\eqalign{\mathbf{x}^{k+1} = \mathbf{x}^{k} +\omega(\mathbf{x}^{k+1}-\mathbf{x}^{k}) }.  
 $$
 
 Written out in detail, the SOR Method is
