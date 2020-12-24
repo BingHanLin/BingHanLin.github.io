@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Assumption In this post, we apply some assumptions into our derivation process:  Newtonian fluid Incompressible flow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Derivation of the Navier–Stokes equations">
+<meta property="og:url" content="http://yoursite.com/2019/derivation-of-the-navier-stokes-equations/index.html">
+<meta property="og:site_name" content="BHL Notes">
+<meta property="og:description" content="Assumption In this post, we apply some assumptions into our derivation process:  Newtonian fluid Incompressible flow">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/1ohxbN9.png">
+<meta property="article:published_time" content="2019-06-26T08:23:07.000Z">
+<meta property="article:modified_time" content="2020-12-24T16:03:00.508Z">
+<meta property="article:author" content="Bing Han Lin">
+<meta property="article:tag" content="Computational Fluid Dynamics (CFD)">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/1ohxbN9.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/derivation-of-the-navier-stokes-equations/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Derivation of the Navier–Stokes equations | BHL Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BHL Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">MY LEARNING TRAJECTORY</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/derivation-of-the-navier-stokes-equations/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Derivation of the Navier–Stokes equations
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-26 16:23:07" itemprop="dateCreated datePublished" datetime="2019-06-26T16:23:07+08:00">2019-06-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-25 00:03:00" itemprop="dateModified" datetime="2020-12-25T00:03:00+08:00">2020-12-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="assumption">Assumption</h2>
+<p>In this post, we apply some assumptions into our derivation process:</p>
+<ul>
+<li>Newtonian fluid</li>
+<li>Incompressible flow</li>
+</ul>
+<a id="more"></a>
+<hr />
+<h2 id="reynolds-transport-theorem">Reynolds Transport Theorem</h2>
+<p><img src="https://i.imgur.com/1ohxbN9.png" /> <em>Material Volume and Control Volume moving over time</em></p>
+<p>Here, we obtain the <strong>Reynolds Transport Theorem</strong> which provides the conversion formulation between <strong>Lagrangian description (LHS)</strong> and <strong>Eulerian description (RHS)</strong>.</p>
+<p><span class="math display">\[
+\eqalign{\frac{D}{Dt}\int\limits{\textbf{MV}(t)}\textbf{F}(\vec{\mathrm{r}},t)\mathrm{d}\Omega=\frac{d}{dt}\int\limits{\textbf{CV}(t)}\textbf{F}(\vec{\mathrm{r}},t) \ \mathrm{d}\Omega + \oint\limits{\textbf{CS}(t)}\textbf{F}(\vec{\mathrm{r}},t)\vec{V}\cdot \vec{n}\ \mathrm{d}S}
+\]</span></p>
+<p>Where the subscript <strong>MV</strong> indicates material volume, <strong>CV</strong> indicates control volume, and <strong>CS</strong> is control surface.</p>
+<p>Further apply <strong>divergence theorem</strong> ( <span class="math inline">\(\int\vec{\mathrm{A}} \cdot \vec{n} \ \mathrm{d}S=\int\nabla \cdot \vec{\mathrm{A}} \ \mathrm{d}\Omega\)</span> ) to convert surface integrals in above equation into volume integrals. This gives us an equation as follow.</p>
+<p><span class="math display">\[
+\eqalign{\frac{D}{Dt}\int\limits{\textbf{MV}} \ \textbf{F}\mathrm{d}\Omega=\frac{d}{dt}\int\limits{\textbf{CV}} \ \textbf{F} \ \mathrm{d}\Omega + \int\limits{  
+\textbf{CV}} \ \nabla\cdot (  
+\textbf{F} \vec{V})\ \mathrm{d}  
+\Omega}
+\]</span></p>
+<p>The terms in <strong>Eulerian description (RHS)</strong> become volume integrals now. Let <span class="math inline">\(\textbf{F} = \rho \phi\)</span>, then we have,</p>
+<p><span class="math display">\[
+\eqalign{ \frac{D}{Dt}\int\limits{\textbf{MV}}\rho \ \phi\ \mathrm{d}\Omega=\frac{d}{dt}\int\limits{\textbf{CV}} \rho \ \phi\ \mathrm{d}\Omega + \int\limits{\textbf{CV}}\nabla\cdot (  
+\rho \ \phi \vec{V})\ \mathrm{d}\Omega }
+\]</span></p>
+<p>When we further consider the arbitrary (shape and size) but <strong>fixed control volume (independent of time)</strong>, we have the constraint:</p>
+<p><span class="math display">\[
+\eqalign{ \frac{d}{dt}\int\limits{\textbf{CV}} \textbf{F}\mathrm{d}\Omega = \int\limits{\textbf{CV}}\frac{\partial F}{\partial t}\mathrm{d}\Omega }
+\]</span></p>
+<p>Take the constraint into the equation above gives us:</p>
+<p><span class="math display">\[
+\eqalign{\frac{D}{Dt}\int\limits_{\textbf{MV}}\textbf{F}\mathrm{d}\Omega = \int\limits_{\textbf{CV}}\left[ \frac{\partial \textbf{F}}{\partial t}+\nabla \cdot(\textbf{F}\vec{V})\right]\mathrm{d}\Omega}
+\]</span> because, <span class="math display">\[
+\eqalign{ \nabla\cdot(\textbf{F}\vec{V})=\vec{V}\cdot\nabla \textbf{F}+\textbf{F}\nabla\cdot\vec{V}}
+\]</span> therefore, <span class="math display">\[ 
+\eqalign{ \frac{\partial \textbf{F}}{\partial t}+\nabla \cdot(\textbf{F}\vec{V})= \left(\frac{\partial \textbf{F}}{\partial t}+\vec{V}\cdot\nabla \textbf{F}\right)+\textbf{F}\nabla\cdot\vec{V}=\frac{D\textbf{F}}{Dt}+\textbf{F}\nabla\cdot\vec{V}}
+\]</span> finally, <span class="math display">\[
+\eqalign{ \frac{D}{Dt}\int\limits_{\textbf{MV}}\textbf{F}\mathrm{d}\Omega = \int\limits_{\textbf{CV}}\frac{D\textbf{F}}{Dt}\mathrm{d}\Omega+\int\limits_{\textbf{CV}} \textbf{F}\nabla\cdot\vec{V}\mathrm{d}\Omega}
+\]</span> and consider <span class="math inline">\(\textbf{F} = \rho \phi\)</span>, <span class="math display">\[
+\eqalign{ \frac{D}{Dt}\int\limits_{\textbf{MV}}\rho\phi\mathrm{d}\Omega = \int\limits_{\textbf{CV}}\frac{D(\rho\phi)}{Dt}\mathrm{d}\Omega+\int\limits_{\textbf{CV}} \rho\phi\nabla\cdot\vec{V}\mathrm{d}\Omega }
+\]</span></p>
+<p>Accordingly, we obtain the form of <strong>Reynolds Transport Theorem</strong> within the <strong>fixed control volume</strong>. </p>
+<hr />
+<h2 id="conservation-of-mass">Conservation of Mass</h2>
+<p>Let <span class="math inline">\(\phi=1\)</span>, the mass <span class="math inline">\(m\)</span> can be represented as</p>
+<p><span class="math display">\[
+\eqalign{  
+m =\int\limits{\textbf{MV}}\rho\ \mathrm{d}\Omega  
+} 
+\]</span></p>
+<p>In the Lagrangian description, the equation for conservation of mass is written as,</p>
+<p><span class="math display">\[
+\eqalign{  
+\frac{Dm}{Dt} =\frac{D}{Dt}\int\limits{\textbf{MV}}\rho\ \mathrm{d}\Omega=0 \ .  
+}
+\]</span></p>
+<p>For arbitrary, but fixed control volume, we have the following equation.</p>
+<p><span class="math display">\[
+\eqalign{ \frac{D}{Dt}\int\limits_{\textbf{MV}}\rho \mathrm{d}\Omega&amp;  =\frac{d}{dt}\int\limits_{\textbf{CV}} \rho \mathrm{d}\Omega + \int\limits_{\textbf{CV}}    \nabla\cdot (   \rho \vec{V})\ \mathrm{d}\Omega\\
+&amp;  =\int\limits_{\textbf{CV}} \frac{\partial \rho}{\partial t} \mathrm{d}\Omega + \int\limits_{\textbf{CV}} \nabla\cdot (   \rho \vec{V})\ \mathrm{d}\Omega\\
+&amp;  =\int\limits_{\textbf{CV}} \left[\frac{\partial \rho}{\partial t}  +    \nabla\cdot (   \rho \vec{V})\ \right]\mathrm{d}\Omega  =0 }
+\]</span></p>
+<p>Now, we have the <strong>differential form</strong> of the continuity equation in eulerian description.</p>
+<p><span class="math display">\[
+ \eqalign{  
+\frac{\partial \rho}{\partial t} +  
+\nabla\cdot (  
+\rho \vec{V})=\frac{\partial \rho}{\partial t} + \rho(  
+\nabla\cdot\vec{V} ) +  
+\vec{V}\cdot (  
+\nabla\rho )=0 } 
+\]</span></p>
+<h3 id="incompressible-flow">Incompressible flow</h3>
+<p>Consider the incompressible flow (density <span class="math inline">\(\rho\)</span> of a certain fluid parcel does not change as a function of time) in our applications, we have the following equation.</p>
+<p><span class="math display">\[
+\eqalign{ \underset{ Lagrangian }{ \frac{D\rho}{Dt} } =  
+\underset{ Eulerian }{  
+\frac{\partial \rho}{\partial t}+\vec{V}\cdot\nabla\rho} =0}  
+\]</span></p>
+<p>Compare the difference between the <strong>differential form</strong> of continuity equation and equation of incompressible flow condition, we have:</p>
+<p><span class="math display">\[
+\eqalign{ \nabla \cdot \vec{V}=0 }  
+\]</span></p>
+<p>Here we obtain the <strong>continuity equation</strong> for the <strong>incompressible flow</strong>.</p>
+<hr />
+<h2 id="conservation-of-momentum">Conservation of Momentum</h2>
+<p>Let <span class="math inline">\(\phi=\vec{V}\)</span>, the momentum <span class="math inline">\(\vec{M}\)</span> can be represented as</p>
+<p><span class="math display">\[
+\eqalign{ \vec{M} =\int\limits{\textbf{MV}}\rho \vec{V} \mathrm{d}\Omega } 
+\]</span></p>
+<p>In the Lagrangian description, the equation for conservation of momentum is written as,</p>
+<p><span class="math display">\[
+\eqalign{ \underset{Rate \ of \ change \ of \ momentum \ in \ \textbf{MV}}{\frac{D}{Dt}\int\limits{\textbf{MV}}\vec{V}\rho \ \mathrm{d}\Omega}=\underset{ Body \ force}{\int\limits{\textbf{MV}}\vec{f}\rho \ \mathrm{d}\Omega}+\underset{ Surface \ force}{\int\limits{MS}\overline{\overline{T}}\cdot \vec{n}\mathrm{d}S} }  
+\]</span></p>
+<p>Where <span class="math inline">\(\overline{\overline{T}}\cdot \vec{n} = \vec{n} \cdot \overline{\overline{T}}\)</span> is surface force, <span class="math inline">\(\overline{\overline{T}}\)</span> is the stress tensor, and <span class="math inline">\(\vec{f}\)</span> indicates the body force.</p>
+<p>Use Reynolds transport theorem to transfer the equation above into the following equation:</p>
+<p><span class="math display">\[
+\eqalign{ {\frac{d}{dt}\int\limits{\textbf{CV}}\vec{V}\rho \ \mathrm{d}\Omega}+\int\limits{\textbf{CS}} \vec{V} \rho \vec{V}\cdot \vec{n}\mathrm{d}S={\int\limits{\textbf{CV}}\vec{f}\rho \ \mathrm{d}\Omega}+{\int\limits{\textbf{CS}}\overline{\overline{T}}\cdot \vec{n}\mathrm{d}S} }
+\]</span></p>
+<p>Again, we apply <strong>divergence theorem</strong> ( <span class="math inline">\(\int\vec{\mathrm{A}} \cdot \vec{n} \ \mathrm{d}S=\int\nabla \cdot \vec{\mathrm{A}} \ \mathrm{d}\Omega\)</span> ) on both side of the equation.</p>
+<p><span class="math display">\[
+\eqalign{ {\frac{d}{dt}\int\limits{\textbf{CV}}\vec{V}\rho \ \mathrm{d}\Omega}+\int\limits{\textbf{CV}} \nabla\cdot(\vec{V} \rho \vec{V})\mathrm{d}\Omega={\int\limits{\textbf{CV}}\vec{f}\rho \ \mathrm{d}\Omega}+{\int\limits{\textbf{CV}}\nabla\cdot\overline{\overline{T}}\mathrm{d}\Omega}} 
+\]</span></p>
+<p>For arbitrary, but fixed control volume, we have the following equation.</p>
+<p><span class="math display">\[
+\eqalign{ {\int\limits\textbf\frac{\partial}{\partial t}(\rho\vec{V}) \ \mathrm{d}\Omega}+\int\limits{\textbf{CV}} \nabla\cdot(\rho\vec{V} \vec{V})\mathrm{d}\Omega={\int\limits{\textbf{CV}} \rho \vec{f} \ \mathrm{d}\Omega}+{\int\limits{\textbf{CV}}\nabla\cdot\overline{\overline{T}}\mathrm{d}\Omega}} 
+\]</span></p>
+<p>and thus,</p>
+<p><span class="math display">\[
+\eqalign{ \frac{\partial}{\partial t}(\rho\vec{V}) +\nabla\cdot(\rho\vec{V} \vec{V})  =\rho\vec{f}   +\nabla\cdot\overline{\overline{T}} }
+\]</span></p>
+<p>Now, we have the <strong>differential form</strong> of the momentum Equations in eulerian description (not restricted to Newtonian fluid).</p>
+<p><span class="math display">\[
+\eqalign{ \frac{\partial}{\partial t}(\rho\vec{V}) +\nabla\cdot(\rho\vec{V} \vec{V}) =\rho\vec{f}  +\nabla\cdot\overline{\overline{T}} }
+\]</span></p>
+<h3 id="newtonian-fluid">Newtonian fluid</h3>
+<p>The stress tensor can be expressed as the sum of two stress tensors, namely: the <strong>hydrostatic stress tensor</strong> and the <strong>deviatoric stress tensor</strong>. Thus, <span class="math inline">\(\overline{\overline{T}}\)</span> is broken down into</p>
+<p><span class="math display">\[
+\eqalign{ \overline{\overline{T}} =T{ij}= -p\delta{ij}+\tau{ij} }
+\]</span></p>
+<p>The second part is called the <strong>deviatoric stress tensor</strong>. For a <strong>Newtonian Fluid</strong>, the deviatoric stress tensor is proportional to the rate of deformation (the change in velocity in the directions of the stress).</p>
+<p><span class="math display">\[
+\eqalign{ \tau{ij} = \mu\left( \frac{\partial ui}{\partial xj}+\frac{\partial uj}{\partial xi}\right)+\lambda\frac{\partial uk}{\partial xk}\delta{ij} }
+\]</span></p>
+<p>The total stress tensor <span class="math inline">\(\overline{\overline{T}}\)</span> is therefore</p>
+<p><span class="math display">\[
+\eqalign{ T{ij} = \left(-p+\lambda\frac{\partial uk}{\partial xk}\right)\delta{ij}+\mu\left( \frac{\partial ui}{\partial xj}+\frac{\partial uj}{\partial xi}\right) } .
+\]</span></p>
+<p>In the vector form</p>
+<p><span class="math display">\[
+\eqalign{ \overline{\overline{T}} = \left(-p+\lambda\nabla \cdot\vec{V}\right)\overline{\overline{I}}+2\mu\overline{\overline{D}} } ,
+\]</span></p>
+<p>where <span class="math inline">\(\overline{\overline{D}}=D{ij}= \frac{1}{2}\left( \frac{\partial ui}{\partial xj}+\frac{\partial uj}{\partial xi}\right)\)</span>.</p>
+<p>Substituting this into the previous equation, we arrive at the momentum equation for a Newtonian fluid:</p>
+<p><span class="math display">\[
+\eqalign{  
+\frac{\partial}{\partial t}(\rho\vec{V}) +\nabla\cdot(\rho\vec{V} \vec{V}) =\rho\vec{f}-\nabla p+\left(\mu+\lambda\right)\nabla\left(\nabla \cdot \vec{V}\right)+\mu\nabla^2\vec{V}  
+} 
+\]</span></p>
+<h3 id="incompressible-flow-1">Incompressible flow</h3>
+<p>Consider the incompressible flow (<span class="math inline">\(\nabla \cdot \vec{V}=0\)</span>) in our applications, we have the following equation.</p>
+<p><span class="math display">\[
+\eqalign{  
+\frac{\partial}{\partial t}(\rho\vec{V}) +\nabla\cdot(\rho\vec{V} \vec{V})=\rho\vec{f} -\nabla p +\mu\nabla^2\vec{V}  
+} 
+\]</span></p>
+<p>Here we obtain the <strong>momentum equation</strong> for the <strong>incompressible flow</strong>.</p>
+<hr />
+<h2 id="navier-stokes-equations">Navier-Stokes Equations</h2>
+<p>Therefore, we have derived the Navier-Stokes Equations of an incompressible flow.</p>
+<p><span class="math display">\[
+\eqalign{ \nabla \cdot \vec{V}=0 },
+\]</span></p>
+<p><span class="math display">\[
+\eqalign{ \frac{\partial}{\partial t}(\rho\vec{V}) +\nabla\cdot(\rho\vec{V} \vec{V}) =\rho\vec{f} -\nabla p +\mu\nabla^2\vec{V} }. 
+\]</span></p>
+<hr />
+<ul>
+<li>Reference:</li>
+</ul>
+<ol type="1">
+<li><a href="https://en.wikipedia.org/wiki/Derivation_of_the_Navier%E2%80%93Stokes_equations" target="_blank" rel="noopener">Derivation of the Navier–Stokes equations</a></li>
+<li><a href="http://andrew.gibiansky.com/downloads/pdf/Fluid%20Dynamics:%20The%20Navier-Stokes%20Equations.pdf" target="_blank" rel="noopener">Fluid Dynamics: The Navier-Stokes Equations</a></li>
+<li><a href="http://web.mit.edu/1.63/www/Lec-notes/chap1_basics/1-6stress-strain.pdf" target="_blank" rel="noopener">Relations between stress and rate-of-strain tensors</a></li>
+<li><a href="https://www.me.psu.edu/cimbala/me320web_Spring_2015/pdf/Reynolds_transport_theorem.pdf" target="_blank" rel="noopener">The Reynolds Transport Theorem</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Volume_viscosity" target="_blank" rel="noopener">Volume viscosity</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Computational-Fluid-Dynamics-CFD/" rel="tag"># Computational Fluid Dynamics (CFD)</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/solving-differential-equations-by-neural-networks/" rel="prev" title="Solving Differential Equations by Neural Networks">
+      <i class="fa fa-chevron-left"></i> Solving Differential Equations by Neural Networks
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/induction-of-moving-particle-semi-implicit-method/" rel="next" title="Introduction of Moving Particle Semi-Implicit Method">
+      Introduction of Moving Particle Semi-Implicit Method <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#assumption"><span class="nav-number">1.</span> <span class="nav-text">Assumption</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reynolds-transport-theorem"><span class="nav-number">2.</span> <span class="nav-text">Reynolds Transport Theorem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conservation-of-mass"><span class="nav-number">3.</span> <span class="nav-text">Conservation of Mass</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#incompressible-flow"><span class="nav-number">3.1.</span> <span class="nav-text">Incompressible flow</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conservation-of-momentum"><span class="nav-number">4.</span> <span class="nav-text">Conservation of Momentum</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#newtonian-fluid"><span class="nav-number">4.1.</span> <span class="nav-text">Newtonian fluid</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#incompressible-flow-1"><span class="nav-number">4.2.</span> <span class="nav-text">Incompressible flow</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#navier-stokes-equations"><span class="nav-number">5.</span> <span class="nav-text">Navier-Stokes Equations</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bing Han Lin</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/BingHanLin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;BingHanLin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jaguar3096@gmail.com" title="E-Mail → mailto:jaguar3096@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bing Han Lin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://i.imgur.com/y3tE8ad.png">
 <meta property="og:image" content="https://i.imgur.com/AQkB43d.png">
 <meta property="article:published_time" content="2019-05-18T11:17:20.000Z">
-<meta property="article:modified_time" content="2020-09-19T15:38:01.149Z">
+<meta property="article:modified_time" content="2020-12-24T15:13:52.266Z">
 <meta property="article:author" content="Bing Han Lin">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-19 23:38:01" itemprop="dateModified" datetime="2020-09-19T23:38:01+08:00">2020-09-19</time>
+                <time title="Modified: 2020-12-24 23:13:52" itemprop="dateModified" datetime="2020-12-24T23:13:52+08:00">2020-12-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -238,8 +238,7 @@
 \eqalign{ \frac{\mathrm{d}\Psi}{\mathrm{d}x}=f(x,\Psi) .}
 \]</span></p>
 <p>Same with the traditional numerical method, we obtain the numerical solution of $(x)$ on a set of grids. The solution is approximated on each grid (node) with neural network architecture, therefore, we have <strong>one input neuron</strong> (or two input neurons for 2D problems), one hidden layer, and <strong>one output neuron</strong> to predict solution (scalar value) of the differential equation on each grid. The architecture of the neural network look likes this:</p>
-<p><img src="https://i.imgur.com/GSxyuba.png" /></p>
-<p>Schematic of NN.</p>
+<p><img src="https://i.imgur.com/GSxyuba.png" /> <em>Schematic of NN</em></p>
 <p>Take initial (IC) or boundary (BC) conditions into account, we choose a form for the trial function <span class="math inline">\(\Psi_t\)</span> such that satisfies the ICs or BCs. This is achieved by writing it as a sum of two terms:</p>
 <p><span class="math display">\[
 \eqalign{  
@@ -278,8 +277,7 @@
 \Psi_{a}(x) = \frac{e^{-x^2}/2}{1+x+x^3}  
 \]</span></p>
 <p>We set up a grid in the range <span class="math inline">\(\left[ 0, 1 \right]\)</span> with 10 nodes and train our <strong>neural network</strong> on these locations. Result of training the neural network for 1000 iterations is shown in the figure below:</p>
-<p><img src="https://i.imgur.com/y3tE8ad.png" /></p>
-<p>Result of predict solution from the neural network.</p>
+<p><img src="https://i.imgur.com/y3tE8ad.png" /> <em>Result of predict solution from the neural network</em></p>
 <p>The result could be improved by many ways such as adding more grid points, adding more neurons in the hidden layer, etc. But this is out of the scope of this post. For the detail of the python code, please refer to <a href="https://github.com/BingHanLin/My_ML_Notes/tree/master/Neural%20Networks%20for%20Differential%20Equations" target="_blank" rel="noopener">here</a>.</p>
 <hr />
 <h2 id="partial-differential-equation">Partial Differential Equation</h2>
@@ -287,7 +285,7 @@
 <h3 id="example-1">Example</h3>
 <p>Consider the following PDE :</p>
 <p><span class="math display">\[
-\nabla{\Psi}^2(x,y) = e^{-x}(x-2+y^3+6y)
+\nabla^2{\Psi}(x,y) = e^{-x}(x-2+y^3+6y)
 \]</span></p>
 <p>and,</p>
 <p><span class="math display">\[
@@ -312,8 +310,7 @@ x,y \in \left[ 0,1 \right]
 \eqalign{\Psi_{a}(x, y) = e^{-x}(x+y^3)}
 \]</span></p>
 <p>We set up a mesh grid in the range of $x,y $ with 100 uniform distribution points. Result of training the neural network for 500 iterations is shown in the figure below:</p>
-<p><img src="https://i.imgur.com/AQkB43d.png" /></p>
-<p>Result of predict solution from the neural network.</p>
+<p><img src="https://i.imgur.com/AQkB43d.png" /> <em>Result of predict solution from the neural network</em></p>
 <p>For the detail of the python code, please refer to <a href="https://github.com/BingHanLin/My_ML_Notes/tree/master/Neural%20Networks%20for%20Differential%20Equations" target="_blank" rel="noopener">here</a>.</p>
 <hr />
 <ul>
@@ -345,8 +342,8 @@ x,y \in \left[ 0,1 \right]
       <i class="fa fa-chevron-left"></i> OpenFOAM: Extracting Numerical Data From  Case
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/Iterative-Methods-Based-On-Splitting-Matrix/" rel="next" title="Iterative Methods Based On Splitting Matrix">
-      Iterative Methods Based On Splitting Matrix <i class="fa fa-chevron-right"></i>
+    <a href="/2019/derivation-of-the-navier-stokes-equations/" rel="next" title="Derivation of the Navier–Stokes equations">
+      Derivation of the Navier–Stokes equations <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -420,7 +417,7 @@ x,y \in \left[ 0,1 \right]
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -433,7 +430,7 @@ x,y \in \left[ 0,1 \right]
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
