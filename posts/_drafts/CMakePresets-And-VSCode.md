@@ -50,14 +50,18 @@ To complete the tutorial in the following section, install the following:
 3. [CMake Tools extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools).
 4. CMake 3.20 above.
 5. Visual Studio build tool.
+## Enable CMake Preset option
+First of all, you need to enablbe CMake preset option in **CMake Tools** settings section. Change the value to **always** to use CMake preset file explicitly.
 
+| Setting | Description | Accepted values  |
+|:--------:|:-------:|:------:|
+| cmake.useCMakePresets    | Use CMakePresets.json to drive CMake configure, build, and test   | always, never, auto    |
 
 ## Prepare CMake Porject
-
-* Add a source code file: Create a new file and name the file **helloworld.cpp**.
+* Add a source code file: Create a new file and name the file **helloWorld.cpp**.
 
   ``` cpp
-  # helloworld.cpp
+  # helloWorld.cpp
 
   #include <iostream>
   #include <vector>
@@ -88,17 +92,19 @@ Now, the directory structure looks like:
     |--
 
 ```
-
-## Enable CMake Preset option
-
-First of all, you need to enablbe CMake preset option in CMake Tools settings section. Change the value to **always** to use CMake preset file explicitly.
-
-| Setting | Description | Accepted values  |
-|:--------:|:-------:|:------:|
-| cmake.useCMakePresets    | Use CMakePresets.json to drive CMake configure, build, and test   | always, never, auto    |
+## Configure And Build
+### Create Presets
+Run **CMake: Add Configure Preset** from the command palette. It provides three ways to generate the configure preset. With Visual Studio build tool installed on your computer, CMake Tools lists the available kits for preset. Select one of the kit from the list to create CMakePresets.json in the root directory. In this article we choose Visual Studio 2019 x64 for the preset, both configure preset and build preset are generate in the CMakePresets.json. Run **CMake: Add Configure Preset** from the command palette to add build preset  in CMakePresets.json directly.
 
 
-## Configure CMake Project
+### Configure CMake Project
+Run **CMake: Select Configure Preset** and select one of the configure presets defined in the CMakePresets.json and CMakeUserPresets.json. To configure the project, run **CMake: Configure** to configure the project with the active configure preset. This is the same as running **cmake --preset <configurePreset>** from the command line. The configuration files will be created in **binaryDir** defined in the configure preset.
+
+### Build CMake Project
+Run **CMake: Select Build Preset** and select one of the build presets defined in the CMakePresets.json and CMakeUserPresets.json. To build the project, run **CMake: Build** to build the project with the active budil preset. This is the same as running **cmake --build --preset <buildPreset>** from the command line. The binary files will be created in **binaryDir** defined in the configure preset.
+
+
+# Debugging Program
 
 # Reference
 ----------
@@ -107,3 +113,4 @@ https://code.visualstudio.com/docs/cpp/cmake-linux
 https://www.nanoframework.net/build-updated-to-cmake-presets/
 https://pspdfkit.com/blog/2021/cmake-presets-in-practice/
 https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html
+https://vector-of-bool.github.io/docs/vscode-cmake-tools/index.html
