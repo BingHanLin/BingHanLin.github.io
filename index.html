@@ -1,731 +1,1172 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="BHL Notes">
 <meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="BHL Notes">
 <meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="Bing Han Lin">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<link rel="canonical" href="http://example.com/">
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'en'
+  };
+</script>
+
+  <title>BHL Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BHL Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">MY LEARNING TRAJECTORY</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
       
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
   
-    <article id="post-2022/CMakePresets-And-VSCode" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2022/12/22/2022/CMakePresets-And-VSCode/" class="article-date">
-  <time datetime="2022-12-22T01:00:00.000Z" itemprop="datePublished">2022-12-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/12/22/2022/CMakePresets-And-VSCode/">Configure and build with CMake Presets in Visual Studio Code</a>
-    </h1>
-  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/22/2022/CMakePresets-And-VSCode/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/22/2022/CMakePresets-And-VSCode/" class="post-title-link" itemprop="url">Configure and build with CMake Presets in Visual Studio Code</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-12-22 09:00:00" itemprop="dateCreated datePublished" datetime="2022-12-22T09:00:00+08:00">2022-12-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-11 17:25:09" itemprop="dateModified" datetime="2022-12-11T17:25:09+08:00">2022-12-11</time>
+              </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h1 id="CMake-presets"><a href="#CMake-presets" class="headerlink" title="CMake presets"></a>CMake presets</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>CMake presets are a collection of configuration, build and test options for a CMake project. These options are described in two JSON files named <strong>CMakePreset.json</strong> and <strong>CMakeUserPresets.json</strong> respectively. They both live in the project’s root directory and have exactly the same schema. The difference between them is that the former is meant to specify <strong>project-wide</strong> build details, while the latter is meant for <strong>developers own local build details</strong>.</p>
-<p>Therefore, the common options that shared with others are written in the <strong>CMakePreset.json</strong> and can be commited into version control. The specific options are defined by each developers in <strong>CMakeUserPresets.json</strong>, and for this reason, it’s important not to add <strong>CMakeUserPresets.json</strong> into version control.</p>
-<p>This enables developers to share build knowledge both with others and with build instances such as continuous integration (CI).</p>
-<h2 id="CMake-Preset-Sections"><a href="#CMake-Preset-Sections" class="headerlink" title="CMake Preset Sections"></a>CMake Preset Sections</h2><p>The CMake presets files are JSON documents with an object as the root and describe the following sections: </p>
-<ul>
-<li><p>Configuration: The data that’s normally passed on the command line to the CMake executable. Examples of this include options, environment variables, toolchain information, and generator information (Visual Studio&#x2F;Xcode projects).</p>
-</li>
-<li><p>Build: A list of targets to build, along with other minor build options describing how to drive the compiler.</p>
-</li>
-<li><p>Test: Instructions on how to execute CTest. Information such as which tests to run, how to output the results, and what to do when a failure occurs.</p>
-</li>
-</ul>
-<h2 id="CMake-Presets-Inheritance"><a href="#CMake-Presets-Inheritance" class="headerlink" title="CMake Presets Inheritance"></a>CMake Presets Inheritance</h2><p>A preset can inherit from another preset that is defined in the same file or in the files it <strong>includes</strong> with unlimited levels. The preset will inherit all of the fields from the inherits presets by default (except name description, and displayName), but can override them as desired.</p>
-<p>If CMakePresets.json and CMakeUserPresets.json are both present in the same directory, CMakeUserPresets.json <strong>implicitly includes</strong> CMakePresets.json. Then presets in CMakePresets.json may be inherited by presets in CMakeUserPresets.json.</p>
-<h2 id="Better-Integration-with-IDEs"><a href="#Better-Integration-with-IDEs" class="headerlink" title="Better Integration with IDEs"></a>Better Integration with IDEs</h2><p>With CMake presets, all the dependencies and recipes are held in a parsable JSON format, meaning that tools can read them, too. Besides passing CMake presets to CMake CLI directly, many IDEs start to integrate CMake presets in their tools. Microsoft start CMake presets support in <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/cpp/build/cmake-presets-vs?view=msvc-170">Visual Studio 2019</a>  and <a target="_blank" rel="noopener" href="https://github.com/microsoft/vscode-cmake-tools">VS Code CMake plugin</a>. JetBrains team also brings this feature to [CLion].(<a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/clion/cmake-presets.html">https://www.jetbrains.com/help/clion/cmake-presets.html</a>).</p>
-<p>Every developer can choose what text editors, IDEs, and tools they want to use to perform their job. That means we have many people working on&#x2F;with different platforms, , etc.</p>
-<p>All this means less setup for the developer, less chance of human error and making sure we’re all developing with reproducible results. The final directory structure will becomes:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">--|</span><br><span class="line">  |--.vscode</span><br><span class="line">  |  |</span><br><span class="line">  |  |--launch.json</span><br><span class="line">  |</span><br><span class="line">  |--helloWorld.cpp</span><br><span class="line">  |--CMakeLists.txt</span><br><span class="line">  |--CMakePresets.json</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="Using-CMake-Presets-in-Visual-Studio-Code"><a href="#Using-CMake-Presets-in-Visual-Studio-Code" class="headerlink" title="Using CMake Presets in Visual Studio Code"></a>Using CMake Presets in Visual Studio Code</h1><p>In this secion, i will show you using Visual Studio Code and it extension to configurate and build a simple CMake project with CMake presets.</p>
-<h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><p>To complete the tutorial in the following section, install the following:</p>
-<ol>
-<li><a target="_blank" rel="noopener" href="https://code.visualstudio.com/download">Visual Studio Code</a>.</li>
-<li><a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools">C++ extension for VS Code</a>.</li>
-<li><a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools">CMake Tools extension for VS Code</a>.</li>
-<li>CMake 3.20 above.</li>
-<li>Visual Studio build tool.</li>
-</ol>
-<h2 id="Enable-CMake-Preset-option"><a href="#Enable-CMake-Preset-option" class="headerlink" title="Enable CMake Preset option"></a>Enable CMake Preset option</h2><p>First of all, you need to enablbe CMake preset option in <strong>CMake Tools</strong> settings section. Change the value to <strong>always</strong> to use CMake preset file explicitly.</p>
-<table>
-<thead>
-<tr>
-<th align="center">Setting</th>
-<th align="center">Description</th>
-<th align="center">Accepted values</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">cmake.useCMakePresets</td>
-<td align="center">Use CMakePresets.json to drive CMake configure, build, and test</td>
-<td align="center">always, never, auto</td>
-</tr>
-</tbody></table>
-<h2 id="Prepare-CMake-Porject"><a href="#Prepare-CMake-Porject" class="headerlink" title="Prepare CMake Porject"></a>Prepare CMake Porject</h2><ul>
-<li><p><strong>Add a source code file:</strong> Create a new file and name the file <strong>helloWorld.cpp</strong>. Here i display a cylinder in VTK interactive render window.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vtkActor.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vtkCamera.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vtkCylinderSource.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vtkNew.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vtkPolyDataMapper.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vtkProperty.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vtkRenderWindow.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vtkRenderWindowInteractor.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vtkRenderer.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span>, <span class="type">char</span> *[])</span> </span>&#123;</span><br><span class="line">  vtkNew&lt;vtkCylinderSource&gt; cylinder;</span><br><span class="line">  cylinder-&gt;<span class="built_in">SetResolution</span>(<span class="number">8</span>);</span><br><span class="line"></span><br><span class="line">  vtkNew&lt;vtkPolyDataMapper&gt; cylinderMapper;</span><br><span class="line">  cylinderMapper-&gt;<span class="built_in">SetInputConnection</span>(cylinder-&gt;<span class="built_in">GetOutputPort</span>());</span><br><span class="line"></span><br><span class="line">  vtkNew&lt;vtkActor&gt; cylinderActor;</span><br><span class="line">  cylinderActor-&gt;<span class="built_in">SetMapper</span>(cylinderMapper);</span><br><span class="line">  cylinderActor-&gt;<span class="built_in">RotateX</span>(<span class="number">30.0</span>);</span><br><span class="line">  cylinderActor-&gt;<span class="built_in">RotateY</span>(<span class="number">-45.0</span>);</span><br><span class="line"></span><br><span class="line">  vtkNew&lt;vtkRenderer&gt; renderer;</span><br><span class="line">  renderer-&gt;<span class="built_in">AddActor</span>(cylinderActor);</span><br><span class="line">  renderer-&gt;<span class="built_in">ResetCamera</span>();</span><br><span class="line">  renderer-&gt;<span class="built_in">GetActiveCamera</span>()-&gt;<span class="built_in">Zoom</span>(<span class="number">1.5</span>);</span><br><span class="line"></span><br><span class="line">  vtkNew&lt;vtkRenderWindow&gt; renderWindow;</span><br><span class="line">  renderWindow-&gt;<span class="built_in">SetSize</span>(<span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line">  renderWindow-&gt;<span class="built_in">AddRenderer</span>(renderer);</span><br><span class="line">  renderWindow-&gt;<span class="built_in">SetWindowName</span>(<span class="string">&quot;Cylinder&quot;</span>);</span><br><span class="line"></span><br><span class="line">  vtkNew&lt;vtkRenderWindowInteractor&gt; renderWindowInteractor;</span><br><span class="line">  renderWindowInteractor-&gt;<span class="built_in">SetRenderWindow</span>(renderWindow);</span><br><span class="line"></span><br><span class="line">  renderWindow-&gt;<span class="built_in">Render</span>();</span><br><span class="line">  renderWindowInteractor-&gt;<span class="built_in">Start</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Add CMakeLists.txt:</strong> Create a CMakeLists.txt file in root directory with the following content.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.20.0)</span><br><span class="line"></span><br><span class="line">project(helloWorld LANGUAGES CXX)</span><br><span class="line"></span><br><span class="line">find_package(VTK COMPONENTS </span><br><span class="line">    vtkCommonColor</span><br><span class="line">    vtkCommonCore</span><br><span class="line">    vtkFiltersSources</span><br><span class="line">    vtkInteractionStyle</span><br><span class="line">    vtkRenderingContextOpenGL2</span><br><span class="line">    vtkRenderingCore</span><br><span class="line">    vtkRenderingFreeType</span><br><span class="line">    vtkRenderingGL2PSOpenGL2</span><br><span class="line">    vtkRenderingOpenGL2</span><br><span class="line">    QUIET</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">set(CMAKE_CXX_STANDARD 17)</span><br><span class="line"></span><br><span class="line">set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  $&#123;PROJECT_BINARY_DIR&#125;/bin)</span><br><span class="line">set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $&#123;PROJECT_BINARY_DIR&#125;/lib )</span><br><span class="line"></span><br><span class="line">add_executable($&#123;PROJECT_NAME&#125;  </span><br><span class="line">    helloWorld.cpp</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">target_link_libraries($&#123;PROJECT_NAME&#125; </span><br><span class="line">    PRIVATE </span><br><span class="line">        $&#123;VTK_LIBRARIES&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">vtk_module_autoinit(</span><br><span class="line">    TARGETS $&#123;PROJECT_NAME&#125;</span><br><span class="line">    MODULES $&#123;VTK_LIBRARIES&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>Now, the directory structure looks like:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--|</span><br><span class="line">  |--helloWorld.cpp</span><br><span class="line">  |--CMakeLists.txt</span><br></pre></td></tr></table></figure>
-<h2 id="Configure-And-Build"><a href="#Configure-And-Build" class="headerlink" title="Configure And Build"></a>Configure And Build</h2><h3 id="Create-Presets"><a href="#Create-Presets" class="headerlink" title="Create Presets"></a>Create Presets</h3><p>Run <strong>CMake: Add Configure Preset</strong> from the command palette and choose <strong>Create from compilers</strong>. With Visual Studio build tool installed on your computer, CMake Tools lists the available kits for preset. Select one of the kit from the list to create CMakePresets.json in the root directory. In this article i choose <strong>Visual Studio 2019 x64</strong> for the preset, both configure preset and build preset are generate in the CMakePresets.json.</p>
-<p><img src="/../../assets/CMakePresets-And-VSCode/cmake-add-presets.png"></p>
-<p>Now, you have a CMakePresets.json similar to the json data below. Remember to add <strong>VTK_DIR</strong> in  section <strong>cacheVariable</strong>, so VTK　library can be found. If you want to output the binary files in specific place, modify the value in key <strong>binaryDir</strong>.</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;configurePresets&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;VS2019_x64&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Visual Studio Community 2019 Release - amd64&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Using compilers for Visual Studio 16 2019 (x64 architecture)&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;generator&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Visual Studio 16 2019&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;toolset&quot;</span><span class="punctuation">:</span> <span class="string">&quot;host=x64&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;architecture&quot;</span><span class="punctuation">:</span> <span class="string">&quot;x64&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;binaryDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;sourceDir&#125;/out/build/$&#123;presetName&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;cacheVariables&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;VTK_DIR&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&lt;PATH_TO_YOUR_VTK_DIR&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;CMAKE_INSTALL_PREFIX&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;sourceDir&#125;/out/install/$&#123;presetName&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;CMAKE_C_COMPILER&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cl.exe&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;CMAKE_CXX_COMPILER&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cl.exe&quot;</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;buildPresets&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;VS2019_x64-debug&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Visual Studio Community 2019 Release - amd64 - Debug&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;configurePreset&quot;</span><span class="punctuation">:</span> <span class="string">&quot;VS2019_x64&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;configuration&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Debug&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>The directory structure after this ste is:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--|</span><br><span class="line">  |--helloWorld.cpp</span><br><span class="line">  |--CMakeLists.txt</span><br><span class="line">  |--CMakePresets.json</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="Configure-CMake-Project"><a href="#Configure-CMake-Project" class="headerlink" title="Configure CMake Project"></a>Configure CMake Project</h3><p>Run <strong>CMake: Select Configure Preset</strong> and select one of the configure presets defined in the CMakePresets.json and CMakeUserPresets.json. To configure the project, run <strong>CMake: Configure</strong> to configure the project with the active configure preset. This is the same as running <strong>cmake –preset <configurePreset></strong> from the command line. The configuration files will be created in <strong>binaryDir</strong> defined in the configure preset.</p>
-<h3 id="Build-CMake-Project"><a href="#Build-CMake-Project" class="headerlink" title="Build CMake Project"></a>Build CMake Project</h3><p>Run <strong>CMake: Select Build Preset</strong> and select one of the build presets defined in the CMakePresets.json and CMakeUserPresets.json. To build the project, run <strong>CMake: Build</strong> to build the project with the active budil preset. This is the same as running <strong>cmake –build –preset <buildPreset></strong> from the command line. The binary files will be created in <strong>binaryDir</strong> defined in the configure preset.</p>
-<h1 id="Run-And-Debug"><a href="#Run-And-Debug" class="headerlink" title="Run And Debug"></a>Run And Debug</h1><p>After the project are built, the developer would like to test and debug the progarm. Visual Studio Code supports the debugging function with the following debuggers for C&#x2F;C++:</p>
-<ul>
-<li><strong>Linux:</strong> GDB</li>
-<li><strong>macOS:</strong> LLDB or GDB</li>
-<li><strong>Windows:</strong> the Visual Studio Windows Debugger or GDB (using Cygwin or MinGW)</li>
-</ul>
-<p>The launch.json file in .vscode folder is used to set up the basics of your debugger and debugging environment. To add a debug configuration, run <strong>C&#x2F;C++: Add Debug Configuration</strong> and select your prefer configuration. In this article, i choose,<strong>(Windows) Launch</strong>, the default configuration for Windows as our debug configuration. Then change the three places in the launch.json file:</p>
-<ul>
-<li><strong>program</strong>: The executable or file to run when launching the debugger. Set it to <code>&quot;$&#123;command:cmake.launchTargetPath&#125;&quot;</code>.</li>
-<li><strong>program</strong>: The working directory for finding dependencies and other files. Set it to <code>&quot;$&#123;command:cmake.launchTargetDirectory&#125;&quot;</code>.</li>
-<li><strong>environment</strong>: The environment variables settings. Add the path of directory contains VTK dlls, so the program can load the library when debugging.</li>
-</ul>
-<p>Below is an example of debug configuration using in this article:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;(Windows) Launch&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cppvsdbg&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;request&quot;</span><span class="punctuation">:</span> <span class="string">&quot;launch&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;program&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;command:cmake.launchTargetPath&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;stopAtEntry&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;cwd&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;command:cmake.launchTargetDirectory&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;environment&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PATH&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$PATH;$&#123;command:cmake.launchTargetDirectory&#125;;&lt;PATH_TO_YOUR_VTK_BIN_DIR&gt;&quot;</span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;console&quot;</span><span class="punctuation">:</span> <span class="string">&quot;externalTerminal&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2.0.0&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>For more information about Visual Studio Code debugging, please visit <a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/cpp-debug">link</a>.</p>
-<p>Choose the debug configuration and start the program. Our hello world program is executed under the enviroment defined above.</p>
-<p><img src="/../../assets/CMakePresets-And-VSCode/debug.png"></p>
-<p><img src="/../../assets/CMakePresets-And-VSCode/run.png"></p>
-<p>Conclusion<br>I hope you now understand how to use CMake presets in in Visual Studio Code. CMake Preset ensure that multiple configurations remain consistent among the developers and reduce number of mistakes that may occur. CMake Tools extension provide many convient method to work with CMake Preset in Visual Studio Code. Using them properly can increase can reduce simplicity for everyone working on the project!</p>
-<p>Many topics can’t be covered in this article, such as CMake Presets Inheritance, CMakeUserPresets.json and debugger extensions. These topic can be found in the reference list.</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html">https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html</a><br><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/cmake-linux">https://code.visualstudio.com/docs/cpp/cmake-linux</a><br><a target="_blank" rel="noopener" href="https://github.com/microsoft/vscode-cmake-tools">https://github.com/microsoft/vscode-cmake-tools</a><br><a target="_blank" rel="noopener" href="https://vector-of-bool.github.io/docs/vscode-cmake-tools/index.html">https://vector-of-bool.github.io/docs/vscode-cmake-tools/index.html</a><br><a target="_blank" rel="noopener" href="https://www.kdab.com/the-power-of-cmake-presets/">https://www.kdab.com/the-power-of-cmake-presets/</a><br><a target="_blank" rel="noopener" href="https://www.nanoframework.net/build-updated-to-cmake-presets/">https://www.nanoframework.net/build-updated-to-cmake-presets/</a><br><a target="_blank" rel="noopener" href="https://pspdfkit.com/blog/2021/cmake-presets-in-practice/">https://pspdfkit.com/blog/2021/cmake-presets-in-practice/</a><br><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/debugging#_debugger-extensions">https://code.visualstudio.com/docs/editor/debugging#_debugger-extensions</a></p>
-
+          <h1 id="CMake-presets"><a href="#CMake-presets" class="headerlink" title="CMake presets"></a>CMake presets</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>CMake presets are a collection of configuration, build and test options for a CMake project. These options are described in two JSON files named <strong>CMakePreset.json</strong> and <strong>CMakeUserPresets.json</strong> respectively. They both live in the project’s root directory and have exactly the same schema. The difference between them is that the former is meant to specify <strong>project-wide</strong> build details, while the latter is meant for <strong>developers own local build details</strong>.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/12/22/2022/CMakePresets-And-VSCode/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/12/22/2022/CMakePresets-And-VSCode/" data-id="clbj57j7z000jw4ufgu135eqd" class="article-share-link">Share</a>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Uncategorized/" rel="tag">Uncategorized</a></li></ul>
-
-    </footer>
-  </div>
   
-</article>
-
-
   
-    <article id="post-2020/Iterative-Methods-Based-On-Splitting-Matrix" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/" class="article-date">
-  <time datetime="2020-10-04T01:00:36.000Z" itemprop="datePublished">2020-10-04</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Uncategorized/">Uncategorized</a>
-  </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/">Iterative Methods Based On Splitting Matrix</a>
-    </h1>
-  
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
 
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/" class="post-title-link" itemprop="url">Iterative Methods Based On Splitting Matrix</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-04 09:00:36" itemprop="dateCreated datePublished" datetime="2020-10-04T09:00:36+08:00">2020-10-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-11 16:33:56" itemprop="dateModified" datetime="2022-12-11T16:33:56+08:00">2022-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Uncategorized/" itemprop="url" rel="index"><span itemprop="name">Uncategorized</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Consider the linear equation system</p>
+          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Consider the linear equation system</p>
 <p>$$<br>\eqalign{\mathbf{Ax &#x3D; b} }<br>$$</p>
 <p>where $\mathbf{A} \in \mathcal{R}^{n \times n}$ is a nonsigular matrix and $\mathbf{x}$ , $\mathbf{b} \in \mathcal{R}^{n}$.</p>
 <p>A large class of iterative methods for solving linear equation system involve splitting the matrix $\mathbf{A}$ into the difference between two new matrices $\mathbf{S}$ and $\mathbf{T}$ :</p>
-        
-          <p class="article-more-link">
-            <a href="/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/#more">Read More</a>
-          </p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
         
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/" data-id="clbj57j80000kw4ufazeheilh" class="article-share-link">Share</a>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Numerical-Method/" rel="tag">Numerical Method</a></li></ul>
-
-    </footer>
-  </div>
   
-</article>
-
-
   
-    <article id="post-2019/induction-of-moving-particle-semi-implicit-method" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/" class="article-date">
-  <time datetime="2019-09-14T15:29:31.000Z" itemprop="datePublished">2019-09-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/">Introduction of Moving Particle Semi-Implicit Method</a>
-    </h1>
-  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/" class="post-title-link" itemprop="url">Introduction of Moving Particle Semi-Implicit Method</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-09-14 23:29:31" itemprop="dateCreated datePublished" datetime="2019-09-14T23:29:31+08:00">2019-09-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-11 16:33:56" itemprop="dateModified" datetime="2022-12-11T16:33:56+08:00">2022-12-11</time>
+              </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="Governing-Equations"><a href="#Governing-Equations" class="headerlink" title="Governing Equations"></a>Governing Equations</h2><p>Governing equations are expressed by conservation of mass and momentum. The equations are:</p>
+          <h2 id="Governing-Equations"><a href="#Governing-Equations" class="headerlink" title="Governing Equations"></a>Governing Equations</h2><p>Governing equations are expressed by conservation of mass and momentum. The equations are:</p>
 <p>$$<br>\eqalign{ \frac{D\rho}{Dt}+\rho \nabla \cdot \mathbf{u} &#x3D;0 }<br>$$</p>
 <p>and</p>
 <p>$$<br>\eqalign{ \frac{D \mathbf{u} }{Dt}&#x3D;-\frac{1}{\rho}\nabla P +\nu \nabla^2 \mathbf{u} +\mathbf{f} }<br>$$</p>
 <p>where $\rho$ indicates density, $P$ is the pressure, $\mathbf{u}$ the velocity and $\mathbf{f}$ the external force. It should be noted that the first equation is written in the form of compressible flow. In the MPS method, <strong>incompressibility is enforced by way of setting $\frac{ D \rho}{D t}&#x3D;0$ at each particle at each calculation time step</strong>.</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/#more">Read More</a>
-          </p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
         
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/" data-id="clbj57j7w000aw4uf9zcth4hu" class="article-share-link">Share</a>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Computational-Fluid-Dynamics-CFD/" rel="tag">Computational Fluid Dynamics (CFD)</a></li></ul>
-
-    </footer>
-  </div>
   
-</article>
-
-
   
-    <article id="post-2019/solving-differential-equations-by-neural-networks" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/18/2019/solving-differential-equations-by-neural-networks/" class="article-date">
-  <time datetime="2019-05-18T11:17:20.000Z" itemprop="datePublished">2019-05-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Machine-Learning-Note/">Machine Learning Note</a>
-  </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/05/18/2019/solving-differential-equations-by-neural-networks/">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/18/2019/solving-differential-equations-by-neural-networks/">Solving Differential Equations by Neural Networks</a>
-    </h1>
-  
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
 
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/18/2019/solving-differential-equations-by-neural-networks/" class="post-title-link" itemprop="url">Solving Differential Equations by Neural Networks</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-05-18 19:17:20" itemprop="dateCreated datePublished" datetime="2019-05-18T19:17:20+08:00">2019-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-11 16:33:56" itemprop="dateModified" datetime="2022-12-11T16:33:56+08:00">2022-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning-Note/" itemprop="url" rel="index"><span itemprop="name">Machine Learning Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can learn (fit) patterns from data with the complicated distribution. With the same concept, train a Neural network to fit the differential equations could also be possible. In this post, I want to show how to applied a simple feed-forward NNs to solve differential equations (ODE, PDE).</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/18/2019/solving-differential-equations-by-neural-networks/#more">Read More</a>
-          </p>
+          <p>Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can learn (fit) patterns from data with the complicated distribution. With the same concept, train a Neural network to fit the differential equations could also be possible. In this post, I want to show how to applied a simple feed-forward NNs to solve differential equations (ODE, PDE).</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/05/18/2019/solving-differential-equations-by-neural-networks/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
         
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/05/18/2019/solving-differential-equations-by-neural-networks/" data-id="clbj57j7s0003w4uf5xhphtjh" class="article-share-link">Share</a>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li></ul>
-
-    </footer>
-  </div>
   
-</article>
-
-
   
-    <article id="post-2019/openfoam-tutorial-extracting-numerical-data-from-case" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/" class="article-date">
-  <time datetime="2019-04-23T03:24:09.000Z" itemprop="datePublished">2019-04-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a>
-  </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/">OpenFOAM: Extracting Numerical Data From  Case</a>
-    </h1>
-  
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
 
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/" class="post-title-link" itemprop="url">OpenFOAM: Extracting Numerical Data From  Case</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-23 11:24:09" itemprop="dateCreated datePublished" datetime="2019-04-23T11:24:09+08:00">2019-04-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-11 16:33:56" itemprop="dateModified" datetime="2022-12-11T16:33:56+08:00">2022-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenFOAM-Note/" itemprop="url" rel="index"><span itemprop="name">OpenFOAM Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="Run-time-data-processing"><a href="#Run-time-data-processing" class="headerlink" title="Run-time data processing"></a>Run-time data processing</h2><p>When we want to process data <strong>during a simulation</strong>, they need to configure the case accordingly. The two possible configuration processes are shown as follows, using an example of monitoring <strong>flow rate</strong> at an outlet patch named <strong>outlet</strong>.</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/#more">Read More</a>
-          </p>
+          <h2 id="Run-time-data-processing"><a href="#Run-time-data-processing" class="headerlink" title="Run-time data processing"></a>Run-time data processing</h2><p>When we want to process data <strong>during a simulation</strong>, they need to configure the case accordingly. The two possible configuration processes are shown as follows, using an example of monitoring <strong>flow rate</strong> at an outlet patch named <strong>outlet</strong>.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
         
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/" data-id="clbj57j7p0001w4ufb7q7c9xf" class="article-share-link">Share</a>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li></ul>
-
-    </footer>
-  </div>
   
-</article>
-
-
   
-    <article id="post-2019/openfoam-sampling-and-monitoring-data" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/04/2019/openfoam-sampling-and-monitoring-data/" class="article-date">
-  <time datetime="2019-04-04T00:32:02.000Z" itemprop="datePublished">2019-04-04</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a>
-  </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/04/04/2019/openfoam-sampling-and-monitoring-data/">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/04/2019/openfoam-sampling-and-monitoring-data/">OpenFOAM: Sampling and Monitoring Data</a>
-    </h1>
-  
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
 
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/04/2019/openfoam-sampling-and-monitoring-data/" class="post-title-link" itemprop="url">OpenFOAM: Sampling and Monitoring Data</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-04 08:32:02" itemprop="dateCreated datePublished" datetime="2019-04-04T08:32:02+08:00">2019-04-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-11 16:33:56" itemprop="dateModified" datetime="2022-12-11T16:33:56+08:00">2022-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenFOAM-Note/" itemprop="url" rel="index"><span itemprop="name">OpenFOAM Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>There are a set of general post-processing functions for sampling data across the domain for graphs and visualization. In this article, we use the <em>lid-driven cavity</em> case set up in the tutorial to demonstrate these post-processing functions.</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/04/04/2019/openfoam-sampling-and-monitoring-data/#more">Read More</a>
-          </p>
+          <p>There are a set of general post-processing functions for sampling data across the domain for graphs and visualization. In this article, we use the <em>lid-driven cavity</em> case set up in the tutorial to demonstrate these post-processing functions.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/04/04/2019/openfoam-sampling-and-monitoring-data/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
         
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/04/04/2019/openfoam-sampling-and-monitoring-data/" data-id="clbj57j7u0005w4uf2jxrfqdf" class="article-share-link">Share</a>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li></ul>
-
-    </footer>
-  </div>
   
-</article>
-
-
   
-    <article id="post-2018/openfoam-tutorial-lid-driven-cavity" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/10/2018/openfoam-tutorial-lid-driven-cavity/" class="article-date">
-  <time datetime="2018-07-09T17:26:47.000Z" itemprop="datePublished">2018-07-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a>
-  </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/07/10/2018/openfoam-tutorial-lid-driven-cavity/">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/10/2018/openfoam-tutorial-lid-driven-cavity/">OpenFOAM Tutorial - Lid Driven Cavity</a>
-    </h1>
-  
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
 
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/07/10/2018/openfoam-tutorial-lid-driven-cavity/" class="post-title-link" itemprop="url">OpenFOAM Tutorial - Lid Driven Cavity</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-10 01:26:47" itemprop="dateCreated datePublished" datetime="2018-07-10T01:26:47+08:00">2018-07-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-11 16:33:56" itemprop="dateModified" datetime="2022-12-11T16:33:56+08:00">2022-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenFOAM-Note/" itemprop="url" rel="index"><span itemprop="name">OpenFOAM Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="Lid-driven-cavity-flow"><a href="#Lid-driven-cavity-flow" class="headerlink" title="Lid-driven cavity flow"></a>Lid-driven cavity flow</h2><p>The lid-driven cavity flow tutorial is the easiest and most well documented tutorial on OpenFOAM. A incompressible flow in a two-dimensional square domain is shown in figure below. The top wall moves in the $x$-direction at a speed of 1 m&#x2F;s while the other 3 are stationary. Initially, the flow will be assumed laminar and will be solved on a uniform and non mesh using the <strong>icoFoam</strong> solver for laminar, isothermal, incompressible flow. Then, the effect of increased mesh resolution and mesh grading towards the walls will be investigated.</p>
-        
-          <p class="article-more-link">
-            <a href="/2018/07/10/2018/openfoam-tutorial-lid-driven-cavity/#more">Read More</a>
-          </p>
+          <h2 id="Lid-driven-cavity-flow"><a href="#Lid-driven-cavity-flow" class="headerlink" title="Lid-driven cavity flow"></a>Lid-driven cavity flow</h2><p>The lid-driven cavity flow tutorial is the easiest and most well documented tutorial on OpenFOAM. A incompressible flow in a two-dimensional square domain is shown in figure below. The top wall moves in the $x$-direction at a speed of 1 m&#x2F;s while the other 3 are stationary. Initially, the flow will be assumed laminar and will be solved on a uniform and non mesh using the <strong>icoFoam</strong> solver for laminar, isothermal, incompressible flow. Then, the effect of increased mesh resolution and mesh grading towards the walls will be investigated.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/07/10/2018/openfoam-tutorial-lid-driven-cavity/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
         
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2018/07/10/2018/openfoam-tutorial-lid-driven-cavity/" data-id="clbj57j7x000dw4ufd270bgkf" class="article-share-link">Share</a>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li></ul>
-
-    </footer>
-  </div>
   
-</article>
-
-
   
-    <article id="post-2018/file-structure-of-openfoam" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/11/2018/file-structure-of-openfoam/" class="article-date">
-  <time datetime="2018-06-11T11:15:22.000Z" itemprop="datePublished">2018-06-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a>
-  </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/06/11/2018/file-structure-of-openfoam/">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/11/2018/file-structure-of-openfoam/">File Structure of OpenFOAM</a>
-    </h1>
-  
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
 
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/06/11/2018/file-structure-of-openfoam/" class="post-title-link" itemprop="url">File Structure of OpenFOAM</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-11 19:15:22" itemprop="dateCreated datePublished" datetime="2018-06-11T19:15:22+08:00">2018-06-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-11 16:33:56" itemprop="dateModified" datetime="2022-12-11T16:33:56+08:00">2022-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenFOAM-Note/" itemprop="url" rel="index"><span itemprop="name">OpenFOAM Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="Installation-directory"><a href="#Installation-directory" class="headerlink" title="Installation directory"></a>Installation directory</h2><p>Let’s start from the installation dirctory, you can use the Linux command <strong>“tree”</strong> to examine the source code directory organization.</p>
-        
-          <p class="article-more-link">
-            <a href="/2018/06/11/2018/file-structure-of-openfoam/#more">Read More</a>
-          </p>
+          <h2 id="Installation-directory"><a href="#Installation-directory" class="headerlink" title="Installation directory"></a>Installation directory</h2><p>Let’s start from the installation dirctory, you can use the Linux command <strong>“tree”</strong> to examine the source code directory organization.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/06/11/2018/file-structure-of-openfoam/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
         
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2018/06/11/2018/file-structure-of-openfoam/" data-id="clbj57j7v0007w4uf9e5g37xb" class="article-share-link">Share</a>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li></ul>
-
-    </footer>
-  </div>
   
-</article>
-
-
   
-    <article id="post-2018/truncation error &amp; rounding error" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/20/2018/truncation%20error%20&%20rounding%20error/" class="article-date">
-  <time datetime="2018-03-19T16:08:00.000Z" itemprop="datePublished">2018-03-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Uncategorized/">Uncategorized</a>
-  </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/03/20/2018/truncation%20error%20&%20rounding%20error/">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/20/2018/truncation%20error%20&%20rounding%20error/">Truncation error &amp; Rounding error</a>
-    </h1>
-  
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
 
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/20/2018/truncation%20error%20&%20rounding%20error/" class="post-title-link" itemprop="url">Truncation error & Rounding error</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-20 00:08:00" itemprop="dateCreated datePublished" datetime="2018-03-20T00:08:00+08:00">2018-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-11 16:33:56" itemprop="dateModified" datetime="2022-12-11T16:33:56+08:00">2022-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Uncategorized/" itemprop="url" rel="index"><span itemprop="name">Uncategorized</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>For many engineering problems, we cannot obtain analytical (true) solutions. That’s why we employ numerical methods to obtain the solutions.  However, the numerical methods or algorithms are usually accompanied by computing with finite precision and errors of approximation (rounding and truncation). Before we get into the details of the topic, it is important to distinguish between accuracy and precision.</p>
-        
-          <p class="article-more-link">
-            <a href="/2018/03/20/2018/truncation%20error%20&%20rounding%20error/#more">Read More</a>
-          </p>
+          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>For many engineering problems, we cannot obtain analytical (true) solutions. That’s why we employ numerical methods to obtain the solutions.  However, the numerical methods or algorithms are usually accompanied by computing with finite precision and errors of approximation (rounding and truncation). Before we get into the details of the topic, it is important to distinguish between accuracy and precision.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/03/20/2018/truncation%20error%20&%20rounding%20error/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
         
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2018/03/20/2018/truncation%20error%20&%20rounding%20error/" data-id="clbj50j7s000zmwuf046je59p" class="article-share-link">Share</a>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Numerical-Method/" rel="tag">Numerical Method</a></li></ul>
-
-    </footer>
-  </div>
   
-</article>
-
-
   
-    <article id="post-2018/runge-kutta-4th-order" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/19/2018/runge-kutta-4th-order/" class="article-date">
-  <time datetime="2018-03-19T14:49:27.000Z" itemprop="datePublished">2018-03-19</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Uncategorized/">Uncategorized</a>
-  </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/03/19/2018/runge-kutta-4th-order/">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/19/2018/runge-kutta-4th-order/">Runge Kutta 4th Order</a>
-    </h1>
-  
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
 
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/19/2018/runge-kutta-4th-order/" class="post-title-link" itemprop="url">Runge Kutta 4th Order</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-19 22:49:27" itemprop="dateCreated datePublished" datetime="2018-03-19T22:49:27+08:00">2018-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-11 16:33:56" itemprop="dateModified" datetime="2022-12-11T16:33:56+08:00">2022-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Uncategorized/" itemprop="url" rel="index"><span itemprop="name">Uncategorized</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Runge-Kutta method is a numerical procedure for approximating values for the solution of ordinary differential equations (ODEs) with a given initial value. The simplest Runge–Kutta method has the same form as Euler method.</p>
-        
-          <p class="article-more-link">
-            <a href="/2018/03/19/2018/runge-kutta-4th-order/#more">Read More</a>
-          </p>
+          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Runge-Kutta method is a numerical procedure for approximating values for the solution of ordinary differential equations (ODEs) with a given initial value. The simplest Runge–Kutta method has the same form as Euler method.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/03/19/2018/runge-kutta-4th-order/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
         
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2018/03/19/2018/runge-kutta-4th-order/" data-id="clbj50j7q000umwuf7y7z52en" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Numerical-Method/" rel="tag">Numerical Method</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning-Note/">Machine Learning Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Uncategorized/">Uncategorized</a></li></ul>
-    </div>
-  </div>
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Fluid-Dynamics-CFD/" rel="tag">Computational Fluid Dynamics (CFD)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numerical-Method/" rel="tag">Numerical Method</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Uncategorized/" rel="tag">Uncategorized</a></li></ul>
-    </div>
-  </div>
 
 
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Computational-Fluid-Dynamics-CFD/" style="font-size: 10px;">Computational Fluid Dynamics (CFD)</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Numerical-Method/" style="font-size: 15px;">Numerical Method</a> <a href="/tags/OpenFOAM/" style="font-size: 20px;">OpenFOAM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Uncategorized/" style="font-size: 10px;">Uncategorized</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
+  <aside class="sidebar">
+    <div class="sidebar-inner">
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2022/12/22/2022/CMakePresets-And-VSCode/">Configure and build with CMake Presets in Visual Studio Code</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/">Iterative Methods Based On Splitting Matrix</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/">Introduction of Moving Particle Semi-Implicit Method</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/18/2019/solving-differential-equations-by-neural-networks/">Solving Differential Equations by Neural Networks</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/">OpenFOAM: Extracting Numerical Data From  Case</a>
-          </li>
-        
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
       </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bing Han Lin</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/BingHanLin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;BingHanLin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
     </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bing Han Lin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
   </div>
 
   
-</aside>
-        
-      </div>
-      <footer id="footer">
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
   
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2022 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
-    <a href="/" class="mobile-nav-link">Home</a>
+
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
   
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-  </div>
 </body>
 </html>
