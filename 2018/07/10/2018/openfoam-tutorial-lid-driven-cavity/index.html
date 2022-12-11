@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>OpenFOAM Tutorial - Lid Driven Cavity | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Lid-driven cavity flowThe lid-driven cavity flow tutorial is the easiest and most well documented tutorial on OpenFOAM. A incompressible flow in a two-dimensional square domain is shown in figure belo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenFOAM Tutorial - Lid Driven Cavity">
+<meta property="og:url" content="http://example.com/2018/07/10/2018/openfoam-tutorial-lid-driven-cavity/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Lid-driven cavity flowThe lid-driven cavity flow tutorial is the easiest and most well documented tutorial on OpenFOAM. A incompressible flow in a two-dimensional square domain is shown in figure belo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/WdYtFNf.jpg">
+<meta property="og:image" content="https://i.imgur.com/tt9s0Cz.jpg">
+<meta property="og:image" content="https://i.imgur.com/M18ELX1.jpg">
+<meta property="og:image" content="https://i.imgur.com/oBHDWgR.jpg">
+<meta property="og:image" content="https://i.imgur.com/5LCv6sE.jpg">
+<meta property="og:image" content="https://i.imgur.com/3a4go4q.png">
+<meta property="article:published_time" content="2018-07-09T17:26:47.000Z">
+<meta property="article:modified_time" content="2022-12-11T08:33:56.228Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="OpenFOAM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/WdYtFNf.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018/openfoam-tutorial-lid-driven-cavity" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/10/2018/openfoam-tutorial-lid-driven-cavity/" class="article-date">
+  <time datetime="2018-07-09T17:26:47.000Z" itemprop="datePublished">2018-07-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OpenFOAM Tutorial - Lid Driven Cavity
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Lid-driven-cavity-flow"><a href="#Lid-driven-cavity-flow" class="headerlink" title="Lid-driven cavity flow"></a>Lid-driven cavity flow</h2><p>The lid-driven cavity flow tutorial is the easiest and most well documented tutorial on OpenFOAM. A incompressible flow in a two-dimensional square domain is shown in figure below. The top wall moves in the $x$-direction at a speed of 1 m&#x2F;s while the other 3 are stationary. Initially, the flow will be assumed laminar and will be solved on a uniform and non mesh using the <strong>icoFoam</strong> solver for laminar, isothermal, incompressible flow. Then, the effect of increased mesh resolution and mesh grading towards the walls will be investigated.</p>
+<span id="more"></span>
+
+<p><img src="https://i.imgur.com/WdYtFNf.jpg" alt="Geometry of the lid driven cavity"><br><em>Geometry of the lid driven cavity</em></p>
+<hr>
+<h2 id="Setting-up-the-case"><a href="#Setting-up-the-case" class="headerlink" title="Setting up the case"></a>Setting up the case</h2><h3 id="Running-directory"><a href="#Running-directory" class="headerlink" title="Running directory"></a>Running directory</h3><p>As a first step, we copy the cavity case directory to the running directory.</p>
+<p><code>cp -r $FOAM_TUTORIALS/incompressible/icoFoam/cavity/cavity &lt;your running directory&gt;</code></p>
+<h3 id="Mesh-generation"><a href="#Mesh-generation" class="headerlink" title="Mesh generation"></a>Mesh generation</h3><p>OpenFOAM solves the case in <strong>3 dimensions by default</strong> but can be instructed to solve in <strong>2 dimensions by specifying a ‘special’ empty boundary condition</strong> on boundaries normal to the (3rd) dimension for which no solution is required. The mesh generator, <strong><em>blockMesh</em></strong>, generates meshes from a description specified in an input dictionary, <strong><em>blockMeshDict</em></strong> located in the <strong><em>system</em></strong> (or constant&#x2F;polyMesh) directory for a given case. The <strong><em>blockMeshDict</em></strong> entries for this case are as follows:</p>
+<figure class="highlight cpp"><figcaption><span>blockMeshDict</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">/\*--------------------------------\*- C++ -\*----------------------------------\*\</span><br><span class="line">| =========                 |                                                 |</span><br><span class="line">| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |</span><br><span class="line">|  \\    /   O peration     | Version:  <span class="number">5</span>                                     |</span><br><span class="line">|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |</span><br><span class="line">|    \\/     M anipulation  |                                                 |</span><br><span class="line">\\*---------------------------------------------------------------------------\*/</span><br><span class="line">FoamFile</span><br><span class="line">&#123;</span><br><span class="line">    version     <span class="number">2.0</span>;</span><br><span class="line">    format      ascii;</span><br><span class="line">    <span class="keyword">class</span>       <span class="title class_">dictionary</span>;</span><br><span class="line">    object      blockMeshDict;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* //</span></span><br><span class="line"></span><br><span class="line">convertToMeters <span class="number">0.1</span>;	<span class="comment">// scaled to the real problem dimensions（deafault is meter）</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">vertices</span></span><br><span class="line">(</span><br><span class="line">    (<span class="number">0</span> <span class="number">0</span> <span class="number">0</span>) 	<span class="comment">// vertices 0</span></span><br><span class="line">    (<span class="number">1</span> <span class="number">0</span> <span class="number">0</span>) 	<span class="comment">// vertices 1</span></span><br><span class="line">    (<span class="number">1</span> <span class="number">1</span> <span class="number">0</span>) 	<span class="comment">// vertices 2</span></span><br><span class="line">    (<span class="number">0</span> <span class="number">1</span> <span class="number">0</span>) 	<span class="comment">// vertices 3</span></span><br><span class="line">    (<span class="number">0</span> <span class="number">0</span> <span class="number">0.1</span>)	<span class="comment">// vertices 4</span></span><br><span class="line">    (<span class="number">1</span> <span class="number">0</span> <span class="number">0.1</span>)	<span class="comment">// vertices 5</span></span><br><span class="line">    (<span class="number">1</span> <span class="number">1</span> <span class="number">0.1</span>)	<span class="comment">// vertices 6</span></span><br><span class="line">    (<span class="number">0</span> <span class="number">1</span> <span class="number">0.1</span>)	<span class="comment">// vertices 7</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// defines the blocks using the vertex indices and the cell spacing in 3 directions</span></span><br><span class="line"><span class="built_in">blocks</span></span><br><span class="line">(</span><br><span class="line"></span><br><span class="line">    <span class="built_in">hex</span> (<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span>) (<span class="number">20</span> <span class="number">20</span> <span class="number">1</span>) <span class="built_in">simpleGrading</span> (<span class="number">1</span> <span class="number">1</span> <span class="number">1</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="built_in">edges</span></span><br><span class="line">(</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// defines the boundary patches</span></span><br><span class="line"><span class="built_in">boundary</span></span><br><span class="line">(</span><br><span class="line">    movingWall		<span class="comment">// patch name</span></span><br><span class="line">    &#123;</span><br><span class="line">        type wall;	<span class="comment">// patch type</span></span><br><span class="line">        <span class="built_in">faces</span></span><br><span class="line">        (</span><br><span class="line">            (<span class="number">3</span> <span class="number">7</span> <span class="number">6</span> <span class="number">2</span>)   <span class="comment">// define patch surface by vertex indices</span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">    fixedWalls</span><br><span class="line">    &#123;</span><br><span class="line">        type wall;</span><br><span class="line">        <span class="built_in">faces</span></span><br><span class="line">        (</span><br><span class="line">            (<span class="number">0</span> <span class="number">4</span> <span class="number">7</span> <span class="number">3</span>)</span><br><span class="line">            (<span class="number">2</span> <span class="number">6</span> <span class="number">5</span> <span class="number">1</span>)</span><br><span class="line">            (<span class="number">1</span> <span class="number">5</span> <span class="number">4</span> <span class="number">0</span>)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">    frontAndBack</span><br><span class="line">    &#123;</span><br><span class="line">        type empty;</span><br><span class="line">        <span class="built_in">faces</span></span><br><span class="line">        (</span><br><span class="line">            (<span class="number">0</span> <span class="number">3</span> <span class="number">2</span> <span class="number">1</span>)</span><br><span class="line">            (<span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span>)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="built_in">mergePatchPairs</span></span><br><span class="line">(</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\* //</span></span><br></pre></td></tr></table></figure>
+
+<p>The mesh is generated by running blockMesh on this blockMeshDict file. From within the case directory, this is done, simply by typing in the terminal: <code>blockMesh</code></p>
+<h3 id="Boundary-and-initial-conditions"><a href="#Boundary-and-initial-conditions" class="headerlink" title="Boundary and initial conditions"></a>Boundary and initial conditions</h3><p>The initial fields set up for this case is set up to start at time t &#x3D; 0 s, so the initial field data is stored in a <strong><em>0</em></strong> sub-directory of the cavity directory. The <strong><em>0</em></strong> sub-directory contains 2 files, <strong><em>p</em></strong> and <strong><em>U</em></strong>, one for each of the pressure (<strong><em>p</em></strong>) and velocity (<strong><em>U</em></strong>) fields whose initial values and boundary conditions must be set. Let us look into the file <strong><em>p</em></strong>:</p>
+<figure class="highlight cpp"><figcaption><span>file p</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">/\*--------------------------------\*- C++ -\*----------------------------------\*\</span><br><span class="line">| =========                 |                                                 |</span><br><span class="line">| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |</span><br><span class="line">|  \\    /   O peration     | Version:  <span class="number">5</span>                                     |</span><br><span class="line">|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |</span><br><span class="line">|    \\/     M anipulation  |                                                 |</span><br><span class="line">\\*---------------------------------------------------------------------------\*/</span><br><span class="line">FoamFile</span><br><span class="line">&#123;</span><br><span class="line">    version     <span class="number">2.0</span>;</span><br><span class="line">    format      ascii;</span><br><span class="line">    <span class="keyword">class</span>       <span class="title class_">volScalarField</span>;</span><br><span class="line">    object      p;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* //</span></span><br><span class="line"></span><br><span class="line">dimensions      \[<span class="number">0</span> <span class="number">2</span> <span class="number">-2</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span>\];</span><br><span class="line"></span><br><span class="line">internalField   uniform <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">boundaryField</span><br><span class="line">&#123;</span><br><span class="line">    movingWall</span><br><span class="line">    &#123;</span><br><span class="line">        type            zeroGradient;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fixedWalls</span><br><span class="line">    &#123;</span><br><span class="line">        type            zeroGradient;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    frontAndBack</span><br><span class="line">    &#123;</span><br><span class="line">        type            empty;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\* //</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li><strong>dimensions</strong> specifies the dimensions of the field, here kinematic pressure, i.e. $ m^2s^{-2}$ (see <a target="_blank" rel="noopener" href="https://cfd.direct/openfoam/user-guide/basic-file-format/#x17-1290004.2.6">here</a> for more information);</li>
+<li><strong>internalField</strong> the internal field data which can be uniform, described by a single value; or nonuniform, where all the values of the field must be specified (see <a target="_blank" rel="noopener" href="https://cfd.direct/openfoam/user-guide/basic-file-format/#x17-1310004.2.8">here</a> for more information);</li>
+<li><strong>boundaryField</strong> the boundary field data that includes boundary conditions and data for all the boundary patches.</li>
+</ul>
+<p>The similar configurations can be found in the velocity field in the <strong><em>0&#x2F;U</em></strong> file.</p>
+<h3 id="Physical-properties"><a href="#Physical-properties" class="headerlink" title="Physical properties"></a>Physical properties</h3><p>For an <strong><em>icoFoam</em></strong> case, the only property that must be specified is the <strong>kinematic viscosity</strong>($\nu$) which is stored from the transportProperties dictionary. We can check that the kinematic viscosity is set correctly by opening the transportProperties dictionary to view&#x2F;edit its entries. This case will be run with a <strong>Reynolds number</strong> of 10, where the <strong>Reynolds number</strong> is defined as:</p>
+<p>$$\eqalign{ \mathbf{Re} &#x3D; \frac{d \vert U \vert}{\nu} }$$</p>
+<p>where $d$ and $U$ are the characteristic length and velocity respectively, and and $\nu$ is the kinematic viscosity we are going to define. Here in our case $d$ &#x3D; 0.1 m, $U$ &#x3D; 1 m&#x2F;s, so that for $\mathbf{Re}$ &#x3D; 10, $\nu$ &#x3D; 0.01 $m^2s^{-1}$. Hence, the correct file entry for kinematic viscosity should be specified below:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/\*--------------------------------\*- C++ -\*----------------------------------\*\</span><br><span class="line">| =========                 |                                                 |</span><br><span class="line">| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |</span><br><span class="line">|  \\    /   O peration     | Version:  <span class="number">5</span>                                     |</span><br><span class="line">|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |</span><br><span class="line">|    \\/     M anipulation  |                                                 |</span><br><span class="line">\\*---------------------------------------------------------------------------\*/</span><br><span class="line">FoamFile</span><br><span class="line">&#123;</span><br><span class="line">    version     <span class="number">2.0</span>;</span><br><span class="line">    format      ascii;</span><br><span class="line">    <span class="keyword">class</span>       <span class="title class_">dictionary</span>;</span><br><span class="line">    location    <span class="string">&quot;constant&quot;</span>;</span><br><span class="line">    object      transportProperties;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* //</span></span><br><span class="line"></span><br><span class="line">nu              \[<span class="number">0</span> <span class="number">2</span> <span class="number">-1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span>\] <span class="number">0.01</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\* //</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Control-of-the-simulation"><a href="#Control-of-the-simulation" class="headerlink" title="Control of the simulation"></a>Control of the simulation</h3><p>Setting data relating to the control of time and reading and writing of the solution data are read in from the <strong><em>controlDict</em></strong> dictionary.</p>
+<figure class="highlight cpp"><figcaption><span>controlDict</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">/\*--------------------------------\*- C++ -\*----------------------------------\*\</span><br><span class="line">| =========                 |                                                 |</span><br><span class="line">| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |</span><br><span class="line">|  \\    /   O peration     | Version:  <span class="number">5</span>                                     |</span><br><span class="line">|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |</span><br><span class="line">|    \\/     M anipulation  |                                                 |</span><br><span class="line">\\*---------------------------------------------------------------------------\*/</span><br><span class="line">FoamFile</span><br><span class="line">&#123;</span><br><span class="line">    version     <span class="number">2.0</span>;</span><br><span class="line">    format      ascii;</span><br><span class="line">    <span class="keyword">class</span>       <span class="title class_">dictionary</span>;</span><br><span class="line">    location    <span class="string">&quot;system&quot;</span>;</span><br><span class="line">    object      controlDict;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* \* //</span></span><br><span class="line"></span><br><span class="line">application     icoFoam;</span><br><span class="line"></span><br><span class="line">startFrom       startTime;</span><br><span class="line"></span><br><span class="line">startTime       <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">stopAt          endTime;</span><br><span class="line"></span><br><span class="line">endTime         <span class="number">0.5</span>;</span><br><span class="line"></span><br><span class="line">deltaT          <span class="number">0.005</span>;</span><br><span class="line"></span><br><span class="line">writeControl    timeStep;</span><br><span class="line"></span><br><span class="line">writeInterval   <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">purgeWrite      <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">writeFormat     ascii;</span><br><span class="line"></span><br><span class="line">writePrecision  <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line">writeCompression off;</span><br><span class="line"></span><br><span class="line">timeFormat      general;</span><br><span class="line"></span><br><span class="line">timePrecision   <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line">runTimeModifiable <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\* //</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Running-an-application"><a href="#Running-an-application" class="headerlink" title="Running an application"></a>Running an application</h2><h3 id="Viewing-the-mesh"><a href="#Viewing-the-mesh" class="headerlink" title="Viewing the mesh"></a>Viewing the mesh</h3><p>It is convenient to keep <strong><em>ParaView</em></strong> open while running other commands from the terminal, we will launch it in the background using the <strong>&amp;</strong> operator by typing <code>paraFoam &amp;</code> to run <strong><em>paraView</em></strong> at current directory. Alternatively, it can be launched from another directory location with an optional -case argument giving the case directory. <code>paraFoam -case &lt;your directory (relative path)&gt; &amp;</code> The geometry and the wireframe can be obtained in <strong><em>ParaView</em></strong> . The figure below shows the configuration of <strong>uniform mesh</strong> distribution.</p>
+<p><img src="https://i.imgur.com/tt9s0Cz.jpg" alt="Uniform mesh"><br><em>Uniform mesh</em></p>
+<p>Some modifications can be done in the <strong><em>blockMeshDict</em></strong>, if the non uniform mesh distribution is desired. We list some examples as follow:</p>
+<ul>
+<li><p><strong>simpleGrading</strong> The simple description specifies uniform expansions in the local $x_1$, $x_2$ and $x_3$ directions respectively with only 3 expansion ratios. The ratio is that of the width of the end cell $\delta_e$ along one edge of a block to the width of the start cell $\delta_s$ along that edge.</p>
+<p>simpleGrading (1 2 3)    &#x2F;&#x2F; cell expansion ratios in 3 directions</p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/M18ELX1.jpg" alt="non uniform mesh - simpleGrading"><br><em>Non uniform mesh - simpleGrading</em></p>
+<ul>
+<li><p><strong>edgeGrading</strong> This gives us the way to specified the expension ratio of the mesh on each edge directly.</p>
+<pre><code>edgeGrading (1 1 1 1 2 2 2 2 3 3 3 3)
+</code></pre>
+</li>
+</ul>
+<p>This means the ratio of cell widths along edges 0-3 is 1, along edges 4-7 is 2 and along 8-11 is 3 ( the number and direction of the edge in a block can be seen <a target="_blank" rel="noopener" href="https://cfd.direct/openfoam/user-guide/blockMesh/#x25-1790005.3">here</a>).</p>
+<p><img src="https://i.imgur.com/oBHDWgR.jpg" alt="Non uniform mesh - edgeGrading"><br><em>Non uniform mesh - edgeGrading</em></p>
+<ul>
+<li><strong>Multi-grading of a block</strong> In our case, we might require finer cell for the mesh near the walls. <strong><em>OpenFOAM v2.4+</em></strong> includes <strong>multi-grading functionality</strong> that can divide a block in an given direction and apply different grading within each division. It is specified by replacing any single value expansion ratio in the grading specification of the block. A example configuration for our cavity case is shown as follow.</li>
+</ul>
+<pre><code>    simpleGrading (     
+        // x1-direction expansion ratio
+        (
+            (0.2 0.3 4)    // 20% y-dir, 30% cells, expansion = 4
+            (0.6 0.4 1)    // 60% y-dir, 40% cells, expansion = 1
+            (0.2 0.3 0.25) // 20% y-dir, 30% cells, expansion = 0.25 (1/4)
+        )
+        // x2-direction expansion ratio
+        (
+            (0.2 0.3 4)    // 20% y-dir, 30% cells, expansion = 4
+            (0.6 0.4 1)    // 60% y-dir, 40% cells, expansion = 1
+            (0.2 0.3 0.25) // 20% y-dir, 30% cells, expansion = 0.25 (1/4)
+        )
+
+        // x3-direction expansion ratio
+            1                  
+    )
+</code></pre>
+<p><img src="https://i.imgur.com/5LCv6sE.jpg" alt="Non uniform mesh - multi-grading"><br><em>Non uniform mesh - multi-grading</em></p>
+<hr>
+<h3 id="Running"><a href="#Running" class="headerlink" title="Running"></a>Running</h3><p>The <strong><em>icoFoam</em></strong> solver is executed either by entering the case directory and typing <code>icoFoam</code> at the command prompt, or with the optional -case argument giving the case directory. <code>icoFoam -case &lt;your running directory&gt;</code> </p>
+<p><img src="https://i.imgur.com/3a4go4q.png" alt="pressure contour and the velocity vector"><br><em>Pressure contour and the velocity vector</em></p>
+<hr>
+<ul>
+<li>Reference:</li>
+</ul>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://cfd.direct/openfoam/user-guide/cavity/">CFD Direct</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/JibranHaider/openfoam-for-beginners">OpenFOAM for beginners: Hands-on training</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.optimulation.com/2011/11/07/openfoam-tutorial-1-lid-driven-cavity-flow/">OpenFOAM tutorial</a></li>
+<li><a href="file:///home/binghan/%E4%B8%8B%E8%BC%89/OpenFOAM_Formation_103.pdf">OpenFOAM step by step tutorial</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2018/07/10/2018/openfoam-tutorial-lid-driven-cavity/" data-id="clbj57j7x000dw4ufd270bgkf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/04/2019/openfoam-sampling-and-monitoring-data/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          OpenFOAM: Sampling and Monitoring Data
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/11/2018/file-structure-of-openfoam/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">File Structure of OpenFOAM</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning-Note/">Machine Learning Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Uncategorized/">Uncategorized</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Fluid-Dynamics-CFD/" rel="tag">Computational Fluid Dynamics (CFD)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numerical-Method/" rel="tag">Numerical Method</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Uncategorized/" rel="tag">Uncategorized</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Computational-Fluid-Dynamics-CFD/" style="font-size: 10px;">Computational Fluid Dynamics (CFD)</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Numerical-Method/" style="font-size: 15px;">Numerical Method</a> <a href="/tags/OpenFOAM/" style="font-size: 20px;">OpenFOAM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Uncategorized/" style="font-size: 10px;">Uncategorized</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/22/2022/CMakePresets-And-VSCode/">Configure and build with CMake Presets in Visual Studio Code</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/">Iterative Methods Based On Splitting Matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/">Introduction of Moving Particle Semi-Implicit Method</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/18/2019/solving-differential-equations-by-neural-networks/">Solving Differential Equations by Neural Networks</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/">OpenFOAM: Extracting Numerical Data From  Case</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

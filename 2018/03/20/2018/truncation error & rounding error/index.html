@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Truncation error &amp; Rounding error | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IntroductionFor many engineering problems, we cannot obtain analytical (true) solutions. That’s why we employ numerical methods to obtain the solutions.  However, the numerical methods or algorithms a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Truncation error &amp; Rounding error">
+<meta property="og:url" content="http://example.com/2018/03/20/2018/truncation%20error%20&%20rounding%20error/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="IntroductionFor many engineering problems, we cannot obtain analytical (true) solutions. That’s why we employ numerical methods to obtain the solutions.  However, the numerical methods or algorithms a">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/72ixmAz.png">
+<meta property="og:image" content="https://i.imgur.com/RH1LISE.png">
+<meta property="og:image" content="https://i.imgur.com/G9Zt9J7.png">
+<meta property="article:published_time" content="2018-03-19T16:08:00.000Z">
+<meta property="article:modified_time" content="2022-12-11T08:33:56.228Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Numerical Method">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/72ixmAz.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018/truncation error &amp; rounding error" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/20/2018/truncation%20error%20&%20rounding%20error/" class="article-date">
+  <time datetime="2018-03-19T16:08:00.000Z" itemprop="datePublished">2018-03-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Uncategorized/">Uncategorized</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Truncation error &amp; Rounding error
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>For many engineering problems, we cannot obtain analytical (true) solutions. That’s why we employ numerical methods to obtain the solutions.  However, the numerical methods or algorithms are usually accompanied by computing with finite precision and errors of approximation (rounding and truncation). Before we get into the details of the topic, it is important to distinguish between accuracy and precision.</p>
+<span id="more"></span>
+
+<ul>
+<li><strong>Accuracy</strong>- How close is a computed or measured value to the true value.</li>
+<li><strong>Precision</strong> (or reproducibility) - How close is a computed or measured value to previously.</li>
+</ul>
+<p>The figure below illustrates the difference between accuracy and precision.  The term error represents the imprecision and inaccuracy of a numerical computation.</p>
+<p><img src="https://i.imgur.com/72ixmAz.png" alt="Accuracy and precision"><br><em><a target="_blank" rel="noopener" href="http://www.antarcticglaciers.org/glacial-geology/dating-glacial-sediments-2/precision-and-accuracy-glacial-geology/">source</a></em></p>
+<hr>
+<h2 id="Truncation-Error"><a href="#Truncation-Error" class="headerlink" title="Truncation Error"></a>Truncation Error</h2><p><strong>Definition</strong> － The error is produced by an approximation in numerical approach to representing the actual value. Truncation errors are often seen in procedures of series (e.g. power series, Taylor series) and other algorithms where mathematical procedures get truncated (e.g. integration, limitation). Here we take Taylor series to explain the causes of truncation error. Let’s consider the solution of  derivation of $f’<em>i&#x3D;f’(x_i)$ for example. Using Taylor expansion to approximate $f</em>{i+1}&#x3D;f’(x_{i+1})$ about $f_i&#x3D;f(x_i) $ :</p>
+<p>$$<br>\eqalign{f_{i+1}&#x3D;f_i+hf’_i+\frac{h^2}{2}f^{\prime\prime}_i+\frac{h^3}{6}f^{\prime\prime\prime}_i+\frac{h^4}{24}f^{\prime\prime\prime\prime}_i+…}<br>$$</p>
+<p>Replace the $f’_i$ term into left side, we can obtained,</p>
+<p>$$<br>\eqalign{ f’ &#x3D; \frac{f_{i+1}-f_i}{h}-\frac{h}{2}f^{\prime\prime}_i-\frac{h^2}{6}f^{\prime\prime\prime}_i-\frac{h^3}{24}f^{\prime\prime\prime\prime}<em>i+… &#x3D; \frac{f</em>{i+1}-f_i}{h} +E}$$</p>
+<p>where $ h$ is a small step size,  $ E$ the truncation error. With a leading term $ - (h&#x2F;2)f^{\prime\prime}_i$ , the truncation error become $ E\cong- (h&#x2F;2)f^{\prime\prime}_i + O(h^2)$ where the remaining terms in  $ O(h^2)$ can be neglected due to their small value. Since the dominating term of $ E$  is proportional to $ h$,  we say that the truncation error is of first order in $ h$. The first terms on the right side is also one of the form for forward difference scheme.  Similarly, error can also be estimate for backward difference approximation and central difference approximation.</p>
+<hr>
+<h2 id="Rounding-Errors"><a href="#Rounding-Errors" class="headerlink" title="Rounding Errors"></a>Rounding Errors</h2><p><strong>Definition</strong> －The error produced by computer limited significant figures to represent the actual result. Because floating-point numbers have a limited number of digits, they cannot represent all real numbers accurately. When there are more digits than the format allows, the leftover ones are omitted (the number is rounded), and this cause errors. Some examples are list in the following table:</p>
+<p><img src="https://i.imgur.com/RH1LISE.png" alt="rounding errors table"><br><em><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Round-off_error">source</a></em></p>
+<hr>
+<h2 id="Total-Errors"><a href="#Total-Errors" class="headerlink" title="Total Errors"></a>Total Errors</h2><p>Total errors in computational simulation(neglect other factors e.g.  artificial error, wrong data)  equal to the sum of truncation errors  and rounding errors. In order to eliminate the total error , the minimum value of truncation error and rounding error are needed.  Unfortunately , it is not possible to select a step size that keep both  to minimum because they have a relationship as following figure.</p>
+<p><img src="https://i.imgur.com/G9Zt9J7.png" alt="total error"><br><em><a target="_blank" rel="noopener" href="https://me.ucsb.edu/~moehlis/APC591/tutorials/tutorial5/node3.html">source</a></em></p>
+<p>But we can choose to use ideal step size to achieve the minimum total errors. The process usually starts from (a) Select a step size $h $, compute solution;  (b) Use $h&#x2F;2 $, re-compute; (c) If new result closes to the previous, the $h $ is probably acceptable. If not, then reduce $h $ again.</p>
+<hr>
+<ul>
+<li>Reference:</li>
+</ul>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://hplgit.github.io/INF5620/doc/pub/main_trunc-2up.pdf">Truncation Error Analysis</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cs.cornell.edu/~bindel/class/cs3220-s12/notes/lec22.pdf">Truncation versus rounding</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Round-off_error">Round-off error</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2018/03/20/2018/truncation%20error%20&%20rounding%20error/" data-id="clbj50j7s000zmwuf046je59p" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Numerical-Method/" rel="tag">Numerical Method</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/11/2018/file-structure-of-openfoam/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          File Structure of OpenFOAM
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/19/2018/runge-kutta-4th-order/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Runge Kutta 4th Order</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning-Note/">Machine Learning Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Uncategorized/">Uncategorized</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Fluid-Dynamics-CFD/" rel="tag">Computational Fluid Dynamics (CFD)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numerical-Method/" rel="tag">Numerical Method</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Uncategorized/" rel="tag">Uncategorized</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Computational-Fluid-Dynamics-CFD/" style="font-size: 10px;">Computational Fluid Dynamics (CFD)</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Numerical-Method/" style="font-size: 15px;">Numerical Method</a> <a href="/tags/OpenFOAM/" style="font-size: 20px;">OpenFOAM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Uncategorized/" style="font-size: 10px;">Uncategorized</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/22/2022/CMakePresets-And-VSCode/">Configure and build with CMake Presets in Visual Studio Code</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/">Iterative Methods Based On Splitting Matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/">Introduction of Moving Particle Semi-Implicit Method</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/18/2019/solving-differential-equations-by-neural-networks/">Solving Differential Equations by Neural Networks</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/">OpenFOAM: Extracting Numerical Data From  Case</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

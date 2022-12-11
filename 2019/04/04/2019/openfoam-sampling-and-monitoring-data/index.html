@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>OpenFOAM: Sampling and Monitoring Data | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="There are a set of general post-processing functions for sampling data across the domain for graphs and visualization. In this article, we use the lid-driven cavity case set up in the tutorial to demo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenFOAM: Sampling and Monitoring Data">
+<meta property="og:url" content="http://example.com/2019/04/04/2019/openfoam-sampling-and-monitoring-data/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="There are a set of general post-processing functions for sampling data across the domain for graphs and visualization. In this article, we use the lid-driven cavity case set up in the tutorial to demo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/BWJIgbO.png">
+<meta property="og:image" content="https://i.imgur.com/1fFxbnW.png">
+<meta property="og:image" content="https://i.imgur.com/9zf4rnS.png">
+<meta property="og:image" content="https://i.imgur.com/33DzsTv.gif">
+<meta property="article:published_time" content="2019-04-04T00:32:02.000Z">
+<meta property="article:modified_time" content="2022-12-11T08:33:56.229Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="OpenFOAM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/BWJIgbO.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2019/openfoam-sampling-and-monitoring-data" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/04/2019/openfoam-sampling-and-monitoring-data/" class="article-date">
+  <time datetime="2019-04-04T00:32:02.000Z" itemprop="datePublished">2019-04-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      OpenFOAM: Sampling and Monitoring Data
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>There are a set of general post-processing functions for sampling data across the domain for graphs and visualization. In this article, we use the <em>lid-driven cavity</em> case set up in the tutorial to demonstrate these post-processing functions.</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="Probing-data"><a href="#Probing-data" class="headerlink" title="Probing data"></a>Probing data</h2><p>When we want to get the time series data of the fields on certain point locations, the functions <strong>boundaryCloud</strong>, <strong>internalCloud,</strong> and <strong>probes</strong> can help us. All functions work on the basis that the user provides some point locations and a list of fields, and the function writes out values of the fields on those locations in each time interval.</p>
+<p>We use the <a target="_blank" rel="noopener" href="https://bhlin.co.network/wp/2019/04/04/openfoam-tutorial-extracting-numerical-data-from-case/#method1">method</a> mention in the previous post to include the functions. The configuration is started by adding the #includeFunc directive to functions in the <em>controlDict</em> file.</p>
+<pre><code>functions 
+&#123; 
+    #includeFunc  probes 
+    ...  other function objects here ...  
+&#125;
+</code></pre>
+<p>The <strong>probes</strong> function is configured by copying the file to the local system directory using <strong>foamGet</strong>.</p>
+<pre><code>foamGet probes
+</code></pre>
+<p>Let’s say we want to obtain the pressure and velocity value on certain locations, then specify the locations we need in probeLocations in the <strong>probes</strong> file as follows.</p>
+<pre><code>#includeEtc &quot;caseDicts/postProcessing/probes/probes.cfg&quot;
+
+fields (p U);
+probeLocations
+(
+    (0 0 0) // point 1
+    (0 0.5 0) // point 2 ...
+);
+</code></pre>
+<p>When the simulation is running, time-value data is written into <em>p</em> and <em>U</em> files in <em>postProcessing&#x2F;probes&#x2F;0</em>.</p>
+<p><img src="https://i.imgur.com/BWJIgbO.png" alt="Time-Value Data"><br><em>Time-Value Data</em></p>
+<p>The pressure data record by <strong>probes</strong> function.</p>
+<hr>
+<h2 id="Sampling-line-data"><a href="#Sampling-line-data" class="headerlink" title="Sampling line data"></a>Sampling line data</h2><p>The <em>singleGraph</em> function samples data from a line defined by the user. Again, we add the #includeFunc directive to functions in the <em>controlDict</em> file.</p>
+<pre><code>functions 
+&#123; 
+    #includeFunc  singleGraph 
+    ...  other function objects here ...  
+&#125;
+</code></pre>
+<p>Copy the configuration file of the <em>singleGraph</em> function using <strong>foamGet</strong>.  </p>
+<pre><code>foamGet singleGraph
+</code></pre>
+<p>In the configuration file we can specify:</p>
+<ul>
+<li>The start and end points of the line where data is sampled.</li>
+<li>The fields need to be sampled.</li>
+<li>The type of sampling.</li>
+</ul>
+<p>In the configuration below, the <em>singleGraph</em> function will extract velocity and pressure data from the 100 uniform distributed data points on the line. During the simulation, distance-value data is written into files in time directories within <em>postProcessing&#x2F;singleGraph</em>.</p>
+<pre><code>start   (0.05 0 0);
+end     (0.05 0.1 0);
+fields  (U p);
+
+// Sampling and I/O settings
+#includeEtc &quot;caseDicts/postProcessing/graphs/sampleDict.cfg&quot;
+
+// Override settings here, e.g.
+setConfig
+&#123;
+    type    lineUniform; // lineCell, lineCellFace
+    axis    distance;    // x, y, z, xyz
+    nPoints 100;
+&#125;
+
+// Must be last entry
+#includeEtc &quot;caseDicts/postProcessing/graphs/graph.cfg&quot;
+</code></pre>
+<p>We can quickly display the data for x-component of velocity, last time (0.5 in my case), by running gnuplot with the following commands.</p>
+<pre><code>gnuplot 
+gnuplot&gt; set style data linespoints 
+gnuplot&gt; plot &quot;postProcessing/singleGraph/0.5/line_U.xy&quot; u 2:1
+</code></pre>
+<p><img src="https://i.imgur.com/1fFxbnW.png" alt="Velocity along the line"><br><em>Velocity-x Along the Line</em></p>
+<p>The x-component of velocity along the line.</p>
+<hr>
+<h2 id="Sampling-surface-data"><a href="#Sampling-surface-data" class="headerlink" title="Sampling surface data"></a>Sampling surface data</h2><p>The <em>surfaces</em> functions can be used to generate files for visualization. First, add the #includeFunc directive to functions in the <em>controlDict</em> file.</p>
+<pre><code>functions 
+&#123; 
+    #includeFunc  surfaces 
+    ...  other function objects here ...  
+&#125;
+</code></pre>
+<p>The target surface can be specified by <strong>cutting plane</strong>, <strong>isosurface</strong>, <strong>patch surface</strong>. The <em>surfaces</em> function is configured by copying the <em>surfaces</em> file to the <em>system</em> directory using <em>foamGet</em>.</p>
+<pre><code>foamGet surfaces
+</code></pre>
+<p>In this demonstration, we specify the target surface by <strong>cutting plane</strong> which the base point and normal vector should be edited.</p>
+<pre><code>#includeEtc &quot;caseDicts/postProcessing/visualization/surfaces.cfg&quot;
+
+fields       (p U);
+
+surfaces
+(
+    zNormal
+    &#123;
+        $cuttingPlane;
+        pointAndNormalDict
+        &#123;
+            basePoint    (0.05 0.05 0); // Overrides default basePoint (0 0 0)
+            normalVector $z;      // $z: macro for (0 0 1)
+        &#125;
+    &#125;
+
+
+);
+</code></pre>
+<p>Then surfaces function produces VTK format files of the cutting plane with pressure and velocity data in time directories in the the <em>postProcessing&#x2F;surfaces</em> directory. The user can display the cutting plane by opening these VTK files in <em>ParaView</em> (type paraview).</p>
+<p><img src="https://i.imgur.com/9zf4rnS.png" alt="Visualization of Velocity Data"><br><em>Visualization of Velocity Data</em></p>
+<p>Visualization of velocity data from VTK file.</p>
+<hr>
+<h2 id="Live-monitoring-of-data"><a href="#Live-monitoring-of-data" class="headerlink" title="Live monitoring of data"></a>Live monitoring of data</h2><p>To monitor the data during the simulation, the user should then run <em>foamMonitor</em> the terminal. If the command is executed before the simulation is complete, then we can see the graph being updated live.</p>
+<p>Firstly, include the <em>residuals</em> function in the <em>controlDict</em> file.  </p>
+<pre><code>    functions 
+    &#123; 
+        #includeFunc  residuals 
+        ...  other function objects here ...  
+    &#125;
+</code></pre>
+<p>The default fields whose residuals are captured are <em>p</em> and <em>U</em>. If we wish to get other fields, we should either make copy the <em>residuals</em> file in their <em>system</em> and edit the fields entry (method 1) or define the <strong>arguments</strong> to the residuals function in the <em>controlDict</em> file (method 2). Here, we use the method 1. The <em>residuals</em> file can then be copied into the <em>system</em> directory conveniently using <em>foamGet</em>:</p>
+<pre><code>foamGet residuals
+</code></pre>
+<p>It is advisable to delete the <em>postProcessing</em> directory to avoid duplicate files for each function. The user can delete the directory, then run simulation <strong>in the background</strong>.</p>
+<pre><code>rm -rf postProcessing
+icoFoam &gt; log &amp;
+</code></pre>
+<p>Then run <em>foamMonitor</em> before the simulation is complete.</p>
+<pre><code>foamMonitor -l postProcessing/residuals/0/residuals.dat
+</code></pre>
+<p><img src="https://i.imgur.com/33DzsTv.gif" alt="foamMonitor"><br><em>foamMonitor</em></p>
+<p>The graph being updated live.</p>
+<hr>
+<ul>
+<li>Reference:</li>
+</ul>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://pingpong.chalmers.se/public/pp/public_courses/course07056/published/1497955220499/resourceId/3711490/content/UploadedResources/someUtilitiesAndFunctionObjects.pdf">Examples of how to use some utilities and functionObjects</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cfd-online.com/Forums/openfoam-community-contributions/64146-tutorial-how-plot-residuals.html">Tutorial of how to plot residuals !</a></li>
+<li><a target="_blank" rel="noopener" href="http://hmf.enseeiht.fr/travaux/projnum/book/export/html/901">OpenFOAM :</a> <a target="_blank" rel="noopener" href="https://cfd.direct/openfoam/user-guide/v6-graphs-monitoring/">Graphs and Monitoring</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/04/04/2019/openfoam-sampling-and-monitoring-data/" data-id="clbj57j7u0005w4uf2jxrfqdf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          OpenFOAM: Extracting Numerical Data From  Case
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/10/2018/openfoam-tutorial-lid-driven-cavity/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">OpenFOAM Tutorial - Lid Driven Cavity</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning-Note/">Machine Learning Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Uncategorized/">Uncategorized</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Fluid-Dynamics-CFD/" rel="tag">Computational Fluid Dynamics (CFD)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numerical-Method/" rel="tag">Numerical Method</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Uncategorized/" rel="tag">Uncategorized</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Computational-Fluid-Dynamics-CFD/" style="font-size: 10px;">Computational Fluid Dynamics (CFD)</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Numerical-Method/" style="font-size: 15px;">Numerical Method</a> <a href="/tags/OpenFOAM/" style="font-size: 20px;">OpenFOAM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Uncategorized/" style="font-size: 10px;">Uncategorized</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/22/2022/CMakePresets-And-VSCode/">Configure and build with CMake Presets in Visual Studio Code</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/">Iterative Methods Based On Splitting Matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/">Introduction of Moving Particle Semi-Implicit Method</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/18/2019/solving-differential-equations-by-neural-networks/">Solving Differential Equations by Neural Networks</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/">OpenFOAM: Extracting Numerical Data From  Case</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

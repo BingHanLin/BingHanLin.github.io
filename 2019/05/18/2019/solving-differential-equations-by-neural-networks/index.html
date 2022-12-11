@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Solving Differential Equations by Neural Networks | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solving Differential Equations by Neural Networks">
+<meta property="og:url" content="http://example.com/2019/05/18/2019/solving-differential-equations-by-neural-networks/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/GSxyuba.png">
+<meta property="og:image" content="https://i.imgur.com/y3tE8ad.png">
+<meta property="og:image" content="https://i.imgur.com/AQkB43d.png">
+<meta property="article:published_time" content="2019-05-18T11:17:20.000Z">
+<meta property="article:modified_time" content="2022-12-11T08:33:56.230Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Machine Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/GSxyuba.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2019/solving-differential-equations-by-neural-networks" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/18/2019/solving-differential-equations-by-neural-networks/" class="article-date">
+  <time datetime="2019-05-18T11:17:20.000Z" itemprop="datePublished">2019-05-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Machine-Learning-Note/">Machine Learning Note</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Solving Differential Equations by Neural Networks
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can learn (fit) patterns from data with the complicated distribution. With the same concept, train a Neural network to fit the differential equations could also be possible. In this post, I want to show how to applied a simple feed-forward NNs to solve differential equations (ODE, PDE).</p>
+<span id="more"></span>
+
+<p>The theoretical details and computational implementations are inspired by the following paper and blog. For those who interest in the more details, please refer to these links:</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/physics/9705023.pdf">Artificial Neural Networks for Solving Ordinary and Partial Differential Equations</a>, I. E. Lagaris, A. Likas and D. I. Fotiadis, 1997</li>
+<li><a target="_blank" rel="noopener" href="https://becominghuman.ai/neural-networks-for-solving-differential-equations-fa230ac5e04c">Neural networks for solving differential equations</a>, Alexandr Honchar, 2017</li>
+</ol>
+<p>Different from the works in Alexandr Honchar’s post, I reimplement the computational process with <strong>Tensorflow</strong> - a popular deep learning framework developed by Google. </p>
+<hr>
+<h2 id="Ordinary-Differential-Equation"><a href="#Ordinary-Differential-Equation" class="headerlink" title="Ordinary Differential Equation"></a>Ordinary Differential Equation</h2><p>Let’s start with a simple ordinary differential equation (ODE) in the form of</p>
+<p>$$<br>\eqalign{ \frac{\mathrm{d}\Psi}{\mathrm{d}x}&#x3D;f(x,\Psi) .}<br>$$  </p>
+<p>Same with the traditional numerical method, we obtain the numerical solution of $\Psi(x)$ on a set of grids. The solution is approximated on each grid (node) with neural network architecture, therefore, we have <strong>one input neuron</strong> (or two input neurons for 2D problems), one hidden layer, and <strong>one output neuron</strong> to predict solution (scalar value) of the differential equation on each grid. The architecture of the neural network look likes this:</p>
+<p><img src="https://i.imgur.com/GSxyuba.png"></p>
+<p>Schematic of NN.</p>
+<p>Take initial (IC) or boundary (BC) conditions into account, we choose a form for the trial function $\Psi_t$ such that satisfies the ICs or BCs. This is achieved by writing it as a sum of two terms:</p>
+<p>$$<br>\eqalign{<br>\Psi_t(\vec{x})&#x3D;A(\vec{x})+F(\vec{x},N(\vec{x},\vec{p})).<br>}<br>$$</p>
+<p>Where $N(\vec{x},\vec{p})$ is a <strong>single-output feedforward neural network</strong> with parameters (weights and biases) $\vec{p}$ and n (depents on the dimension of the problem) input units fed with the input vector $\vec{x}$, the first term $A(\vec{x})$ contains no adjustable parameters and satisfies the ICs or BCs, and the second term $F$ is constructed so as not to contribute to the ICs or BCs (give zero on those positions).</p>
+<p>Since the trial function $\Psi_t$ satisfies the ICs or BCs, the rest of work is to adjusted weights and biases makes $\Psi_t$ satisfies the governing equations. Thus, the problem is transformed into a minimization problem as follow:  </p>
+<p>$$<br>\eqalign{ E \left[ \vec{p} \right]&#x3D; \sum_i\left[{ \frac{\mathrm{d}\Psi(x_i)}{\mathrm{d}x}-f(x_i,\Psi_t(x_i)) } \right]^2 }<br>$$</p>
+<p>where the $x_i$ are locations of each grid. The target of our <strong>neural network</strong> is to optimize the parameters to minimize the function above, so-called <strong>loss function</strong>. For the detail of the python code, please refer to <a target="_blank" rel="noopener" href="https://github.com/BingHanLin/My_ML_Notes/tree/master/Neural%20Networks%20for%20Differential%20Equations">here</a>.</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>With the acknowledge above, we consider the example of first order ODE to illustrate the method:</p>
+<p>$$<br>\eqalign{ \frac{d\Psi}{dx}+(x+\frac{1+3x^2}{1+x+x^3})\Psi&#x3D;x^3+2x+x^2\frac{1+3x^2}{1+x+x^3}}<br>$$</p>
+<p>and</p>
+<p>$$<br>\eqalign{ x \in \left[ 0,1 \right], \quad \Psi(0)&#x3D;1 .}<br>$$  </p>
+<p>The trial solution $\Psi_t$ is written as</p>
+<p>$$<br>\eqalign{ \Psi_t(\vec{x})&#x3D;1+xN(\vec{x},\vec{p}) .}<br>$$</p>
+<p>Thus, $\frac{\mathrm{d}\Psi(x)}{\mathrm{d}x}$ can be obtained easily:</p>
+<p>$$<br>\eqalign{\frac{\mathrm{d} \Psi(x)}{\mathrm{d}x} &#x3D; N(\vec{x}) + x\frac{\mathrm{d} N(\vec{x})}{\mathrm{d}x} .}<br>$$</p>
+<p>In this example, we used a multilayer perceptron having one hidden layer with 10 hidden units and one linear output unit. The activate function of each hidden unit is chosen to be the sigmoid function:</p>
+<p>$$<br>\eqalign{\sigma(x) &#x3D; \frac{1}{1+e^{-x}} }<br>$$</p>
+<p>The analytic solution of this problem is:</p>
+<p>$$<br>\Psi_{a}(x) &#x3D; \frac{e^{-x^2}&#x2F;2}{1+x+x^3}<br>$$</p>
+<p>We set up a grid in the range $\left[ 0, 1 \right]$ with 10 nodes and train our <strong>neural network</strong> on these locations. Result of training the neural network for 1000 iterations is shown in the figure below:</p>
+<p><img src="https://i.imgur.com/y3tE8ad.png"></p>
+<p>Result of predict solution from the neural network.</p>
+<p>The result could be improved by many ways such as adding more grid points, adding more neurons in the hidden layer, etc. But this is out of the scope of this post. For the detail of the python code, please refer to <a target="_blank" rel="noopener" href="https://github.com/BingHanLin/My_ML_Notes/tree/master/Neural%20Networks%20for%20Differential%20Equations">here</a>.</p>
+<hr>
+<h2 id="Partial-Differential-Equation"><a href="#Partial-Differential-Equation" class="headerlink" title="Partial Differential Equation"></a>Partial Differential Equation</h2><p>There is no difference between the processes for solving ODEs and PDEs by this method. Only the number of the <strong>input neuron</strong> needs to be changed (two or more input neurons) according to the problems.</p>
+<h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h3><p>Consider the following PDE :</p>
+<p>$$<br>\nabla^2{\Psi}(x,y) &#x3D; e^{-x}(x-2+y^3+6y)<br>$$</p>
+<p>and,  </p>
+<p>$$<br>x,y \in \left[ 0,1 \right]<br>$$</p>
+<p>$$<br>\Psi(0,y) &#x3D; y^3, \quad \Psi(1,y) &#x3D; (1+y^3)e^{-1}<br>$$</p>
+<p>$$<br>\Psi(x,0) &#x3D; xe^{-x}, \quad \Psi(x,1) &#x3D; (x+1)e^{-x}<br>$$</p>
+<p>The trial solution which satisfies the constraints above is assumed to be:</p>
+<p>$$<br>\Psi_t(x,y) &#x3D; A(x,y)+x(1-x)y(1-y)N(x,y,\vec{p})<br>$$</p>
+<p>where $A(x,y)$ is defined below:</p>
+<p>$$<br>\eqalign{A(x,y) &#x3D;&amp; (1-x)y^3+x(1+y^3)e^{-1}+(1-y)x(e^{-x}-e^{-1}) \ &amp;+y\left[ (1+x)e^{-x}-(1-x-2xe^{-1}) \right] }<br>$$</p>
+<p>The analytic solution of this problem is:</p>
+<p>$$<br>\eqalign{\Psi_{a}(x, y) &#x3D; e^{-x}(x+y^3)}<br>$$</p>
+<p>We set up a mesh grid in the range of $x,y \in \left[ 0,1 \right] $ with 100 uniform distribution points. Result of training the neural network for 500 iterations is shown in the figure below:</p>
+<p><img src="https://i.imgur.com/AQkB43d.png"></p>
+<p>Result of predict solution from the neural network.</p>
+<p>For the detail of the python code, please refer to <a target="_blank" rel="noopener" href="https://github.com/BingHanLin/My_ML_Notes/tree/master/Neural%20Networks%20for%20Differential%20Equations">here</a>.</p>
+<hr>
+<ul>
+<li>Reference:</li>
+</ul>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/physics/9705023.pdf">Artificial Neural Networks for Solving Ordinary and Partial Differential Equations</a>, I. E. Lagaris, A. Likas and D. I. Fotiadis, 1997</li>
+<li><a target="_blank" rel="noopener" href="https://becominghuman.ai/neural-networks-for-solving-differential-equations-fa230ac5e04c">Neural networks for solving differential equations</a>, Alexandr Honchar, 2017</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/05/18/2019/solving-differential-equations-by-neural-networks/" data-id="clbj57j7s0003w4uf5xhphtjh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Introduction of Moving Particle Semi-Implicit Method
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">OpenFOAM: Extracting Numerical Data From  Case</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning-Note/">Machine Learning Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Uncategorized/">Uncategorized</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Fluid-Dynamics-CFD/" rel="tag">Computational Fluid Dynamics (CFD)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numerical-Method/" rel="tag">Numerical Method</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Uncategorized/" rel="tag">Uncategorized</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Computational-Fluid-Dynamics-CFD/" style="font-size: 10px;">Computational Fluid Dynamics (CFD)</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Numerical-Method/" style="font-size: 15px;">Numerical Method</a> <a href="/tags/OpenFOAM/" style="font-size: 20px;">OpenFOAM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Uncategorized/" style="font-size: 10px;">Uncategorized</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/22/2022/CMakePresets-And-VSCode/">Configure and build with CMake Presets in Visual Studio Code</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/">Iterative Methods Based On Splitting Matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/">Introduction of Moving Particle Semi-Implicit Method</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/18/2019/solving-differential-equations-by-neural-networks/">Solving Differential Equations by Neural Networks</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/">OpenFOAM: Extracting Numerical Data From  Case</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

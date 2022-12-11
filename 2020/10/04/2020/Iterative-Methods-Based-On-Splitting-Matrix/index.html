@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Iterative Methods Based On Splitting Matrix | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IntroductionConsider the linear equation system $$\eqalign{\mathbf{Ax &#x3D; b} }$$ where $\mathbf{A} \in \mathcal{R}^{n \times n}$ is a nonsigular matrix and $\mathbf{x}$ , $\mathbf{b} \in \mathcal{R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Iterative Methods Based On Splitting Matrix">
+<meta property="og:url" content="http://example.com/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="IntroductionConsider the linear equation system $$\eqalign{\mathbf{Ax &#x3D; b} }$$ where $\mathbf{A} \in \mathcal{R}^{n \times n}$ is a nonsigular matrix and $\mathbf{x}$ , $\mathbf{b} \in \mathcal{R">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-04T01:00:36.000Z">
+<meta property="article:modified_time" content="2022-12-11T08:33:56.231Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Numerical Method">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2020/Iterative-Methods-Based-On-Splitting-Matrix" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/" class="article-date">
+  <time datetime="2020-10-04T01:00:36.000Z" itemprop="datePublished">2020-10-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Uncategorized/">Uncategorized</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Iterative Methods Based On Splitting Matrix
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Consider the linear equation system</p>
+<p>$$<br>\eqalign{\mathbf{Ax &#x3D; b} }<br>$$</p>
+<p>where $\mathbf{A} \in \mathcal{R}^{n \times n}$ is a nonsigular matrix and $\mathbf{x}$ , $\mathbf{b} \in \mathcal{R}^{n}$.</p>
+<p>A large class of iterative methods for solving linear equation system involve splitting the matrix $\mathbf{A}$ into the difference between two new matrices $\mathbf{S}$ and $\mathbf{T}$ :</p>
+<span id="more"></span>
+
+<p>$$<br>\eqalign{\mathbf{A} &#x3D; \mathbf{S-T} } \text{, with S nonsingular.}<br>$$</p>
+<p>This gives us</p>
+<p>$$<br>\eqalign{\mathbf{Sx} &#x3D; \mathbf{Tx+b} }, \label{eq1} \tag{1}<br>$$</p>
+<p>and the approximate solution $\mathbf{x}^{k+1}$ can be found as following</p>
+<p>$$<br>\eqalign{\mathbf{Sx}^{k+1} &#x3D; \mathbf{Tx}^{k} + \mathbf{b} }, \label{eq2} \tag{2}<br>$$</p>
+<p>The iterative methods start from an initail guess $\mathbf{x}^{0}$ and produce better approximations $\mathbf{x}^{1}$, $\mathbf{x}^{2}$, $\cdots$ . If this procedure converges, i.e. $\mathbf{x}^{k+1} \rightarrow \mathbf{x}$, $k \rightarrow \infty$, then $\mathbf{x}^{k+1}$ solve the original problem.</p>
+<p>If the diagonal entries of the matrix $\mathbf{A}$ are all nonzero, and we express the matrix $\mathbf{A}$ as</p>
+<p>$$<br>\eqalign{\mathbf{A} &#x3D; \mathbf{D+L+U} }<br>$$</p>
+<p>where $\mathbf{D}$ is the diagonal part, $\mathbf{L}$ is strictly lower triangular matrix and $\mathbf{U}$ is strictly upper triangular matrix. We can then defined three standard iterative schemes ad follows:</p>
+<ul>
+<li><p><strong>Jabobi meshod</strong>  $\mathbf{S&#x3D;D}, \mathbf{T&#x3D;-(L+U)}$;</p>
+</li>
+<li><p><strong>Gauss-Seidel method</strong>  $\mathbf{S&#x3D;L+D}, \mathbf{T&#x3D;-U}$;</p>
+</li>
+<li><p><strong>Successive over-relaxation(SOR) method</strong> a combination of above methods.</p>
+</li>
+</ul>
+<hr>
+<h2 id="Jabobi-Method"><a href="#Jabobi-Method" class="headerlink" title="Jabobi Method"></a>Jabobi Method</h2><p>In this methods, $\mathbf{S}$ is simply the diagonal part of $\mathbf{A}$. Rewrite equation <a href="#mjx-eqn-eq2">2</a> give us</p>
+<p>$$<br>\eqalign{\mathbf{Dx}^{k+1} &#x3D; -(\mathbf{L}+\mathbf{U})\mathbf{x}^{k}+\mathbf{b}  }.<br>$$</p>
+<p>With the known values $\mathbf{x}^{k}$ in preivous iteration level $k$, the computed values $\mathbf{x}^{k+1}$ is obtained in current iteration level $k+1$. The process is repeated until the computed values reach the state of convergence.</p>
+<p>One may immediately notice a way to improve procedure by using the newly computed values to obtain the $\mathbf x^{k+1}$ once they are available. Indeed, implementation of this idea becomes the Gauss-Seidel method, which has better convergence rate. The Jacobi method is rarely used in practice due to it <strong>low convergence rate</strong>, but it provides a good basis for developing the advanced methods.</p>
+<figure class="highlight julia"><figcaption><span>Jacobi Method</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> jacobi(mat::<span class="built_in">Array</span>&#123;<span class="built_in">Float64</span>,<span class="number">2</span>&#125;, sol::<span class="built_in">Array</span>&#123;<span class="built_in">Float64</span>,<span class="number">1</span>&#125;, rhs::<span class="built_in">Array</span>&#123;<span class="built_in">Float64</span>,<span class="number">1</span>&#125;,</span><br><span class="line">                maxIter::<span class="built_in">Int</span>=<span class="number">100</span>, tol::<span class="built_in">Float64</span>=<span class="number">1.0e-8</span>)</span><br><span class="line"></span><br><span class="line">    nbrows, nbcols = size(mat)</span><br><span class="line">    result = deepcopy(sol)</span><br><span class="line">    residuals = <span class="built_in">Array</span>&#123;<span class="built_in">Float64</span>,<span class="number">1</span>&#125;(<span class="literal">undef</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    numIter = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> numIter &lt; maxIter</span><br><span class="line">        numIter+=<span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        deltaSol = rhs - mat*result</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i=<span class="number">1</span>:nbrows</span><br><span class="line">            deltaSol[i] = deltaSol[i]/mat[i,i]</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        </span><br><span class="line">        result = result + deltaSol</span><br><span class="line">        </span><br><span class="line">        nrm = norm(deltaSol)</span><br><span class="line">        </span><br><span class="line">        push!(residuals,nrm)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> nrm &lt;= tol</span><br><span class="line">            <span class="keyword">return</span> result, numIter, residuals</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result, numIter, residuals</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Gauss-Seidel-Method"><a href="#Gauss-Seidel-Method" class="headerlink" title="Gauss-Seidel Method"></a>Gauss-Seidel Method</h2><p>Besides <strong>low convergence rate</strong>,  Jacobi method requires us to store all the components of<br>$\mathbf x^{k}$ until we have finished computing the next iteration $\mathbf x^{k+1}$. To overcome these drawbacks, Gauss-Seidel Method use the <strong>new</strong> values of $\mathbf{x}$ as soon as we have calculated them. Again, rewrite equation <a href="#mjx-eqn-eq2">2</a> give us</p>
+<p>$$<br>\eqalign{(\mathbf{D+L})\mathbf{x}^{k+1} &#x3D; -\mathbf{U}\mathbf{x}^{k}+\mathbf{b} }.<br>$$</p>
+<p>Each component of the current iteration level depends upon all previously computed value. Unlike the Jacobi method, <strong>only one storage vector is required during the computation</strong> in practice, which can be advantageous for solving very large problems. In the next section, an extrapolation factor $\omega$ will be added into the equations of the Gauss-Seidel method, which gives us the Successive Over-Relaxation method.</p>
+<figure class="highlight julia"><figcaption><span>Gauss-Seidel Method</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> gaussSeidel(mat::<span class="built_in">Array</span>&#123;<span class="built_in">Float64</span>,<span class="number">2</span>&#125;, sol::<span class="built_in">Array</span>&#123;<span class="built_in">Float64</span>,<span class="number">1</span>&#125;, rhs::<span class="built_in">Array</span>&#123;<span class="built_in">Float64</span>,<span class="number">1</span>&#125;,</span><br><span class="line">                maxIter::<span class="built_in">Int</span>=<span class="number">100</span>, tol::<span class="built_in">Float64</span>=<span class="number">1.0e-8</span>)</span><br><span class="line"></span><br><span class="line">    nbrows, nbcols = size(mat)</span><br><span class="line">    result = deepcopy(sol)</span><br><span class="line">    deltaSol = deepcopy(sol)</span><br><span class="line">    residuals = <span class="built_in">Array</span>&#123;<span class="built_in">Float64</span>,<span class="number">1</span>&#125;(<span class="literal">undef</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    numIter = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> numIter &lt; maxIter</span><br><span class="line">        </span><br><span class="line">        numIter+=<span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i=<span class="number">1</span>:nbrows</span><br><span class="line">            oldResult = result[i]</span><br><span class="line">            result[i] = rhs[i]</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span> j=<span class="number">1</span>:nbcols</span><br><span class="line">                <span class="keyword">if</span> i!=j</span><br><span class="line">                    result[i]-=mat[i,j]*result[j]</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            result[i]/=mat[i,i]</span><br><span class="line">            </span><br><span class="line">            deltaSol[i]=result[i]-oldResult</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        </span><br><span class="line">        nrm = norm(deltaSol)</span><br><span class="line">        </span><br><span class="line">        push!(residuals,nrm)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> nrm &lt;= tol</span><br><span class="line">            <span class="keyword">return</span> result, numIter, residuals</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> result, numIter, residuals</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Successive-Over-Relaxation-Method-SOR"><a href="#Successive-Over-Relaxation-Method-SOR" class="headerlink" title="Successive Over-Relaxation Method(SOR)"></a>Successive Over-Relaxation Method(SOR)</h2><p>In iterative methods, we assume that the direction from $\mathbf x^{k}$ to $\mathbf x^{k+1}$ is taking us closer to the true solution. Then it would make sense to <strong>move further along the direction</strong> $(\mathbf{x}^{k+1}-\mathbf{x}^{k})$. This key concept lead us to Successive Over-Relaxation(SOR) method which is derived by extrapolating the Gauss-Seidel method.</p>
+<p>Let us rearrange Gauss-Seidel equation as</p>
+<p>$$<br>\eqalign{\mathbf{x^{k+1} &#x3D; D^{-1}\left[-Lx^{k+1}-Ux^{k}+b\right] } }.<br>$$</p>
+<p>Subtract $\mathbf x^{k}$ from both sides to get</p>
+<p>$$<br>\eqalign{\mathbf{x^{k+1} - x^{k} &#x3D; D^{-1}\left[-Dx^{k+1}-Lx^{k+1}-Ux^{k}+b\right] } }.<br>$$</p>
+<p>As mentioned above, the idea of the <strong>SOR method</strong> is to iterate by moving further along the direction $(\mathbf{x}^{k+1}-\mathbf{x}^{k})$.</p>
+<p>$$<br>\eqalign{\mathbf{x}^{k+1} &#x3D; \mathbf{x}^{k} +\omega(\mathbf{x}^{k+1}-\mathbf{x}^{k}) }.<br>$$</p>
+<p>Written out in detail, the SOR Method is</p>
+<p>$$<br>\eqalign{\mathbf{x^{k+1} &#x3D; x^{k} + \omega D^{-1}\left[-Lx^{k+1}-Ux^{k}+b\right] } }.<br>$$</p>
+<p>Finally, the <strong>SOR method</strong> can be written as,</p>
+<p>$$<br>\eqalign{<br>    (\mathbf{D}+\omega\mathbf{L})\mathbf{x}^{k+1} &#x3D;\left[(1-\omega)\mathbf{D}-\omega\mathbf{U}\right]\mathbf{x}^k+\omega\mathbf{b}<br>}<br>$$</p>
+<p>If $\omega &#x3D; 1$, the <strong>SOR method</strong> simplifies to the Gauss-Seidel method. The choice of relaxation factor $\omega$ is not necessarily easy, and depends upon the properties of the coefficient matrix. Frequently, some heuristic estimate is used, such as $\omega&#x3D;2-O(h)$ where $h$ is the mesh spacing of the discretization of the underlying physical domain. In general $\omega$ is inside the interval $ (1,2) $.</p>
+<figure class="highlight julia"><figcaption><span>Successive Over-Relaxation Method</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> SOR(mat::<span class="built_in">Array</span>&#123;<span class="built_in">Float64</span>,<span class="number">2</span>&#125;, sol::<span class="built_in">Array</span>&#123;<span class="built_in">Float64</span>,<span class="number">1</span>&#125;, rhs::<span class="built_in">Array</span>&#123;<span class="built_in">Float64</span>,<span class="number">1</span>&#125;, omega::<span class="built_in">Float64</span>,</span><br><span class="line">                maxIter::<span class="built_in">Int</span>=<span class="number">100</span>, tol::<span class="built_in">Float64</span>=<span class="number">1.0e-8</span>)</span><br><span class="line"></span><br><span class="line">    nbrows, nbcols = size(mat)</span><br><span class="line">    result = deepcopy(sol)</span><br><span class="line">    deltaSol = deepcopy(sol)</span><br><span class="line">    residuals = <span class="built_in">Array</span>&#123;<span class="built_in">Float64</span>,<span class="number">1</span>&#125;(<span class="literal">undef</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    numIter = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> numIter &lt; maxIter</span><br><span class="line">        </span><br><span class="line">        numIter+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i=<span class="number">1</span>:nbrows</span><br><span class="line">            oldResult = result[i]</span><br><span class="line">            result[i] = rhs[i]</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span> j=<span class="number">1</span>:nbcols</span><br><span class="line">                <span class="keyword">if</span> i!=j</span><br><span class="line">                    result[i]-=mat[i,j]*result[j]</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            </span><br><span class="line">            result[i]*=omega</span><br><span class="line">            result[i]/=mat[i,i]</span><br><span class="line">            result[i]+=(<span class="number">1</span>-omega)*oldResult</span><br><span class="line">            </span><br><span class="line">            deltaSol[i]=result[i]-oldResult</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        </span><br><span class="line">        nrm = norm(deltaSol)</span><br><span class="line">        push!(residuals,nrm)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> nrm &lt;= tol</span><br><span class="line">            <span class="keyword">return</span> result, numIter, residuals</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> result, numIter, residuals</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>Reference:</li>
+</ul>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Iterative_method">Iterative method</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.it.uom.gr/teaching/linearalgebra/ExamplesToIterativeMethods.pdf">Iterative methods for matrix equations</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.maa.org/press/periodicals/loci/joma/iterative-methods-for-solving-iaxi-ibi-the-sor-method">Iterative Methods: The SOR Method</a></li>
+<li><a target="_blank" rel="noopener" href="https://slideplayer.com/slide/4787543/">Iterative Methods for System of Equations</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/" data-id="clbj57j80000kw4ufazeheilh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Numerical-Method/" rel="tag">Numerical Method</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/12/22/2022/CMakePresets-And-VSCode/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Configure and build with CMake Presets in Visual Studio Code
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Introduction of Moving Particle Semi-Implicit Method</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning-Note/">Machine Learning Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Uncategorized/">Uncategorized</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Fluid-Dynamics-CFD/" rel="tag">Computational Fluid Dynamics (CFD)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numerical-Method/" rel="tag">Numerical Method</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Uncategorized/" rel="tag">Uncategorized</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Computational-Fluid-Dynamics-CFD/" style="font-size: 10px;">Computational Fluid Dynamics (CFD)</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Numerical-Method/" style="font-size: 15px;">Numerical Method</a> <a href="/tags/OpenFOAM/" style="font-size: 20px;">OpenFOAM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Uncategorized/" style="font-size: 10px;">Uncategorized</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/22/2022/CMakePresets-And-VSCode/">Configure and build with CMake Presets in Visual Studio Code</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/">Iterative Methods Based On Splitting Matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/">Introduction of Moving Particle Semi-Implicit Method</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/18/2019/solving-differential-equations-by-neural-networks/">Solving Differential Equations by Neural Networks</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/">OpenFOAM: Extracting Numerical Data From  Case</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

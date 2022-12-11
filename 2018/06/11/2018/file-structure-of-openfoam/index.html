@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>File Structure of OpenFOAM | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Installation directoryLet’s start from the installation dirctory, you can use the Linux command “tree” to examine the source code directory organization.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="File Structure of OpenFOAM">
+<meta property="og:url" content="http://example.com/2018/06/11/2018/file-structure-of-openfoam/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Installation directoryLet’s start from the installation dirctory, you can use the Linux command “tree” to examine the source code directory organization.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/0qbHbvv.jpg">
+<meta property="og:image" content="https://i.imgur.com/kb27u57.png">
+<meta property="article:published_time" content="2018-06-11T11:15:22.000Z">
+<meta property="article:modified_time" content="2022-12-11T08:33:56.226Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="OpenFOAM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/0qbHbvv.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018/file-structure-of-openfoam" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/11/2018/file-structure-of-openfoam/" class="article-date">
+  <time datetime="2018-06-11T11:15:22.000Z" itemprop="datePublished">2018-06-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      File Structure of OpenFOAM
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Installation-directory"><a href="#Installation-directory" class="headerlink" title="Installation directory"></a>Installation directory</h2><p>Let’s start from the installation dirctory, you can use the Linux command <strong>“tree”</strong> to examine the source code directory organization.</p>
+<span id="more"></span>
+<pre><code>tree -d -L 1 $WM_PROJECT_DIR
+</code></pre>
+<p>This show you the folders in the <code>$WM_PROJECT_DIR</code>(installation dirctory). You can also find other files in this directory, but most importantly one is <strong>Allwmake</strong> which compiles all of OpenFOAM by calling other Allwmake scripts. All the directories are introduced as follow: </p>
+<p><img src="https://i.imgur.com/0qbHbvv.jpg" alt="openFOAM file structure"><br><em>openFOAM file structure</em></p>
+<ol>
+<li><strong>applications:</strong> The directory contains the source files of all the executables which is created using the <strong>C++</strong> libraries. Here is a short description of the directories under applications .<ul>
+<li><strong>solvers</strong> Contains source code for the distributed solvers.</li>
+<li><strong>tests</strong> Contains source code that test and show example of the usage of some OpenFOAM libraries.</li>
+<li><strong>Utilities</strong> Contains source code to perform pre- and post-processing tasks involving data manipulations and algebraic manipulations.</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>note: there is also an <strong>Allwmake</strong> script, which will compile all the contents of <strong>solvers</strong> and <strong>utilities</strong>.</p>
+</blockquote>
+<ol start="2">
+<li><p><strong>tutorials:</strong> Contains tutorials that demonstrate thr usage of all solvers and most of the utilities.</p>
+</li>
+<li><p><strong>src:</strong> The src directory contains several subdirectories which include the the source code for all the libraries. The important folders are:</p>
+<ul>
+<li><strong>finiteVolume</strong> This library provides all the classes needed for the finiteVolume discretization, such as the fvMesh class, finiteVolume discretization operators (divergence, laplacian, gradient, and fvc&#x2F;fvm), and boundary conditions (<code>fields/fvPatchFields</code>). In <code>cfdTools/general/include/</code> you also find the very important file fvCFD.H, which is included in most applications.</li>
+<li><strong>OpenFOAM</strong> This core library includes the definitions of the containers used for the operations, the field definitions, the declaration of the mesh and of all the mesh features such as zones and sets.</li>
+<li><strong>turbulenceModels</strong> Contains many libraries for turbulence models.</li>
+</ul>
+</li>
+<li><p><strong>bin:</strong> The bin directory contains shell scripts, such as paraFoam,foamNew, foamLog…</p>
+</li>
+<li><p><strong>doc:</strong> The doc directory contains the documentation of OpenFOAM, such as Programmers Guide, User Guide, and Doxygen generated documentation in html format etc.</p>
+</li>
+<li><p><strong>doc:</strong> The doc directory contains the documentation of OpenFOAM, such as Programmers Guide, User Guide, and Doxygen generated documentation in html format etc.</p>
+</li>
+<li><p><strong>etc:</strong> Theetcdirectory contains environment set-up files, global <strong><em>controlDict</em></strong>, and default <strong><em>thermoData</em></strong>.</p>
+</li>
+<li><p><strong>platforms:</strong> Contains the binaries of the applications (bin) and dynamic libraries.</p>
+</li>
+<li><p><strong>wmake:</strong> <strong>Compiler settings</strong> are included in this directory incluiding optimisation flags. It also contains <strong><em>wmake</em></strong>, a special make command which understand the OpenFOAM file structure.</p>
+</li>
+</ol>
+<hr>
+<h2 id="Case-directory-Working-diretory"><a href="#Case-directory-Working-diretory" class="headerlink" title="Case directory (Working diretory)"></a>Case directory (Working diretory)</h2><p>The basic directory structure for a OpenFOAM case, that contains the minimum set of files required to run an application, is shown in following figure and described as follows:</p>
+<p><img src="https://i.imgur.com/kb27u57.png" alt="case directory"><br><em><a target="_blank" rel="noopener" href="https://cfd.direct/openfoam/user-guide/case-file-structure">source</a></em></p>
+<ul>
+<li><strong>constant</strong> Contains a full description of the case <strong>mesh</strong> in a subdirectory polyMesh and files specifying physical properties for the application concerned, e.g. transportProperties.</li>
+<li><strong>system</strong> For setting parameters associated with the solution procedure itself. It contains at least the following 3 files: <strong><em>controlDict</em></strong> where run control parameters are set including start&#x2F;end time, time step and parameters for data output; <strong><em>fvSchemes</em></strong> where discretisation schemes used in the solution may be selected at run-time; and, <strong><em>fvSolution</em></strong> where the equation solvers, tolerances and other algorithm controls are set for the run.</li>
+<li><strong>time (or 0)</strong> Containing individual files of data for particular fields, e.g. velocity and pressure. The data can be: either, initial values and boundary conditions that the user must specify to define the problem; or, results written to file by OpenFOAM. The name of each time directory is based on the simulated time at which the data is written. It is sufficient to say now that since we usually start our simulations at time t &#x3D; 0, the initial conditions are usually stored in a directory named 0 or 0.000000e+00, depending on the name format specified. For example, in the cavity tutorial, the velocity field U and pressure field p are initialised from files 0&#x2F;U and 0&#x2F;p respectively.</li>
+</ul>
+<hr>
+<h2 id="Run-tutorials-in-OpenFOAM"><a href="#Run-tutorials-in-OpenFOAM" class="headerlink" title="Run tutorials in OpenFOAM"></a>Run tutorials in OpenFOAM</h2><p>For OpenFOAM users, tutorials are essential because in most cases you will start your own project by:</p>
+<ul>
+<li>Selecting a solver which implements all necessary physics</li>
+<li>Checking the tutorials available for the solver</li>
+<li>Copying, renaming and modifying the most similar tutorial</li>
+<li>Testing and running your own simulation</li>
+</ul>
+<p>However, the tutorial collection contains a variety of different case setups. In the following, three different ways to run these tutorials are introduced.</p>
+<ul>
+<li><strong>Simple blockMesh&#x2F;mySolverFoam tutorials</strong></li>
+<li><strong>Tutorials with Allrun&#x2F;Allclean scripts</strong></li>
+<li><strong>Tutorials which require system operations</strong></li>
+</ul>
+<p>Thses 3 ways are briefly descrided as follow, see this <a target="_blank" rel="noopener" href="http://myheutagogy.com/2016/03/17/of_tutorials/">article</a> for further detail.</p>
+<ol>
+<li><p><strong>Simple blockMesh&#x2F;mySolverFoam tutorials</strong> For a common case such as lid-driven cavity flow (you can find it in <code>$FOAM_RUN/tutorials/incompressible/icoFoam/cavity/</code>), the directory contains <strong>system</strong>, <strong>constant</strong>, and <strong>0</strong>. If no further execution scripts are provided, you will always have to run <code>blockMesh</code>, for the mesh creation, and afterwards your solver of choice, <code>icoFoam</code> in our case . A possible scenario is an additional <strong>setFieldsDict</strong> to set initial field values. The corresponding utility to run after <code>blockMesh</code> would be <code>setFields</code>.</p>
+<p><code>blockMesh = &gt;&gt; setFields (if need)= &gt;&gt; icoFoam(choose your solver)</code></p>
+</li>
+<li><p><strong>Tutorials with Allrun&#x2F;Allclean scripts</strong> For some complicated cases, automating processes comes naturally within a Linux environment via Shell scripts. Basically, all necessary commands are written into a file which is then executed. In the tutorial collection these scripts are usually called <strong><em>Allrun</em></strong>.</p>
+</li>
+<li><p><strong>Tutorials which require system operations</strong> “System operations” basically means that an application (e.g. a solver) compiles and (hopefully) runs user-supplied C++ source code at runtime. Examples are the <a target="_blank" rel="noopener" href="https://openfoam.org/release/2-0-0/run-time-control-code-compilation/">#codeStream</a> directive or the codedFixedValue boundary condition.</p>
+</li>
+</ol>
+<hr>
+<ul>
+<li>Reference:</li>
+</ul>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://wenku.baidu.com/view/efbee181fe4733687f21aa6a.html">OpenFOAM基础培训-目录结构</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.hpc.lsu.edu/training/weekly-materials/2016-Spring/intro_of_20160224.pdf">Introduction to OpenFOAM</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.tfd.chalmers.se/~hani/kurser/OS_CFD_2015/directoryOrganization.pdf">OpenFOAM directory organization</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/JibranHaider/openfoam-for-beginners">OpenFOAM for beginners: Hands-on training</a></li>
+<li><a target="_blank" rel="noopener" href="https://cfd.direct/openfoam/user-guide/case-file-structure/">CFD Direct</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/aleigus/article/details/72917112">aleigus的博客-Openfoam学习记录</a></li>
+<li><a target="_blank" rel="noopener" href="http://myheutagogy.com/2016/03/17/of_tutorials/">3 ways to run tutorials in OpenFOAM</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2018/06/11/2018/file-structure-of-openfoam/" data-id="clbj57j7v0007w4uf9e5g37xb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/07/10/2018/openfoam-tutorial-lid-driven-cavity/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          OpenFOAM Tutorial - Lid Driven Cavity
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/20/2018/truncation%20error%20&%20rounding%20error/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Truncation error &amp; Rounding error</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning-Note/">Machine Learning Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Uncategorized/">Uncategorized</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Fluid-Dynamics-CFD/" rel="tag">Computational Fluid Dynamics (CFD)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numerical-Method/" rel="tag">Numerical Method</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Uncategorized/" rel="tag">Uncategorized</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Computational-Fluid-Dynamics-CFD/" style="font-size: 10px;">Computational Fluid Dynamics (CFD)</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Numerical-Method/" style="font-size: 15px;">Numerical Method</a> <a href="/tags/OpenFOAM/" style="font-size: 20px;">OpenFOAM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Uncategorized/" style="font-size: 10px;">Uncategorized</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/22/2022/CMakePresets-And-VSCode/">Configure and build with CMake Presets in Visual Studio Code</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/">Iterative Methods Based On Splitting Matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/">Introduction of Moving Particle Semi-Implicit Method</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/18/2019/solving-differential-equations-by-neural-networks/">Solving Differential Equations by Neural Networks</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/">OpenFOAM: Extracting Numerical Data From  Case</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

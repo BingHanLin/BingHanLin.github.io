@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Runge Kutta 4th Order | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IntroductionRunge-Kutta method is a numerical procedure for approximating values for the solution of ordinary differential equations (ODEs) with a given initial value. The simplest Runge–Kutta method">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Runge Kutta 4th Order">
+<meta property="og:url" content="http://example.com/2018/03/19/2018/runge-kutta-4th-order/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="IntroductionRunge-Kutta method is a numerical procedure for approximating values for the solution of ordinary differential equations (ODEs) with a given initial value. The simplest Runge–Kutta method">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/wu9stb8.png">
+<meta property="og:image" content="https://i.imgur.com/60YRGzo.png">
+<meta property="article:published_time" content="2018-03-19T14:49:27.000Z">
+<meta property="article:modified_time" content="2022-12-11T08:33:56.228Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Numerical Method">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/wu9stb8.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018/runge-kutta-4th-order" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/19/2018/runge-kutta-4th-order/" class="article-date">
+  <time datetime="2018-03-19T14:49:27.000Z" itemprop="datePublished">2018-03-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Uncategorized/">Uncategorized</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Runge Kutta 4th Order
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Runge-Kutta method is a numerical procedure for approximating values for the solution of ordinary differential equations (ODEs) with a given initial value. The simplest Runge–Kutta method has the same form as Euler method.</p>
+<span id="more"></span>
+<hr>
+<h2 id="Problem-Statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h2><p>Let’s consider an IVP (Initial Value Problem)  as follow,</p>
+<p>$$<br>\eqalign{\frac{dy(t)}{dt} &#x3D; y’(t) &#x3D; f(y(t),t), \quad \rm{with}\quad y(t_0)&#x3D;y_0}<br>$$</p>
+<p>The value of $y(t)$ is the solution we want to obtain. Here, the derivative of our solution at time $t$, $y(t)$, is dependent on that solution and $t$. The approximate techniques are described and implement by Python code below.</p>
+<hr>
+<h2 id="First-Order-Runge-Kutta-Euler’s-Method"><a href="#First-Order-Runge-Kutta-Euler’s-Method" class="headerlink" title="First Order Runge-Kutta (Euler’s Method)"></a>First Order Runge-Kutta (Euler’s Method)</h2><p>Using the <strong>Taylor Series</strong> to expand $y(t)$ at $ t&#x3D;0$.</p>
+<p>$$<br>\eqalign{y(t) &#x3D; y(0) + y’(0)\frac{t} {1}+ y’’(0)\frac{t^2} {2} + \cdots}<br>$$</p>
+<p>Then we approximate the solution in a short step, $h$, after $t&#x3D;0$ and truncate the Taylor series after the first derivative.</p>
+<p>$$<br>\eqalign{ &amp; y(h) &#x3D; y(0) + y’(0)h + y’’(0)\frac{h^2}{2} + \cdots \cr &amp; y(h) \approx y(0) + y’(0)h \cr}<br>$$</p>
+<p>Now, we have obtained the solution at $t&#x3D;h$ with the error in $O({h^2})$ . Take the same concept into every steps afterward, the general formula for the fist order runge-kutta method is given as,</p>
+<p>$$<br>\eqalign{y_{n+1} \approx y_n +h f(y_n,{t_n})}<br>$$</p>
+<p>where the subscript $n$ denotes the number of  steps, $h$ denotes a small step size. It advances the solution through an interval $h$ by using the derivatives information at the beginning of that interval. We can use Python code with a simple loop to complte the procedure above.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Solve y&#x27;(t)=-2y(t)+cos(4t) with y0=3</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"> </span><br><span class="line">y0 = <span class="number">3</span> <span class="comment"># Initial Condition</span></span><br><span class="line">h = <span class="number">0.1</span> <span class="comment"># Time step</span></span><br><span class="line">t = np.arange( <span class="number">0</span>, <span class="number">2</span>+h, h ); <span class="comment"># Calculate from 0 to 2 seconds</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Exact solution, hard to find in this case (in general we won&#x27;t have it)</span></span><br><span class="line">yexact = <span class="number">0.1</span>*np.cos(<span class="number">4</span>*t)+<span class="number">0.2</span>*np.sin(<span class="number">4</span>*t)+<span class="number">2.9</span>*np.exp(-<span class="number">2</span>*t)</span><br><span class="line">ystar = np.zeros(t.size); <span class="comment"># Preallocate array (good coding practice)</span></span><br><span class="line"> </span><br><span class="line">ystar[<span class="number">0</span>] = y0; <span class="comment"># Initial condition gives solution at t=0</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Start of the loop</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,t.size-<span class="number">1</span>):</span><br><span class="line">    k1 = -<span class="number">2</span>*ystar[i]+np.cos(<span class="number">4</span>*t[i]); <span class="comment"># Deriv information from previous state</span></span><br><span class="line">    ystar[i+<span class="number">1</span>] = ystar[i] + k1*h; <span class="comment"># Calculate solution for next value of y</span></span><br><span class="line"><span class="comment"># End of the loop</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Plot the result</span></span><br><span class="line">line1, = plt.plot(t,yexact,<span class="string">&#x27;r&#x27;</span>, label=<span class="string">&#x27;Exact solution&#x27;</span>)</span><br><span class="line">line2, = plt.plot(t, ystar, <span class="string">&#x27;bo--&#x27;</span>, label=(<span class="string">&#x27;Numerical solution, h = &#x27;</span>+<span class="built_in">str</span>(h)))</span><br><span class="line"> </span><br><span class="line">plt.legend(handles = [line1, line2])</span><br><span class="line">plt.title(<span class="string">&#x27;Exact and Numerical Solution&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;time (t)&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;Solution of y(t)&#x27;</span>)</span><br><span class="line"> </span><br><span class="line">plt.show()</span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;Complete!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>A figure of the result is shown here. One thing to be noticed is that the accuracy of the numerical solution can be improved by reducing the step size $h$.</p>
+<p><img src="https://i.imgur.com/wu9stb8.png"></p>
+<hr>
+<h2 id="Fourth-Order-Runge-Kutta"><a href="#Fourth-Order-Runge-Kutta" class="headerlink" title="Fourth Order Runge-Kutta"></a>Fourth Order Runge-Kutta</h2><p>First order Runge-Kutta (Euler’s method) is not recommended for practical use due to its low accuracy and stability. One way we could improve the solutions based on the similar concept above. We again calculate the slope at the beginning point, and instead of forwarding to next step, we take a “trail” step to the midpoint of the interval. Then compute the slope at the midpoint. Finally, use this slope to cross the whole interval from the beginning point. The equations of this idea are presented as follow,</p>
+<p>$$<br>\eqalign{y_{n+1} \approx y_n +h f(y_n,{t_n})}<br>$$</p>
+<p>$$<br>\eqalign{k_1 &#x3D; hf({y_n,t_n})}<br>$$</p>
+<p>$$<br>\eqalign{k_2 &#x3D; hf({y_n+\frac{1}{2}k_1,t_n+\frac{1}{2}h})}<br>$$</p>
+<p>$$<br>\eqalign{y_{n+1} &#x3D;y_n+k_2+O(h^3) }<br>$$</p>
+<p>In fact, it is called the second-order Runge-Kutta method. But, we don’t stop here.  By continuing taking more “trail” steps in an interval, a higher order algorithm can be expected. The classical fourth-order Runge-Kutta method is derived as,</p>
+<p>$$<br>\eqalign{k_1 &#x3D; hf({y_n,t_n})}<br>$$</p>
+<p>$$<br>\eqalign{k_2 &#x3D; hf({y_n+\frac{1}{2}k_1,t_n+\frac{1}{2}h})}<br>$$</p>
+<p>$$<br>\eqalign{k_3 &#x3D; hf({y_n+\frac{1}{2}k_2,t_n+\frac{1}{2}h})}<br>$$</p>
+<p>$$<br>\eqalign{k_3 &#x3D; hf({y_n+k_3,t_n+h})}<br>$$</p>
+<p>$$<br>\eqalign{y_{n+1} &#x3D;y_n+\frac{k_1}{6}+\frac{k_2}{3}+\frac{k_3}{3}+\frac{k_4}{6}+O(h^5)}<br>$$</p>
+<p>We can repeat this process using this estimate by a loop over the whole duration.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Solve y&#x27;(t)=-2y(t)+cos(4t) with y0=3, 4th order Runge Kutta</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"> </span><br><span class="line">y0 = <span class="number">3</span>                  <span class="comment"># Initial Condition</span></span><br><span class="line">h = <span class="number">0.1</span>                 <span class="comment"># Time step size</span></span><br><span class="line">t = np.arange( <span class="number">0</span>, <span class="number">2</span>+h, h )   <span class="comment"># Calculate from 0 to 2 seconds</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Exact solution, hard to find in this case (in general we won&#x27;t have it)</span></span><br><span class="line">yexact = <span class="number">0.1</span>*np.cos(<span class="number">4</span>*t)+<span class="number">0.2</span>*np.sin(<span class="number">4</span>*t)+<span class="number">2.9</span>*np.exp(-<span class="number">2</span>*t)</span><br><span class="line">ystar = np.zeros(t.size)   <span class="comment"># Preallocate array (good coding practice)</span></span><br><span class="line"> </span><br><span class="line">ystar[<span class="number">0</span>] = y0              <span class="comment"># Initial condition gives solution at t=0</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># Start of the loop</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,t.size-<span class="number">1</span>):</span><br><span class="line"> </span><br><span class="line">    k1 = -<span class="number">2</span>*ystar[i] + np.cos(<span class="number">4</span>*t[i])    </span><br><span class="line">    y1 = ystar[i] + k1*h/<span class="number">2</span></span><br><span class="line"> </span><br><span class="line">    k2 = -<span class="number">2</span>*y1 + np.cos(<span class="number">4</span>*t[i] + k1*h/<span class="number">2</span>)</span><br><span class="line">    y2 = ystar[i] + k2*h/<span class="number">2</span></span><br><span class="line"> </span><br><span class="line">    k3 = -<span class="number">2</span>*y2 + np.cos(<span class="number">4</span>*t[i] + k2*h/<span class="number">2</span>)</span><br><span class="line">    y3 = ystar[i] + k3*h/<span class="number">2</span></span><br><span class="line"> </span><br><span class="line">    k4 = -<span class="number">2</span>*y3 + np.cos(<span class="number">4</span>*t[i] + k3*h/<span class="number">2</span>)  </span><br><span class="line">    ystar[i+<span class="number">1</span>] = ystar[i] + (k1+<span class="number">2</span>*k2+<span class="number">2</span>*k3+k4)*h/<span class="number">6</span>       <span class="comment"># Calculate solution for next value of y</span></span><br><span class="line"><span class="comment"># End of the loop</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Plot the result</span></span><br><span class="line">line1, = plt.plot(t,yexact,<span class="string">&#x27;r&#x27;</span>, label=<span class="string">&#x27;Exact solution&#x27;</span>)</span><br><span class="line">line2, = plt.plot(t, ystar, <span class="string">&#x27;bo--&#x27;</span>, label=(<span class="string">&#x27;Numerical solution, h = &#x27;</span>+<span class="built_in">str</span>(h)))</span><br><span class="line"> </span><br><span class="line">plt.legend(handles = [line1, line2])</span><br><span class="line">plt.title(<span class="string">&#x27;Exact and Numerical Solution&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;time (t)&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;Solution of y(t)&#x27;</span>)</span><br><span class="line"> </span><br><span class="line">plt.show()</span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;Complete!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>The fourth-order Runge-Kutta method required four slopes per step $h$. Will that produce superior accuracy to the first order method? If we see in the figure ( the result of 4th RK) below, the answer seems to be “yes”. But it more often depends on the nature of the problems we try to solve.</p>
+<p><img src="https://i.imgur.com/60YRGzo.png"></p>
+<hr>
+<ul>
+<li>Reference:</li>
+</ul>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://lpsa.swarthmore.edu/NumInt/NumIntIntro.html">Approximation of Differential Equations by Numerical Integration</a></li>
+<li><a target="_blank" rel="noopener" href="http://boson4.phys.tku.edu.tw/numerical_methods/nm_units/ODE_Runge-Kutta.htm">常微分程求解：隆巨—庫塔法、高階方法的圖像</a></li>
+<li>THE ART OF SCIENTIFIC COMPUTING (ISBN 0-521-43108-5), 1988-1992 by Cambridge University Press</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2018/03/19/2018/runge-kutta-4th-order/" data-id="clbj50j7q000umwuf7y7z52en" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Numerical-Method/" rel="tag">Numerical Method</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/20/2018/truncation%20error%20&%20rounding%20error/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Truncation error &amp; Rounding error
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning-Note/">Machine Learning Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OpenFOAM-Note/">OpenFOAM Note</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Uncategorized/">Uncategorized</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Fluid-Dynamics-CFD/" rel="tag">Computational Fluid Dynamics (CFD)</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Numerical-Method/" rel="tag">Numerical Method</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenFOAM/" rel="tag">OpenFOAM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Uncategorized/" rel="tag">Uncategorized</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Computational-Fluid-Dynamics-CFD/" style="font-size: 10px;">Computational Fluid Dynamics (CFD)</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Numerical-Method/" style="font-size: 15px;">Numerical Method</a> <a href="/tags/OpenFOAM/" style="font-size: 20px;">OpenFOAM</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Uncategorized/" style="font-size: 10px;">Uncategorized</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/12/22/2022/CMakePresets-And-VSCode/">Configure and build with CMake Presets in Visual Studio Code</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/04/2020/Iterative-Methods-Based-On-Splitting-Matrix/">Iterative Methods Based On Splitting Matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/14/2019/induction-of-moving-particle-semi-implicit-method/">Introduction of Moving Particle Semi-Implicit Method</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/18/2019/solving-differential-equations-by-neural-networks/">Solving Differential Equations by Neural Networks</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/23/2019/openfoam-tutorial-extracting-numerical-data-from-case/">OpenFOAM: Extracting Numerical Data From  Case</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
