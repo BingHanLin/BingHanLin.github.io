@@ -2,8 +2,9 @@
 title: Configure and build with CMake Presets in Visual Studio Code
 tags:
   - Uncategorized
-id: '2240'
+date: 2022-12-22 09:00:00
 ---
+
 # CMake presets
 ## Introduction
 CMake presets are a collection of configuration, build and test options for a CMake project. These options are described in two JSON files named **CMakePreset.json** and **CMakeUserPresets.json** respectively. They both live in the project's root directory and have exactly the same schema. The difference between them is that the former is meant to specify **project-wide** build details, while the latter is meant for **developers own local build details**.
