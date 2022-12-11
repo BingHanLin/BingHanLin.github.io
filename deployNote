@@ -6,8 +6,8 @@ npm install hexo,
 npm install,
 npm install hexo-deployer-git
 
-
-hexo server
+cd binghan
+hexo s
 hexo g -d
 
 latex

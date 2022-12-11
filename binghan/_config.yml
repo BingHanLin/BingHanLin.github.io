@@ -12,10 +12,9 @@ language: en
 timezone: ''
 
 # URL
-## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
-root: /
-permalink: :title/
+## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
+url: http://example.com
+permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -46,8 +45,8 @@ relative_link: false
 future: true
 highlight:
   enable: true
-  auto_detect: false
   line_number: true
+  auto_detect: false
   tab_replace: ''
   wrap: true
   hljs: false
@@ -81,8 +80,8 @@ meta_generator: true
 ## http://momentjs.com/docs/#/displaying/format/
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
-## Use post's date for updated date unless set in front-matter
-use_date_for_updated: false
+## updated_option supports 'mtime', 'date', 'empty'
+updated_option: 'mtime'
 
 # Pagination
 ## Set per_page to 0 to disable pagination
@@ -101,8 +100,8 @@ ignore:
 theme: next
 
 # Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy: 
+## Docs: https://hexo.io/docs/one-command-deployment
+deploy:
   type: git
-  repo: 'https://github.com/BingHanLin/BingHanLin.github.io.git'
+  repo: 'git@github.com:BingHanLin/BingHanLin.github.io.git'
   branch: master 
