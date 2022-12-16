@@ -160,7 +160,7 @@ Now, the directory structure looks like:
 ### Create Presets
 Run **CMake: Add Configure Preset** from the command palette and choose **Create from compilers**. With Visual Studio build tool installed on your computer, CMake Tools lists the available kits for preset. Select one of the kit from the list to create CMakePresets.json in the root directory. In this article i choose **Visual Studio 2019 x64** for the preset, both configure preset and build preset are generate in the CMakePresets.json.
 
-![](../../assets/CMakePresets-And-VSCode/cmake-add-presets.png)
+![](cmake-add-presets.png)
 
 Now, you have a CMakePresets.json similar to the json data below. Remember to add **VTK_DIR** in  section **cacheVariable**, so VTK　library can be found. If you want to output the binary files in specific place, modify the value in key **binaryDir**.
 
@@ -250,11 +250,11 @@ For more information about Visual Studio Code debugging, please visit [link](htt
 
 Choose the debug configuration and start the program. Our hello world program is executed under the enviroment defined above.
 
-![](../../assets/CMakePresets-And-VSCode/debug.png)
+![](debug.png)
 
-![](../../assets/CMakePresets-And-VSCode/run.png)
+![](run.png)
 
-Conclusion
+# Conclusion
 I hope you now understand how to use CMake presets in in Visual Studio Code. CMake Preset ensure that multiple configurations remain consistent among the developers and reduce number of mistakes that may occur. CMake Tools extension provide many convient method to work with CMake Preset in Visual Studio Code. Using them properly can increase can reduce simplicity for everyone working on the project!
 
 Many topics can't be covered in this article, such as CMake Presets Inheritance, CMakeUserPresets.json and debugger extensions. These topic can be found in the reference list.
