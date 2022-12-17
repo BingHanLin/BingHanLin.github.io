@@ -19,7 +19,7 @@ Let's start from the installation dirctory, you can use the Linux command **"tre
 
 This show you the folders in the `$WM_PROJECT_DIR`(installation dirctory). You can also find other files in this directory, but most importantly one is **Allwmake** which compiles all of OpenFOAM by calling other Allwmake scripts. All the directories are introduced as follow: 
 
-![openFOAM file structure](https://i.imgur.com/0qbHbvv.jpg)
+![openFOAM file structure](openfoam-file-structure.jpg)
 *openFOAM file structure*
 
 1.  **applications:** The directory contains the source files of all the executables which is created using the **C++** libraries. Here is a short description of the directories under applications .
@@ -56,7 +56,7 @@ Case directory (Working diretory)
 
 The basic directory structure for a OpenFOAM case, that contains the minimum set of files required to run an application, is shown in following figure and described as follows:
 
-![case directory](https://i.imgur.com/kb27u57.png) 
+![case directory](case-directory.png) 
 *[source](https://cfd.direct/openfoam/user-guide/case-file-structure)*
 
 *   **constant** Contains a full description of the case **mesh** in a subdirectory polyMesh and files specifying physical properties for the application concerned, e.g. transportProperties.

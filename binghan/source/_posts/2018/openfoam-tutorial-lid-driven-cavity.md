@@ -17,7 +17,7 @@ The lid-driven cavity flow tutorial is the easiest and most well documented tuto
 
 <!-- more -->
 
-![Geometry of the lid driven cavity](https://i.imgur.com/WdYtFNf.jpg) 
+![Geometry of the lid driven cavity](lid-driven-cavity.jpg) 
 *Geometry of the lid driven cavity*
 
 * * *
@@ -268,7 +268,7 @@ Running an application
 
 It is convenient to keep **_ParaView_** open while running other commands from the terminal, we will launch it in the background using the **&** operator by typing `paraFoam &` to run **_paraView_** at current directory. Alternatively, it can be launched from another directory location with an optional -case argument giving the case directory. `paraFoam -case <your directory (relative path)> &` The geometry and the wireframe can be obtained in **_ParaView_** . The figure below shows the configuration of **uniform mesh** distribution.
 
-![Uniform mesh](https://i.imgur.com/tt9s0Cz.jpg)
+![Uniform mesh](Uniform-mesh.jpg)
 *Uniform mesh*
 
 Some modifications can be done in the **_blockMeshDict_**, if the non uniform mesh distribution is desired. We list some examples as follow:
@@ -277,7 +277,7 @@ Some modifications can be done in the **_blockMeshDict_**, if the non uniform me
     
     simpleGrading (1 2 3)    // cell expansion ratios in 3 directions
         
-![non uniform mesh - simpleGrading](https://i.imgur.com/M18ELX1.jpg) 
+![non uniform mesh - simpleGrading](simpleGrading.jpg) 
 *Non uniform mesh - simpleGrading*
     
 *   **edgeGrading** This gives us the way to specified the expension ratio of the mesh on each edge directly.
@@ -287,7 +287,7 @@ Some modifications can be done in the **_blockMeshDict_**, if the non uniform me
     
 This means the ratio of cell widths along edges 0-3 is 1, along edges 4-7 is 2 and along 8-11 is 3 ( the number and direction of the edge in a block can be seen [here](https://cfd.direct/openfoam/user-guide/blockMesh/#x25-1790005.3)).
 
-![Non uniform mesh - edgeGrading](https://i.imgur.com/oBHDWgR.jpg) 
+![Non uniform mesh - edgeGrading](edgeGrading.jpg) 
 *Non uniform mesh - edgeGrading*
     
 *   **Multi-grading of a block** In our case, we might require finer cell for the mesh near the walls. **_OpenFOAM v2.4+_** includes **multi-grading functionality** that can divide a block in an given direction and apply different grading within each division. It is specified by replacing any single value expansion ratio in the grading specification of the block. A example configuration for our cavity case is shown as follow.
@@ -312,7 +312,7 @@ This means the ratio of cell widths along edges 0-3 is 1, along edges 4-7 is 2 a
     )
 ```      
     
-![Non uniform mesh - multi-grading](https://i.imgur.com/5LCv6sE.jpg) 
+![Non uniform mesh - multi-grading](multi-grading.jpg) 
 *Non uniform mesh - multi-grading*
     
 
@@ -322,7 +322,7 @@ This means the ratio of cell widths along edges 0-3 is 1, along edges 4-7 is 2 a
 
 The **_icoFoam_** solver is executed either by entering the case directory and typing `icoFoam` at the command prompt, or with the optional -case argument giving the case directory. `icoFoam -case <your running directory>` 
 
-![pressure contour and the velocity vector](https://i.imgur.com/3a4go4q.png)
+![pressure contour and the velocity vector](velocity-vector.png)
 *Pressure contour and the velocity vector*
 
 * * *
