@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Governing EquationsGoverning equations are expressed by conservation of mass and momentum. The equations are: $$\eqalign{ \frac{D\rho}{Dt}+\rho \nabla \cdot \mathbf{u} &#x3D;0 }$$ and $$\eqalign{ \fra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Introduction of Moving Particle Semi-Implicit Method">
+<meta property="og:url" content="http://example.com/2019/induction-of-moving-particle-semi-implicit-method/index.html">
+<meta property="og:site_name" content="BHL Notes">
+<meta property="og:description" content="Governing EquationsGoverning equations are expressed by conservation of mass and momentum. The equations are: $$\eqalign{ \frac{D\rho}{Dt}+\rho \nabla \cdot \mathbf{u} &#x3D;0 }$$ and $$\eqalign{ \fra">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-09-14T15:29:31.000Z">
+<meta property="article:modified_time" content="2022-12-11T08:33:56.229Z">
+<meta property="article:author" content="Bing Han Lin">
+<meta property="article:tag" content="Computational Fluid Dynamics (CFD)">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2019/induction-of-moving-particle-semi-implicit-method/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Introduction of Moving Particle Semi-Implicit Method | BHL Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BHL Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">MY LEARNING TRAJECTORY</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/induction-of-moving-particle-semi-implicit-method/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Introduction of Moving Particle Semi-Implicit Method
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-09-14 23:29:31" itemprop="dateCreated datePublished" datetime="2019-09-14T23:29:31+08:00">2019-09-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-11 16:33:56" itemprop="dateModified" datetime="2022-12-11T16:33:56+08:00">2022-12-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Governing-Equations"><a href="#Governing-Equations" class="headerlink" title="Governing Equations"></a>Governing Equations</h2><p>Governing equations are expressed by conservation of mass and momentum. The equations are:</p>
+<p>$$<br>\eqalign{ \frac{D\rho}{Dt}+\rho \nabla \cdot \mathbf{u} &#x3D;0 }<br>$$</p>
+<p>and</p>
+<p>$$<br>\eqalign{ \frac{D \mathbf{u} }{Dt}&#x3D;-\frac{1}{\rho}\nabla P +\nu \nabla^2 \mathbf{u} +\mathbf{f} }<br>$$</p>
+<p>where $\rho$ indicates density, $P$ is the pressure, $\mathbf{u}$ the velocity and $\mathbf{f}$ the external force. It should be noted that the first equation is written in the form of compressible flow. In the MPS method, <strong>incompressibility is enforced by way of setting $\frac{ D \rho}{D t}&#x3D;0$ at each particle at each calculation time step</strong>.</p>
+<span id="more"></span>
+
+
+<hr>
+<h2 id="Particle-Interaction-Models"><a href="#Particle-Interaction-Models" class="headerlink" title="Particle Interaction Models"></a>Particle Interaction Models</h2><h3 id="Weighting-functions"><a href="#Weighting-functions" class="headerlink" title="Weighting functions"></a>Weighting functions</h3><p>The particle interacts with its neighboring particles which are covered with a weight function $w(\mathbf{r})$, where $\mathbf{r}$ is the distance between two particles. There are many kinds of form for this weight function, we employed the following one:</p>
+<p>$$<br>\eqalign{<br>  w(\mathbf{r}) &#x3D; \begin{cases}<br>  \frac{r_e}{r}-1 &amp; ,0 \leq r &lt;r_e \<br>  0 &amp; ,r&gt;r_e \end{cases}<br>}<br>$$</p>
+<p>For each particle, only a finite number of neighboring particles are related to the interactions.</p>
+<h3 id="Particle-number-density-langle-n-rangle-i"><a href="#Particle-number-density-langle-n-rangle-i" class="headerlink" title="Particle number density $\langle n \rangle_i$"></a>Particle number density $\langle n \rangle_i$</h3><p>When a particle $i$ and its neighbors $j$ are located at $\mathbf{r_i}$ and $\mathbf{r_j}$, <strong>particle number density</strong> $\langle n \rangle_i$ is defined as,</p>
+<p>$$<br>\eqalign{<br>  \langle n \rangle_i &#x3D; \sum_{i \neq j} w\left( | \mathbf{r} _j - \mathbf{r}_i | \right )<br>}<br>$$</p>
+<p>The constant value of the particle number density is denoted by $n^0$.</p>
+<h3 id="The-number-of-particles-in-a-unit-volume-langle-N-rangle-i"><a href="#The-number-of-particles-in-a-unit-volume-langle-N-rangle-i" class="headerlink" title="The number of particles in a unit volume $\langle N \rangle_i$"></a>The number of particles in a unit volume $\langle N \rangle_i$</h3><p>The number of particles in a unit volume, $\langle N \rangle_i$, can be approximated by the particle number density:</p>
+<p>$$<br>\eqalign{<br>\langle N \rangle_i &#x3D; \frac{\langle n \rangle_i}{\int w( \mathbf{r} )dv}<br>}<br>$$</p>
+<p>The denominator of this equation is the integral of the kernel in the whole region, excluding a central part occupied by particle $i$.</p>
+<h3 id="Fluid-density-langle-rho-rangle-i"><a href="#Fluid-density-langle-rho-rangle-i" class="headerlink" title="Fluid density $\langle \rho \rangle_i$"></a>Fluid density $\langle \rho \rangle_i$</h3><p>Assuming that the particles <strong>have the same mass</strong> $m$ , the fluid density, $\langle \rho \rangle_i$ is expressed as,</p>
+<p>$$<br>\eqalign{<br>\langle \rho \rangle_i &#x3D; m\langle N \rangle_i &#x3D; \frac{m\langle n \rangle_i}{\int w( \mathbf{r} )dv}<br>}<br>$$</p>
+<p>In the MPS method a fluid is represented by moving particles with constant mass. Thus, <strong>the incompressibily of the fluid is guaranteed by keeping the particle number density $\langle n \rangle_i$ of the fluid constant.</strong> The continuity equation is also satisfied automatically by keeping the total number of particles and the mass of individual particles constant.</p>
+<hr>
+<h2 id="Model-of-Mathematical-Operator"><a href="#Model-of-Mathematical-Operator" class="headerlink" title="Model of Mathematical Operator"></a>Model of Mathematical Operator</h2><p>Each mathematical operator acting on the arbitrary scalar $\phi$ and vector $\mathbf{u}$ at particle $i$ are defined as the particle interaction approximation as follows:</p>
+<h3 id="Gradient-operator"><a href="#Gradient-operator" class="headerlink" title="Gradient operator"></a>Gradient operator</h3><p>Represent by the weighted average of gradient vectors.</p>
+<p>$$<br>\eqalign{<br>\langle \nabla \phi \rangle_i &#x3D; \frac{d}{n^0}\sum_{i \neq j}<br>\frac{\phi_j-\phi_i}{| \mathbf{r} _j - \mathbf{r}_i |^2} \left(\mathbf{r} _j - \mathbf{r}_i \right)w\left( | \mathbf{r} _j - \mathbf{r}_i | \right )<br>}<br>$$</p>
+<p>where $d$ is the number of space dimensions, $n^0$ is a particle number density ﬁxed for incompressibility.</p>
+<h3 id="Laplacian-operator"><a href="#Laplacian-operator" class="headerlink" title="Laplacian operator"></a>Laplacian operator</h3><p>Part of a quantity contained by a particle $i$ is distributed to neighboring particles $j$ using the weight function.</p>
+<p>$$<br>\eqalign{<br>\langle \nabla^2 \phi \rangle_i &#x3D; \frac{2d}{\lambda n^0}\sum_{i \neq j}<br>\left[\left(\phi_j-\phi_i\right) w\left( | \mathbf{r} _j - \mathbf{r}_i | \right)\right]<br>}<br>$$</p>
+<p>where $\lambda$ is</p>
+<p>$$<br>\eqalign{<br>\lambda &#x3D; \frac{\int_{V} w(r)r^2 dv}{\int_{V} w(r) dv} &#x3D; \frac{\sum_{i \neq j} w \left( | \mathbf{r}_j - \mathbf{r}<em>i | \right) | \mathbf{r}</em> j - \mathbf{r}<em>i |^2 }{ \sum</em>{i \neq j} w \left( | \mathbf{r}_j - \mathbf{r}_i | \right) }<br>}<br>$$</p>
+<h3 id="Divergence-operator"><a href="#Divergence-operator" class="headerlink" title="Divergence operator"></a>Divergence operator</h3><p>$$<br>\eqalign{<br>\langle \nabla \cdot \mathbf{u} \rangle_i &#x3D; \frac{2d}{n^0}\sum_{i \neq j}<br>\frac{ \left( \mathbf{u}_j - \mathbf{u}_i \right) \cdot\left(\mathbf{r} _j - \mathbf{r}_i \right)}{| \mathbf{r} _j - \mathbf{r}_i |^2} w\left( | \mathbf{r} _j - \mathbf{r}_i | \right )<br>}<br>$$</p>
+<hr>
+<h2 id="Model-of-incompressibility"><a href="#Model-of-incompressibility" class="headerlink" title="Model of incompressibility"></a>Model of incompressibility</h2><p>Incompressibility is represented by keeping the particle number density  constant $n^0$. When the particle number density $n^*$ is not equal to<br>$n^0$, it is implicitly corrected to $n^0$ by</p>
+<p>$$<br>\eqalign{<br>n^* +\Delta n^{‘} &#x3D; n^0 .<br>}$$</p>
+<p>Thus, we have</p>
+<p>$$<br>\eqalign{<br>\frac{1}{n^0} \frac{\Delta n^{‘}}{\Delta t}&#x3D; -\nabla \cdot \Delta \mathbf{u}^{‘}.<br>}$$</p>
+<p>The velocity correction value $ \Delta \mathbf{u}^{‘}$, is derived from the implicit pressure gradient term as</p>
+<p>$$<br>\eqalign{<br>  \Delta \mathbf{u}^{‘} &#x3D; -\frac{\Delta t}{\rho} \nabla P^{n+1}<br>}$$</p>
+<p>A Poisson equation of pressure is obtained:</p>
+<p>$$<br>\eqalign{<br>  \nabla^2 P_i^{n+1} &#x3D; -\frac{\rho}{\Delta t^2}\frac{n_i^*-n^0}{n^0}<br>}$$</p>
+<hr>
+<h2 id="Step-of-Semi-implicit-Algorithm"><a href="#Step-of-Semi-implicit-Algorithm" class="headerlink" title="Step of Semi-implicit Algorithm"></a>Step of Semi-implicit Algorithm</h2><ul>
+<li><strong>Initialize configuration of particles</strong>:</li>
+</ul>
+<p>$$\eqalign{\mathbf{u}_i^0, \mathbf{r}_i^0, P_i^0 } $$</p>
+<ul>
+<li><em><em>Calculate the intermediate velocity $\mathbf{u}_i^</em>$ from part of momentum equation.</em>*</li>
+</ul>
+<p>$$\eqalign{ \mathbf{u}_i^* &#x3D; \mathbf{u}_i^n + \Delta t &amp; \left( \nu \nabla^2 \mathbf{u}_i^n + \mathbf{f} \right) } $$</p>
+<ul>
+<li><strong>Calculate the intermediate</strong> <em><em>coordinates of particles, $\mathbf{r}_i^</em>$</em>*.</li>
+</ul>
+<p>$$ \eqalign{ \mathbf{r}_i^* &#x3D; \mathbf{r}_i^n + \Delta t &amp; \mathbf{u}_i^* } $$</p>
+<ul>
+<li><p><em><em>Compute intermediate particle number density $n^</em>$ by using intermediate particle locations</em>*.</p>
+</li>
+<li><p><strong>Obtain pressure $P_i^{n+1}$ by solving pressure Poisson equation.</strong></p>
+</li>
+</ul>
+<p>$$ \eqalign{ \nabla^2 P_i^{n+1} &#x3D; -\frac{\rho}{\Delta t^2}\frac{n_i^*-n^0}{n^0} } $$</p>
+<ul>
+<li><strong>Finally, new velocity $\mathbf{u}_i^{n+1}$ and new coordinates of particles $\mathbf{r}_i^{n+1}$ are computed.</strong></li>
+</ul>
+<p>$$ \eqalign{ \mathbf{u}_i^{n+1} &#x3D; \mathbf{u}_i^* - \frac{ \Delta t }{\rho}\nabla P_i^{n+1} } $$</p>
+<p>$$ \eqalign{ \mathbf{r}_i^{n+1} &#x3D; \mathbf{r}_i^n + \Delta t &amp; \mathbf{u}_i^{n+1} } $$</p>
+<hr>
+<h2 id="Build-System-of-Linear-Equations"><a href="#Build-System-of-Linear-Equations" class="headerlink" title="Build System of Linear Equations"></a>Build System of Linear Equations</h2><ul>
+<li><em><em>Linear Equations of intermediate velocity $\mathbf{u}_i^</em>$</em>*.</li>
+</ul>
+<p>$$\eqalign{<br>\mathbf{u}_i^* &#x3D; \mathbf{u}<em>i^n + \Delta t &amp; \left( \nu \frac{2d}{\lambda n^0}\sum</em>{i \neq j} \left[\left(\mathbf{u}^n_j-\mathbf{u}^n_i\right) w\left( | \mathbf{r} _j - \mathbf{r}_i | \right )\right] + \mathbf{f} \right)<br>}$$</p>
+<ul>
+<li><strong>Linear Equations of intermediate</strong> <em><em>coordinates of particles, $\mathbf{r}_i^</em>$</em>*.</li>
+</ul>
+<p>$$<br>\eqalign{ \mathbf{r}_i^* &#x3D; \mathbf{r}_i^n + \Delta t &amp; \mathbf{u}_i^* } $$</p>
+<ul>
+<li><strong>Linear Equations of pressure $P_i^{n+1}$ from pressure Poisson equation.</strong></li>
+</ul>
+<p>$$<br>\eqalign{<br>\frac{2d}{\lambda n^0}\sum_{i \neq j}<br>\left[\left(P_j-P_i\right) w\left( | \mathbf{r} _j - \mathbf{r}_i | \right )\right]<br>&#x3D; -\frac{\rho}{\Delta t^2}\frac{n_i^*-n^0}{n^0}<br>} $$</p>
+<ul>
+<li><strong>Linear Equations of new velocity $\mathbf{u}_i^{n+1}$ and new coordinates of particles $\mathbf{r}_i^{n+1}$.</strong></li>
+</ul>
+<p>$$<br>\eqalign{<br>\mathbf{u}_i^{n+1} &#x3D; \mathbf{u}<em>i^* - \frac{ \Delta t }{\rho}\frac{d}{n^0}\sum</em>{i \neq j}<br>\frac{(P_i-P_j)\cdot\left(\mathbf{r} _j - \mathbf{r}_i \right)}{| \mathbf{r} _j - \mathbf{r}_i |^2} w\left( | \mathbf{r} _j - \mathbf{r}_i | \right )<br>}$$</p>
+<p>$$<br>\eqalign{ \mathbf{r}_i^{n+1} &#x3D; \mathbf{r}_i^n + \Delta t &amp; \mathbf{u}_i^{n+1} }<br>$$</p>
+<hr>
+<ul>
+<li>Reference:</li>
+</ul>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S0169598305001322">A stable moving-particle semi-implicit method for free surface flows</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.wire.tu-bs.de/OLDWEB/akeese/seminarWS01/talks/mps_paper.pdf">Moving Particle Semi-Implicit Method</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Computational-Fluid-Dynamics-CFD/" rel="tag"># Computational Fluid Dynamics (CFD)</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/solving-differential-equations-by-neural-networks/" rel="prev" title="Solving Differential Equations by Neural Networks">
+      <i class="fa fa-chevron-left"></i> Solving Differential Equations by Neural Networks
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/Iterative-Methods-Based-On-Splitting-Matrix/" rel="next" title="Iterative Methods Based On Splitting Matrix">
+      Iterative Methods Based On Splitting Matrix <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Governing-Equations"><span class="nav-number">1.</span> <span class="nav-text">Governing Equations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Particle-Interaction-Models"><span class="nav-number">2.</span> <span class="nav-text">Particle Interaction Models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Weighting-functions"><span class="nav-number">2.1.</span> <span class="nav-text">Weighting functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Particle-number-density-langle-n-rangle-i"><span class="nav-number">2.2.</span> <span class="nav-text">Particle number density $\langle n \rangle_i$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-number-of-particles-in-a-unit-volume-langle-N-rangle-i"><span class="nav-number">2.3.</span> <span class="nav-text">The number of particles in a unit volume $\langle N \rangle_i$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fluid-density-langle-rho-rangle-i"><span class="nav-number">2.4.</span> <span class="nav-text">Fluid density $\langle \rho \rangle_i$</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-of-Mathematical-Operator"><span class="nav-number">3.</span> <span class="nav-text">Model of Mathematical Operator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradient-operator"><span class="nav-number">3.1.</span> <span class="nav-text">Gradient operator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Laplacian-operator"><span class="nav-number">3.2.</span> <span class="nav-text">Laplacian operator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Divergence-operator"><span class="nav-number">3.3.</span> <span class="nav-text">Divergence operator</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-of-incompressibility"><span class="nav-number">4.</span> <span class="nav-text">Model of incompressibility</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-of-Semi-implicit-Algorithm"><span class="nav-number">5.</span> <span class="nav-text">Step of Semi-implicit Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-System-of-Linear-Equations"><span class="nav-number">6.</span> <span class="nav-text">Build System of Linear Equations</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bing Han Lin</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/BingHanLin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;BingHanLin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bing Han Lin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solving Differential Equations by Neural Networks">
+<meta property="og:url" content="http://example.com/2019/solving-differential-equations-by-neural-networks/index.html">
+<meta property="og:site_name" content="BHL Notes">
+<meta property="og:description" content="Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/GSxyuba.png">
+<meta property="og:image" content="https://i.imgur.com/y3tE8ad.png">
+<meta property="og:image" content="https://i.imgur.com/AQkB43d.png">
+<meta property="article:published_time" content="2019-05-18T11:17:20.000Z">
+<meta property="article:modified_time" content="2022-12-11T08:33:56.230Z">
+<meta property="article:author" content="Bing Han Lin">
+<meta property="article:tag" content="Machine Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/GSxyuba.png">
+
+<link rel="canonical" href="http://example.com/2019/solving-differential-equations-by-neural-networks/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Solving Differential Equations by Neural Networks | BHL Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BHL Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">MY LEARNING TRAJECTORY</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/solving-differential-equations-by-neural-networks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Solving Differential Equations by Neural Networks
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-05-18 19:17:20" itemprop="dateCreated datePublished" datetime="2019-05-18T19:17:20+08:00">2019-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-11 16:33:56" itemprop="dateModified" datetime="2022-12-11T16:33:56+08:00">2022-12-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning-Note/" itemprop="url" rel="index"><span itemprop="name">Machine Learning Note</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Neural networks have been used for solving many problems such as sales forecasting, customer research, data validation, and risk management. As an universal function approximators, Neural networks can learn (fit) patterns from data with the complicated distribution. With the same concept, train a Neural network to fit the differential equations could also be possible. In this post, I want to show how to applied a simple feed-forward NNs to solve differential equations (ODE, PDE).</p>
+<span id="more"></span>
+
+<p>The theoretical details and computational implementations are inspired by the following paper and blog. For those who interest in the more details, please refer to these links:</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/physics/9705023.pdf">Artificial Neural Networks for Solving Ordinary and Partial Differential Equations</a>, I. E. Lagaris, A. Likas and D. I. Fotiadis, 1997</li>
+<li><a target="_blank" rel="noopener" href="https://becominghuman.ai/neural-networks-for-solving-differential-equations-fa230ac5e04c">Neural networks for solving differential equations</a>, Alexandr Honchar, 2017</li>
+</ol>
+<p>Different from the works in Alexandr Honchar’s post, I reimplement the computational process with <strong>Tensorflow</strong> - a popular deep learning framework developed by Google. </p>
+<hr>
+<h2 id="Ordinary-Differential-Equation"><a href="#Ordinary-Differential-Equation" class="headerlink" title="Ordinary Differential Equation"></a>Ordinary Differential Equation</h2><p>Let’s start with a simple ordinary differential equation (ODE) in the form of</p>
+<p>$$<br>\eqalign{ \frac{\mathrm{d}\Psi}{\mathrm{d}x}&#x3D;f(x,\Psi) .}<br>$$  </p>
+<p>Same with the traditional numerical method, we obtain the numerical solution of $\Psi(x)$ on a set of grids. The solution is approximated on each grid (node) with neural network architecture, therefore, we have <strong>one input neuron</strong> (or two input neurons for 2D problems), one hidden layer, and <strong>one output neuron</strong> to predict solution (scalar value) of the differential equation on each grid. The architecture of the neural network look likes this:</p>
+<p><img src="https://i.imgur.com/GSxyuba.png"></p>
+<p>Schematic of NN.</p>
+<p>Take initial (IC) or boundary (BC) conditions into account, we choose a form for the trial function $\Psi_t$ such that satisfies the ICs or BCs. This is achieved by writing it as a sum of two terms:</p>
+<p>$$<br>\eqalign{<br>\Psi_t(\vec{x})&#x3D;A(\vec{x})+F(\vec{x},N(\vec{x},\vec{p})).<br>}<br>$$</p>
+<p>Where $N(\vec{x},\vec{p})$ is a <strong>single-output feedforward neural network</strong> with parameters (weights and biases) $\vec{p}$ and n (depents on the dimension of the problem) input units fed with the input vector $\vec{x}$, the first term $A(\vec{x})$ contains no adjustable parameters and satisfies the ICs or BCs, and the second term $F$ is constructed so as not to contribute to the ICs or BCs (give zero on those positions).</p>
+<p>Since the trial function $\Psi_t$ satisfies the ICs or BCs, the rest of work is to adjusted weights and biases makes $\Psi_t$ satisfies the governing equations. Thus, the problem is transformed into a minimization problem as follow:  </p>
+<p>$$<br>\eqalign{ E \left[ \vec{p} \right]&#x3D; \sum_i\left[{ \frac{\mathrm{d}\Psi(x_i)}{\mathrm{d}x}-f(x_i,\Psi_t(x_i)) } \right]^2 }<br>$$</p>
+<p>where the $x_i$ are locations of each grid. The target of our <strong>neural network</strong> is to optimize the parameters to minimize the function above, so-called <strong>loss function</strong>. For the detail of the python code, please refer to <a target="_blank" rel="noopener" href="https://github.com/BingHanLin/My_ML_Notes/tree/master/Neural%20Networks%20for%20Differential%20Equations">here</a>.</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>With the acknowledge above, we consider the example of first order ODE to illustrate the method:</p>
+<p>$$<br>\eqalign{ \frac{d\Psi}{dx}+(x+\frac{1+3x^2}{1+x+x^3})\Psi&#x3D;x^3+2x+x^2\frac{1+3x^2}{1+x+x^3}}<br>$$</p>
+<p>and</p>
+<p>$$<br>\eqalign{ x \in \left[ 0,1 \right], \quad \Psi(0)&#x3D;1 .}<br>$$  </p>
+<p>The trial solution $\Psi_t$ is written as</p>
+<p>$$<br>\eqalign{ \Psi_t(\vec{x})&#x3D;1+xN(\vec{x},\vec{p}) .}<br>$$</p>
+<p>Thus, $\frac{\mathrm{d}\Psi(x)}{\mathrm{d}x}$ can be obtained easily:</p>
+<p>$$<br>\eqalign{\frac{\mathrm{d} \Psi(x)}{\mathrm{d}x} &#x3D; N(\vec{x}) + x\frac{\mathrm{d} N(\vec{x})}{\mathrm{d}x} .}<br>$$</p>
+<p>In this example, we used a multilayer perceptron having one hidden layer with 10 hidden units and one linear output unit. The activate function of each hidden unit is chosen to be the sigmoid function:</p>
+<p>$$<br>\eqalign{\sigma(x) &#x3D; \frac{1}{1+e^{-x}} }<br>$$</p>
+<p>The analytic solution of this problem is:</p>
+<p>$$<br>\Psi_{a}(x) &#x3D; \frac{e^{-x^2}&#x2F;2}{1+x+x^3}<br>$$</p>
+<p>We set up a grid in the range $\left[ 0, 1 \right]$ with 10 nodes and train our <strong>neural network</strong> on these locations. Result of training the neural network for 1000 iterations is shown in the figure below:</p>
+<p><img src="https://i.imgur.com/y3tE8ad.png"></p>
+<p>Result of predict solution from the neural network.</p>
+<p>The result could be improved by many ways such as adding more grid points, adding more neurons in the hidden layer, etc. But this is out of the scope of this post. For the detail of the python code, please refer to <a target="_blank" rel="noopener" href="https://github.com/BingHanLin/My_ML_Notes/tree/master/Neural%20Networks%20for%20Differential%20Equations">here</a>.</p>
+<hr>
+<h2 id="Partial-Differential-Equation"><a href="#Partial-Differential-Equation" class="headerlink" title="Partial Differential Equation"></a>Partial Differential Equation</h2><p>There is no difference between the processes for solving ODEs and PDEs by this method. Only the number of the <strong>input neuron</strong> needs to be changed (two or more input neurons) according to the problems.</p>
+<h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h3><p>Consider the following PDE :</p>
+<p>$$<br>\nabla^2{\Psi}(x,y) &#x3D; e^{-x}(x-2+y^3+6y)<br>$$</p>
+<p>and,  </p>
+<p>$$<br>x,y \in \left[ 0,1 \right]<br>$$</p>
+<p>$$<br>\Psi(0,y) &#x3D; y^3, \quad \Psi(1,y) &#x3D; (1+y^3)e^{-1}<br>$$</p>
+<p>$$<br>\Psi(x,0) &#x3D; xe^{-x}, \quad \Psi(x,1) &#x3D; (x+1)e^{-x}<br>$$</p>
+<p>The trial solution which satisfies the constraints above is assumed to be:</p>
+<p>$$<br>\Psi_t(x,y) &#x3D; A(x,y)+x(1-x)y(1-y)N(x,y,\vec{p})<br>$$</p>
+<p>where $A(x,y)$ is defined below:</p>
+<p>$$<br>\eqalign{A(x,y) &#x3D;&amp; (1-x)y^3+x(1+y^3)e^{-1}+(1-y)x(e^{-x}-e^{-1}) \ &amp;+y\left[ (1+x)e^{-x}-(1-x-2xe^{-1}) \right] }<br>$$</p>
+<p>The analytic solution of this problem is:</p>
+<p>$$<br>\eqalign{\Psi_{a}(x, y) &#x3D; e^{-x}(x+y^3)}<br>$$</p>
+<p>We set up a mesh grid in the range of $x,y \in \left[ 0,1 \right] $ with 100 uniform distribution points. Result of training the neural network for 500 iterations is shown in the figure below:</p>
+<p><img src="https://i.imgur.com/AQkB43d.png"></p>
+<p>Result of predict solution from the neural network.</p>
+<p>For the detail of the python code, please refer to <a target="_blank" rel="noopener" href="https://github.com/BingHanLin/My_ML_Notes/tree/master/Neural%20Networks%20for%20Differential%20Equations">here</a>.</p>
+<hr>
+<ul>
+<li>Reference:</li>
+</ul>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/physics/9705023.pdf">Artificial Neural Networks for Solving Ordinary and Partial Differential Equations</a>, I. E. Lagaris, A. Likas and D. I. Fotiadis, 1997</li>
+<li><a target="_blank" rel="noopener" href="https://becominghuman.ai/neural-networks-for-solving-differential-equations-fa230ac5e04c">Neural networks for solving differential equations</a>, Alexandr Honchar, 2017</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/openfoam-tutorial-extracting-numerical-data-from-case/" rel="prev" title="OpenFOAM: Extracting Numerical Data From  Case">
+      <i class="fa fa-chevron-left"></i> OpenFOAM: Extracting Numerical Data From  Case
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/induction-of-moving-particle-semi-implicit-method/" rel="next" title="Introduction of Moving Particle Semi-Implicit Method">
+      Introduction of Moving Particle Semi-Implicit Method <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ordinary-Differential-Equation"><span class="nav-number">1.</span> <span class="nav-text">Ordinary Differential Equation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">1.1.</span> <span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Partial-Differential-Equation"><span class="nav-number">2.</span> <span class="nav-text">Partial Differential Equation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-1"><span class="nav-number">2.1.</span> <span class="nav-text">Example</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bing Han Lin</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/BingHanLin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;BingHanLin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bing Han Lin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
