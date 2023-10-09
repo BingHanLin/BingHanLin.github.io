@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="VTK WidgetIn three-dimensional visualization applications, VTK Widgets allow users to interact with visible components. Users can manipulate 3D data and models through these widgets by clicking, dragg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Implement a Simple VTK Transform Widget">
+<meta property="og:url" content="http://example.com/2023/Simeple-VTK-Transform-Widget/index.html">
+<meta property="og:site_name" content="BHL Notes">
+<meta property="og:description" content="VTK WidgetIn three-dimensional visualization applications, VTK Widgets allow users to interact with visible components. Users can manipulate 3D data and models through these widgets by clicking, dragg">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/Simeple-VTK-Transform-Widget/inherit2.png">
+<meta property="og:image" content="http://example.com/2023/Simeple-VTK-Transform-Widget/inherit.png">
+<meta property="og:image" content="http://example.com/2023/Simeple-VTK-Transform-Widget/workflow.png">
+<meta property="og:image" content="http://example.com/2023/Simeple-VTK-Transform-Widget/eventmapping.png">
+<meta property="og:image" content="http://example.com/2023/Simeple-VTK-Transform-Widget/Untitled.png">
+<meta property="article:published_time" content="2023-10-08T12:19:00.000Z">
+<meta property="article:modified_time" content="2023-10-09T16:34:36.430Z">
+<meta property="article:author" content="Bing Han Lin">
+<meta property="article:tag" content="Uncategorized">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/Simeple-VTK-Transform-Widget/inherit2.png">
+
+<link rel="canonical" href="http://example.com/2023/Simeple-VTK-Transform-Widget/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Implement a Simple VTK Transform Widget | BHL Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BHL Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">MY LEARNING TRAJECTORY</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/Simeple-VTK-Transform-Widget/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Implement a Simple VTK Transform Widget
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-10-08 20:19:00" itemprop="dateCreated datePublished" datetime="2023-10-08T20:19:00+08:00">2023-10-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-10-10 00:34:36" itemprop="dateModified" datetime="2023-10-10T00:34:36+08:00">2023-10-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="VTK-Widget"><a href="#VTK-Widget" class="headerlink" title="VTK Widget"></a><strong>VTK Widget</strong></h1><p>In three-dimensional visualization applications, VTK Widgets allow users to interact with visible components. Users can manipulate 3D data and models through these widgets by clicking, dragging, and pressing keys. These widgets make user interactions in the 3D scene intuitive and straightforward.</p>
+<span id="more"></span>
+
+<hr>
+<h1 id="Design-Concept-of-VTK-Widget"><a href="#Design-Concept-of-VTK-Widget" class="headerlink" title="Design Concept of VTK Widget"></a>Design Concept of VTK Widget</h1><h2 id="vtk3DWidget"><a href="#vtk3DWidget" class="headerlink" title="vtk3DWidget"></a>vtk3DWidget</h2><p>The design of VTK Widgets was introduced from VTK version 5.0. In the initial design, Widgets were derived from <strong>vtk3DWidget</strong>. In the implementation of vtk3DWidget subclass, the widget contains the logic for event handling and representation. The widgets have hardwired event bindings and and this action&#x2F;event binding cannot be changed at the run time. However, this design led to two problems:</p>
+<ol>
+<li><p>Highly coupling between event handling and representation:</p>
+<p> The event handling logic of the widgets is tightly coupled with their representation, making it impossible to use different representations for the same event handling logic. For example, for a widget that measures distance, it should be possible to represent its endpoints either using crosses or spheres as representations.</p>
+</li>
+<li><p>Event binding cannot be changed:</p>
+<p> The event binding using hardwiring prevents the program from changing event bindings during execution based on user preferences or device differences. For example, replacing a left-click with a right-click to trigger widget selection should be feasible.</p>
+</li>
+</ol>
+<p>Therefore, starting from VTK version 5.1, VTK Widgets were redesigned to address the above issues, while still retaining vtk3DWidget and its subclasses.</p>
+<p><img src="inherit2.png" 
+        alt="image"
+        width="50%" 
+        height="auto"
+        style="display: block; margin: 0 auto" /></p>
+<h2 id="vtkAbstractWidget-and-vtkWidgetRepresentation"><a href="#vtkAbstractWidget-and-vtkWidgetRepresentation" class="headerlink" title="vtkAbstractWidget and vtkWidgetRepresentation"></a>vtkAbstractWidget and vtkWidgetRepresentation</h2><p>In the new design, VTK Widgets are composed of two components: <strong>vtkAbstractWidget</strong> and <strong>vtkWidgetRepresentation</strong>. Both vtkAbstractWidget and vtk3DWidget are derived from vtkInteractorObserver, while vtkWidgetRepresentation is derived from vtkProp. Their hierarchical relationship is illustrated in the following diagram.</p>
+<img src="inherit.png" alt="image" width="80%" height="auto"        style="display: block; margin: 0 auto" />
+
+<h3 id="Decouple-Event-Handling-from-Representation"><a href="#Decouple-Event-Handling-from-Representation" class="headerlink" title="Decouple Event Handling from Representation"></a>Decouple Event Handling from Representation</h3><p>The major purpose of introducing vtkAbstractWidget and vtkWidgetRepresentation is to split VTK Widgets into two components:</p>
+<ol>
+<li><p><strong>vtkAbstractWidget:</strong> Performing event processing, defining event bindings, and invoking callback functions.</p>
+</li>
+<li><p><strong>vtkWidgetRepresentation:</strong> It defines the geometric appearance of the widget, provides a dedicated API for interacting with the widget, and contains the logic for performing operations on and selecting the widget.</p>
+</li>
+</ol>
+<p>Such decoupling allows for changing the widget’s appearance without the need to reimplement the event handling logic. Additionally, in this design, the widget knows its representation, while the representation is unaware of the widget’s existence. This ensures that the representation can remain independent of any event handling logic.</p>
+<blockquote>
+<p>Although the representation is externally viewed as a single vtkProp, it can actually be composited of multiple vtkProps.</p>
+</blockquote>
+<p>The following diagram provides a simple description of the association between vtkAbstractWidget and vtkWidgetRepresentation and their related classes. After the VTK events are passed to the widget by vtkRenderWindowInteractor, the widget calls methods on its representation based on event bindings. Then, the representation updates its state and triggers the view re-rendering.</p>
+<p><img src="/2023/Simeple-VTK-Transform-Widget/workflow.png" alt="workflow.png"></p>
+<h3 id="Flexible-Event-Bindings"><a href="#Flexible-Event-Bindings" class="headerlink" title="Flexible Event Bindings"></a>Flexible Event Bindings</h3><p>In the design of vtkAbstractWidget, VTK events and widget events are further separated. When VTK events are passed to the widget, the <strong>vtkWidgetEventTranslator</strong> translates VTK events into widget events. Simultaneously, the <strong>vtkWidgetCallbackMapper</strong> maps widget events to various action functions. The specific process is illustrated in the diagram below:</p>
+<blockquote>
+<p>vtkWidgetCallbackMapper needs to invoke methods on specific widget subclasses, so the callbacks are implemented by static class methods on the subclass of vtkAbstractWidget.</p>
+</blockquote>
+<p><img src="/2023/Simeple-VTK-Transform-Widget/eventmapping.png" alt="eventmapping.png"></p>
+<p>This way, after the widget is created, it becomes possible to further modify event bindings according to the usage scenario. Taking vtkSliderWidget as an example, you can replace the default left-click event with a right-click event and bind it to widget events:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> sliderWidget = vtkSliderWidget::<span class="built_in">New</span>();</span><br><span class="line"></span><br><span class="line">sliderWidget-&gt;<span class="built_in">GetEventTranslator</span>()-&gt;<span class="built_in">SetTranslation</span>(vtkCommand::RightButtonPressEvent,</span><br><span class="line">                                                    vtkWidgetEvent::Select);</span><br><span class="line"></span><br><span class="line">sliderWidget-&gt;<span class="built_in">GetEventTranslator</span>()-&gt;<span class="built_in">SetTranslation</span>(vtkCommand::RightButtonReleaseEvent,</span><br><span class="line">                                                    vtkWidgetEvent::EndSelect);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Implement-transformWidget"><a href="#Implement-transformWidget" class="headerlink" title="Implement transformWidget"></a>Implement transformWidget</h1><p><img src="/2023/Simeple-VTK-Transform-Widget/Untitled.png" alt="Untitled"></p>
+<p>In the upcoming implementation, we will create a custom transform widget. Users will be able to use this widget to perform translation and rotation operations in three directions on a model.</p>
+<h2 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h2><p>To perform translation and rotation operations on the model using the widget, the widget’s representation (appearance) needs to have:</p>
+<ol>
+<li>Geometry for translation axes in three directions.</li>
+<li>Geometry for rotation rings in three directions.</li>
+</ol>
+<p>And the interaction logic for events is also defined as follows.</p>
+<ol>
+<li>When the mouse moves over the widget, the corresponding geometry is highlighted. Conversely, when the mouse leaves the widget, the highlighting is removed.</li>
+<li>Clicking and dragging the mouse on the translation axes geometry performs translation in that direction.</li>
+<li>Clicking and dragging the mouse on the rotation ring geometry performs rotation in that direction.</li>
+<li>When the widget is moved, corresponding translation and rotation operations are applied to the target model.</li>
+</ol>
+<p>In this implementation, the code we need to complete include:</p>
+<ol>
+<li>transformRepresentation.cpp&#x2F;hpp: Subclass of vtkWidgetRepresentation, defining the widget’s representation.</li>
+<li>transformWidget.cpp&#x2F;hpp: Subclass of vtkAbstractWidget, responsible for event handling and defining event bindings.</li>
+<li>main.cpp: Serves as a client example, demonstrating how to create the widget and add callback functions to update the target model.”</li>
+</ol>
+<h2 id="Event-Bindings"><a href="#Event-Bindings" class="headerlink" title="Event Bindings"></a>Event Bindings</h2><p>Firstly, in the constructor of the transformWidget, we create event bindings. Specifically, we bind VTK events for left-click and mouse movement to widget events for selection (vtkWidgetEvent::Select and vtkWidgetEvent::EndSelect) and movement (vtkWidgetEvent::Move). We also map widget events to their respective callback functions (transformWidget::SelectAction, transformWidget::EndSelectAction, transformWidget::MoveAction), where we implement the event handling logic.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* transformWidget.cpp */</span></span><br><span class="line"></span><br><span class="line">transformWidget::<span class="built_in">transformWidget</span>()</span><br><span class="line">&#123;</span><br><span class="line">	  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// define widget events</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;CallbackMapper-&gt;<span class="built_in">SetCallbackMethod</span>(</span><br><span class="line">            vtkCommand::LeftButtonPressEvent, vtkWidgetEvent::Select, <span class="keyword">this</span>,</span><br><span class="line">            transformWidget::SelectAction);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>-&gt;CallbackMapper-&gt;<span class="built_in">SetCallbackMethod</span>(</span><br><span class="line">            vtkCommand::LeftButtonReleaseEvent, vtkWidgetEvent::EndSelect, <span class="keyword">this</span>,</span><br><span class="line">            transformWidget::EndSelectAction);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>-&gt;CallbackMapper-&gt;<span class="built_in">SetCallbackMethod</span>(vtkCommand::MouseMoveEvent,</span><br><span class="line">                                                vtkWidgetEvent::Move, <span class="keyword">this</span>,</span><br><span class="line">                                                transformWidget::MoveAction);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>-&gt;keyEventCallbackCommand_ = vtkCallbackCommand::<span class="built_in">New</span>();</span><br><span class="line">        <span class="keyword">this</span>-&gt;keyEventCallbackCommand_-&gt;<span class="built_in">SetClientData</span>(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">this</span>-&gt;keyEventCallbackCommand_-&gt;<span class="built_in">SetCallback</span>(</span><br><span class="line">            transformWidget::ProcessKeyEvents);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Geometric-Representation"><a href="#Geometric-Representation" class="headerlink" title="Geometric Representation"></a>Geometric Representation</h2><p>The widget’s transformRepresentation consists of multiple vtkProps. Inside transformRepresentation, we define <strong>rotate actor</strong> and <strong>translate actor</strong> to represent the geometry of the translation axes and rotation rings. Since the geometry of translation axes and rotation rings are also composed of multiple basic vtkProps, we use vtkAssembly here to collect them as vtkProps.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* transformRepresentation.hpp */</span></span><br><span class="line">std::array&lt;vtkSmartPointer&lt;vtkAssembly&gt;, <span class="number">3</span>&gt; rotateActors_;</span><br><span class="line">std::array&lt;vtkSmartPointer&lt;vtkAssembly&gt;, <span class="number">3</span>&gt; translateActors_;</span><br></pre></td></tr></table></figure>
+
+<p>Additionally, an enum value is defined to represent the current state of the widget.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* transformRepresentation.hpp */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">INTERACTIONSTATE</span></span><br><span class="line">    &#123;</span><br><span class="line">        outside = <span class="number">0</span>,</span><br><span class="line">        onXRing,</span><br><span class="line">        onYRing,</span><br><span class="line">        onZRing,</span><br><span class="line">        onXArrow,</span><br><span class="line">        onYArrow,</span><br><span class="line">        onZArrow</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>Within transformRepresentation, there are several important functions: ComputeInteractionState, BuildRepresentation, and GetTransform.</p>
+<ul>
+<li><p><strong>ComputeInteractionState:</strong> Compute and update the widget’s state based on the display coordinates (x, y) of the rendering window.</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* transformRepresentation.cpp */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">transformRepresentation::ComputeInteractionState</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y,</span></span></span><br><span class="line"><span class="params"><span class="function">                                                     <span class="type">int</span> vtkNotUsed(modify))</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>-&gt;Renderer || !<span class="keyword">this</span>-&gt;Renderer-&gt;<span class="built_in">IsInViewport</span>(x, y))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;InteractionState = INTERACTIONSTATE::outside;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>-&gt;InteractionState;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> path = <span class="keyword">this</span>-&gt;<span class="built_in">GetAssemblyPath</span>(x, y, <span class="number">0.</span>, picker_);</span><br><span class="line">    <span class="keyword">if</span> (path != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        currActor_ =</span><br><span class="line">            <span class="built_in">reinterpret_cast</span>&lt;vtkProp3D *&gt;(path-&gt;<span class="built_in">GetFirstNode</span>()-&gt;<span class="built_in">GetViewProp</span>());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (currActor_ == rotateActors_[<span class="number">0</span>])</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>-&gt;InteractionState = INTERACTIONSTATE::onXRing;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (currActor_ == translateActors_[<span class="number">0</span>])</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>-&gt;InteractionState = INTERACTIONSTATE::onXArrow;</span><br><span class="line">        &#125;</span><br><span class="line">				<span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;InteractionState = INTERACTIONSTATE::outside;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>-&gt;InteractionState;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>BuildRepresentation:</strong> Update the geometric representation of the widget based on its current state and other conditions. Here, we need to adjust the positions and orientations of various vtkProps based on the widget’s state and the mouse position. The specific calculation methods are not detailed here.</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* transformRepresentation.cpp */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">transformRepresentation::BuildRepresentation</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;<span class="built_in">GetMTime</span>() &gt; <span class="keyword">this</span>-&gt;BuildTime ||</span><br><span class="line">        (<span class="keyword">this</span>-&gt;Renderer &amp;&amp; <span class="keyword">this</span>-&gt;Renderer-&gt;<span class="built_in">GetVTKWindow</span>() &amp;&amp;</span><br><span class="line">         (<span class="keyword">this</span>-&gt;Renderer-&gt;<span class="built_in">GetVTKWindow</span>()-&gt;<span class="built_in">GetMTime</span>() &gt; <span class="keyword">this</span>-&gt;BuildTime ||</span><br><span class="line">          <span class="keyword">this</span>-&gt;Renderer-&gt;<span class="built_in">GetActiveCamera</span>()-&gt;<span class="built_in">GetMTime</span>() &gt; <span class="keyword">this</span>-&gt;BuildTime)))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;InteractionState == INTERACTIONSTATE::onXRing ||</span><br><span class="line">            <span class="keyword">this</span>-&gt;InteractionState == INTERACTIONSTATE::onYRing ||</span><br><span class="line">            <span class="keyword">this</span>-&gt;InteractionState == INTERACTIONSTATE::onZRing)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;InteractionState == INTERACTIONSTATE::onXArrow ||</span><br><span class="line">                 <span class="keyword">this</span>-&gt;InteractionState == INTERACTIONSTATE::onYArrow ||</span><br><span class="line">                 <span class="keyword">this</span>-&gt;InteractionState == INTERACTIONSTATE::onZArrow)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// ...          </span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>-&gt;BuildTime.<span class="built_in">Modified</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>GetTransform:</strong> Provide a function to obtain the overall widget transform, allowing external code to retrieve a vtkTransform object and use it to update the target model.</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* transformRepresentation.cpp */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">transformRepresentation::GetTransform</span><span class="params">(vtkTransform *t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    t-&gt;<span class="built_in">SetMatrix</span>(dummyActor_-&gt;<span class="built_in">GetUserMatrix</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Update-Target-Model"><a href="#Update-Target-Model" class="headerlink" title="Update Target Model"></a>Update Target Model</h2><p>In main.cpp, we need to create the widget and add callback functions to update the target model. When creating the model, we use the default representation on this widget, which is transformRepresentation. Then, we use the PlaceWidget method to set the initial position of the widget.</p>
+<blockquote>
+<p>After different transformRepresentations are implemented, we can also use SetRepresentation method to specify different representations for the widget. </p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* main.cpp */</span></span><br><span class="line"></span><br><span class="line">vtkNew&lt;transformWidget&gt; myWidget;</span><br><span class="line">myWidget-&gt;<span class="built_in">SetInteractor</span>(renderWindowInteractor);</span><br><span class="line">myWidget-&gt;<span class="built_in">CreateDefaultRepresentation</span>();</span><br><span class="line"><span class="type">double</span> bounds[<span class="number">6</span>] = &#123;<span class="number">-1.0</span>, <span class="number">1.0</span>, <span class="number">-1.0</span>, <span class="number">1.0</span>, <span class="number">-1.0</span>, <span class="number">1.0</span>&#125;;</span><br><span class="line">myWidget-&gt;<span class="built_in">GetRepresentation</span>()-&gt;<span class="built_in">PlaceWidget</span>(bounds);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>There are two ways to add callbacks using AddObserver method:</p>
+<ol>
+<li><p>Instantiate a vtkCallbackCommand, set your custom callback function using the SetCallback method, and assign it to this vtkCallbackCommand object.</p>
+</li>
+<li><p>Derive a subclass from the vtkCommand class and override the Execute method.</p>
+</li>
+</ol>
+<p>In this implementation, we have adopted the second approach, deriving a subclass from the vtkCommand class in main.cpp. Below is the definition and usage of the transformCallback class.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* main.cpp */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">transformCallback</span> : <span class="keyword">public</span> vtkCommand</span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">Execute</span><span class="params">(vtkObject *caller, <span class="type">unsigned</span> <span class="type">long</span>, <span class="type">void</span> *)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        vtkSmartPointer&lt;transformWidget&gt; widget =</span><br><span class="line">            <span class="built_in">dynamic_cast</span>&lt;transformWidget *&gt;(caller);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (widget != <span class="literal">nullptr</span> &amp;&amp; actor_ != <span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">auto</span> rep = <span class="built_in">dynamic_cast</span>&lt;transformRepresentation *&gt;(</span><br><span class="line">                    widget-&gt;<span class="built_in">GetRepresentation</span>()))</span><br><span class="line">            &#123;</span><br><span class="line">                vtkNew&lt;vtkTransform&gt; trans;</span><br><span class="line">                rep-&gt;<span class="built_in">GetTransform</span>(trans);</span><br><span class="line"></span><br><span class="line">                vtkNew&lt;vtkMatrix4x4&gt; newMatrix;</span><br><span class="line">                newMatrix-&gt;<span class="built_in">DeepCopy</span>(trans-&gt;<span class="built_in">GetMatrix</span>());</span><br><span class="line"></span><br><span class="line">                actor_-&gt;<span class="built_in">SetUserMatrix</span>(newMatrix);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">setActor</span><span class="params">(vtkSmartPointer&lt;vtkActor&gt; actor)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        actor_ = actor;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span>:</span><br><span class="line">    vtkSmartPointer&lt;vtkActor&gt; actor_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">vtkNew&lt;transformCallback&gt; callback;</span><br><span class="line">callback-&gt;<span class="built_in">setActor</span>(coneActor);</span><br><span class="line">myWidget-&gt;<span class="built_in">AddObserver</span>(vtkCommand::InteractionEvent, callback);</span><br></pre></td></tr></table></figure>
+
+<p>With the transformCallback class, we store a vtkActor as the target model and override the Execute method to perform updates on the model. Finally, to update the target model in real-time while interacting with the widget, we use AddObserver to add callbacks that trigger the update of the target model.</p>
+<p>By now, the process and usage of implementing a simple transformWidget in VTK are complete. You can also customize the representation and event bindings according to your specific use cases to meet user requirements. For the complete source code, please refer to <a target="_blank" rel="noopener" href="https://github.com/BingHanLin/Simple_Transform_Widget">GitHub</a>.</p>
+<hr>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://vtk.org/Wiki/VTKWidgets">VTKWidgets - KitwarePublic</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.weiy.city/2019/08/vtk-rotate-cone-with-ring/">VTK Rotate Cone With Ring</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Uncategorized/" rel="tag"># Uncategorized</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/CMakePresets-And-VSCode/" rel="prev" title="Configure and build with CMake Presets in Visual Studio Code">
+      <i class="fa fa-chevron-left"></i> Configure and build with CMake Presets in Visual Studio Code
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VTK-Widget"><span class="nav-number">1.</span> <span class="nav-text">VTK Widget</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-Concept-of-VTK-Widget"><span class="nav-number">2.</span> <span class="nav-text">Design Concept of VTK Widget</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vtk3DWidget"><span class="nav-number">2.1.</span> <span class="nav-text">vtk3DWidget</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vtkAbstractWidget-and-vtkWidgetRepresentation"><span class="nav-number">2.2.</span> <span class="nav-text">vtkAbstractWidget and vtkWidgetRepresentation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Decouple-Event-Handling-from-Representation"><span class="nav-number">2.2.1.</span> <span class="nav-text">Decouple Event Handling from Representation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flexible-Event-Bindings"><span class="nav-number">2.2.2.</span> <span class="nav-text">Flexible Event Bindings</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Implement-transformWidget"><span class="nav-number">3.</span> <span class="nav-text">Implement transformWidget</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Requirements"><span class="nav-number">3.1.</span> <span class="nav-text">Requirements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Event-Bindings"><span class="nav-number">3.2.</span> <span class="nav-text">Event Bindings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Geometric-Representation"><span class="nav-number">3.3.</span> <span class="nav-text">Geometric Representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Update-Target-Model"><span class="nav-number">3.4.</span> <span class="nav-text">Update Target Model</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bing Han Lin</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/BingHanLin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;BingHanLin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bing Han Lin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
