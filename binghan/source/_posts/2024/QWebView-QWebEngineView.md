@@ -5,26 +5,22 @@ tags:
 date: 2024-08-10 20:19:00
 ---
 
-# Draft Blog: Introducing and Demonstrating QWebEngineView in C++
+# Integrating Interactive Web Visualizations in C++ Applications with QWebEngineView
 
 ## Introduction
 
-In modern application development, integrating data visualization into your software can greatly enhance user experience by providing insightful, interactive graphics. One of the powerful tools for creating such visualizations is `Plotly`, a graphing library that makes interactive, publication-quality graphs online. In this article, i will explore how to use `QWebEngineView` in a C++ application to display a Plotly chart, demonstrating how to seamlessly integrate web technologies into your Qt application.
+Modern application development often requires the integration of rich, interactive data visualizations to enhance user experience. This article explores how to leverage `QWebEngineView` in a C++ application to display interactive Plotly charts, demonstrating a powerful way to combine web technologies with Qt applications.
 
-### About QWebEngineView
+## QWebEngineView: A Brief Overview
 
-`QWebEngineView` is a part of the [Qt WebEngine Widgets module](https://doc.qt.io/qt-5/qtwebenginewidgets-module.html), which provides classes for embedding web content in applications using the Chromium browser engine. `QWebEngineView` is a widget that used to view and edit web documents, making it easy to integrate web content within your application.
+`QWebEngineView`, part of the [Qt WebEngine Widgets module](https://doc.qt.io/qt-5/qtwebenginewidgets-module.html), is a widget for rendering web content using the Chromium browser engine. Introduced in Qt 5.4 as a replacement for `QWebView`, it offers several key features:
 
-> `QWebEngineView` is introduced in Qt 5.4 as a replacement for `QWebView`.
+-   Modern web standards support (HTML5, CSS3, JavaScript)
+-   Seamless C++ and JavaScript integration via Web Channel
+-   Extensive JavaScript support and interaction
+-   Customizable browser behavior and appearance
 
-## Key Features of Qt WebEngine Widgets module
-
--   **Web Page Rendering**: Render with modern web standards, including HTML5, CSS3, and JavaScript.
--   **Web Channel Integration**: Provide bridge between C++ and JavaScript, allowing seamless interaction between the two.
--   **JavaScript Support**: Execute JavaScript code and interact with JavaScript objects.
--   **Customizable**: Customize the browser's behavior, appearance, and performance.
-
-## Setting Up the Project
+## Project Setup
 
 To get started, let’s take a look at the project structure and configuration. Below is the tree structure of the project:
 
@@ -127,7 +123,7 @@ The essential setup for the `dataModel` class is defined as follows:
 
 This setup allows for seamless data binding between C++ and JavaScript, with automatic notifications when the data changes.
 
-````cpp
+```c++
 // dataModel.hpp
 
 class dataModel : public QObject {
@@ -168,44 +164,43 @@ To render the chart, we create a new div element, append it to our plot area, an
 This implementation demonstrates a dynamic, data-driven 3D chart that updates automatically in response to changes in our C++ code. It showcases how Qt's QWebChannel can be leveraged to create responsive, interactive web content within Qt applications, bridging the gap between C++ backend logic and JavaScript frontend visualization.
 
 ```html
-    //  chart.html
+// chart.html
 
-    <head>
-        <script src="qrc:/js/plotly"></script>
-        <script src="qrc:/qtwebchannel/qwebchannel.js"></script>
-    </head>
-    <body>
-        <div id="plot_area"></div>
+<head>
+    <script src="qrc:/js/plotly"></script>
+    <script src="qrc:/qtwebchannel/qwebchannel.js"></script>
+</head>
+<body>
+    <div id="plot_area"></div>
 
-        <script type="module">
-            var dataModel;
+    <script type="module">
+        var dataModel;
 
-            new QWebChannel(qt.webChannelTransport, function (channel) {
-                dataModel = channel.objects.dataModel;
-                dataModel.dataSetChanged.connect(onDataChanged);
-            });
+        new QWebChannel(qt.webChannelTransport, function (channel) {
+            dataModel = channel.objects.dataModel;
+            dataModel.dataSetChanged.connect(onDataChanged);
+        });
 
-            var onDataChanged = function () {
-                const plotArea = document.querySelector("#plot_area");
+        var onDataChanged = function () {
+            const plotArea = document.querySelector("#plot_area");
 
-                while (plotArea.firstChild) {
-                    plotArea.removeChild(plotArea.firstChild);
-                }
+            while (plotArea.firstChild) {
+                plotArea.removeChild(plotArea.firstChild);
+            }
 
-                var data = {
-                    x: dataModel.dataSet["x"],
-                    y: dataModel.dataSet["y"],
-                    z: dataModel.dataSet["z"],
-                    type: "surface",
-                };
-
-                const fig = document.createElement("div");
-                plotArea.appendChild(fig);
-                Plotly.newPlot(fig, [data]);
+            var data = {
+                x: dataModel.dataSet["x"],
+                y: dataModel.dataSet["y"],
+                z: dataModel.dataSet["z"],
+                type: "surface",
             };
-        </script>
-    </body>
 
+            const fig = document.createElement("div");
+            plotArea.appendChild(fig);
+            Plotly.newPlot(fig, [data]);
+        };
+    </script>
+</body>
 ```
 
 ## Generate Data and Update Chart
@@ -214,7 +209,7 @@ Now that we have set up our web view and data model, let's bring everything toge
 
 The `randomData` function generates a mesh grid with x and y coordinates, along with random z values. This data is then set to the `dataModel` and triggers the `dataSetChanged` signal, which we discussed earlier. This mechanism allows for dynamic updates of the 3D surface plot in response to user actions or automatic triggers.
 
-``` c++
+```c++
 // mainWindow.cpp
 
 mainWindow::mainWindow(QWidget *parent)
@@ -247,23 +242,30 @@ void mainWindow::randomData() {
 
 ```
 
-### Conclusion
+## Conclusion
 
 `QWebEngineView` is a powerful tool for embedding web content in your C++ applications. Whether you're building a simple browser, integrating web services, or creating hybrid applications, it offers a rich set of features to meet your needs. This blog has only scratched the surface, and there are many more capabilities and customization options available in `QWebEngineView`.
 
 In future posts, we'll dive deeper into more advanced topics like customizing the rendering engine, handling web security, and optimizing performance. Stay tuned!
 
-### Some Pitfalls
+## Potential Pitfalls and Solutions
 
-- Deployment: QtWebEngineProcess.exe is required to exist in the same directory of of your application, make sure it is properly installed with your executable. This is ensure by the CMakeLists.txt in this demonstration.
+-   Deployment Issues: Ensure that QtWebEngineProcess.exe is present in the same directory as your application executable. This dependency is handled by the CMakeLists.txt configuration in this demonstration.
 
-- Build QWebEngine with VCPKG: Some components are required from MSVC:
- 1. Active Template Library (ATL)
- 2. Microsoft Foundation Class (MFC)
- If is not installed, please find it in the visual studio components management.
+-   Building QWebEngine with VCPKG: When using VCPKG to build QWebEngine, certain MSVC components are required:
 
-### References
+    -   Active Template Library (ATL)
+    -   Microsoft Foundation Class (MFC)
+
+    If these components are not installed. follow the steps:
+
+    1. Open Visual Studio Installer
+    2. Modify your Visual Studio installation
+    3. Navigate to "Individual Components"
+    4. Search for and select both ATL and MFC
+    5. Install the selected components
+
+## References
 
 -   [Qt Documentation: QWebEngineView](https://doc.qt.io/qt-5/qwebengineview.html)
 -   [Qt WebEngine Overview](https://doc.qt.io/qt-5/qtwebengine-index.html)
-````
