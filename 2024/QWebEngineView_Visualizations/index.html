@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Integrating Interactive Web Visualizations in C++ Applications with QWebEngineViewIntroductionModern application development often requires the integration of rich, interactive data visualizations to">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QWebView-QWebEngineView">
+<meta property="og:url" content="http://example.com/2024/QWebEngineView_Visualizations/index.html">
+<meta property="og:site_name" content="BHL Notes">
+<meta property="og:description" content="Integrating Interactive Web Visualizations in C++ Applications with QWebEngineViewIntroductionModern application development often requires the integration of rich, interactive data visualizations to">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2024/QWebEngineView_Visualizations/image.png">
+<meta property="article:published_time" content="2024-08-10T12:19:00.000Z">
+<meta property="article:modified_time" content="2024-08-14T14:08:35.796Z">
+<meta property="article:author" content="Bing Han Lin">
+<meta property="article:tag" content="Qt">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2024/QWebEngineView_Visualizations/image.png">
+
+<link rel="canonical" href="http://example.com/2024/QWebEngineView_Visualizations/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>QWebView-QWebEngineView | BHL Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">BHL Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">MY LEARNING TRAJECTORY</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/QWebEngineView_Visualizations/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bing Han Lin">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BHL Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          QWebView-QWebEngineView
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-08-10 20:19:00" itemprop="dateCreated datePublished" datetime="2024-08-10T20:19:00+08:00">2024-08-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-08-14 22:08:35" itemprop="dateModified" datetime="2024-08-14T22:08:35+08:00">2024-08-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Integrating-Interactive-Web-Visualizations-in-C-Applications-with-QWebEngineView"><a href="#Integrating-Interactive-Web-Visualizations-in-C-Applications-with-QWebEngineView" class="headerlink" title="Integrating Interactive Web Visualizations in C++ Applications with QWebEngineView"></a>Integrating Interactive Web Visualizations in C++ Applications with QWebEngineView</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Modern application development often requires the integration of rich, interactive data visualizations to enhance user experience. This article explores how to leverage <code>QWebEngineView</code> in a C++ application to display interactive Plotly charts, demonstrating a powerful way to combine web technologies with Qt applications.</p>
+<span id="more"></span>
+
+<h2 id="QWebEngineView-A-Brief-Overview"><a href="#QWebEngineView-A-Brief-Overview" class="headerlink" title="QWebEngineView: A Brief Overview"></a>QWebEngineView: A Brief Overview</h2><p><code>QWebEngineView</code>, part of the <a target="_blank" rel="noopener" href="https://doc.qt.io/qt-5/qtwebenginewidgets-module.html">Qt WebEngine Widgets module</a>, is a widget for rendering web content using the Chromium browser engine. Introduced in Qt 5.4 as a replacement for <code>QWebView</code>, it offers several key features:</p>
+<ul>
+<li>Modern web standards support (HTML5, CSS3, JavaScript)</li>
+<li>Seamless C++ and JavaScript integration via Web Channel</li>
+<li>Extensive JavaScript support and interaction</li>
+<li>Customizable browser behavior and appearance</li>
+</ul>
+<h2 id="Project-Setup"><a href="#Project-Setup" class="headerlink" title="Project Setup"></a>Project Setup</h2><p>To get started, let’s take a look at the project structure and configuration. Below is the tree structure of the project:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">├── CMakeLists.txt</span><br><span class="line">├── src/</span><br><span class="line">│   ├── dataModel.hpp</span><br><span class="line">│   ├── main.cpp</span><br><span class="line">│   ├── mainWindow.cpp</span><br><span class="line">│   ├── mainWindow.hpp</span><br><span class="line">│   ├── resource/</span><br><span class="line">│       ├── chart.html</span><br><span class="line">│       ├── plotly.js</span><br><span class="line">│       ├── resource.qrc</span><br></pre></td></tr></table></figure>
+
+<p>The CMakeLists.txt file provided in the project contains the necessary configuration for building the application. Below is a brief look at the essential parts of this setup:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.15</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">project</span>(QWebEngineViewDemo)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">find_package</span>(Qt5 REQUIRED COMPONENTS Widgets WebEngineWidgets)</span><br><span class="line"></span><br><span class="line">qt5_add_resources(GUI_RESOURCES <span class="string">&quot;$&#123;PROJECT_SOURCE_DIR&#125;/src/resource/resource.qrc&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="variable">$&#123;PROJECT_NAME&#125;</span></span><br><span class="line">    <span class="string">&quot;$&#123;PROJECT_SOURCE_DIR&#125;/src/main.cpp&quot;</span></span><br><span class="line">    <span class="string">&quot;$&#123;PROJECT_SOURCE_DIR&#125;/src/mainwindow.cpp&quot;</span></span><br><span class="line">    <span class="string">&quot;$&#123;PROJECT_SOURCE_DIR&#125;/src/dataModel.hpp&quot;</span></span><br><span class="line">    <span class="variable">$&#123;GUI_RESOURCES&#125;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_include_directories</span>(<span class="variable">$&#123;PROJECT_NAME&#125;</span> PRIVATE <span class="string">&quot;$&#123;PROJECT_SOURCE_DIR&#125;/src&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="variable">$&#123;PROJECT_NAME&#125;</span> PRIVATE Qt5::Widgets Qt5::WebEngineWidgets)</span><br></pre></td></tr></table></figure>
+
+<p>This CMake configuration ensures that the application is properly linked with the necessary Qt components, particularly Qt5::WebEngineWidgets, and is built with all required resources included.</p>
+<h2 id="Initialize-QtWebEngine-in-Main-Window"><a href="#Initialize-QtWebEngine-in-Main-Window" class="headerlink" title="Initialize QtWebEngine in Main Window"></a>Initialize QtWebEngine in Main Window</h2><p>First, we set up the data model and communication channel:</p>
+<ul>
+<li><p><code>model_</code> is assigned a new instance of <code>dataModel</code>, a custom class designed to manage the application’s data. This class likely exposes data to both C++ and web ends via Qt’s property system.</p>
+</li>
+<li><p>A <code>QWebChannel</code> object named <code>channel</code> is created. <code>QWebChannel</code> serves as a bridge for communication between C++ and JavaScript in the web view. The <code>dataModel</code> instance is registered with this channel using <code>registerObject</code>, making it accessible from the JavaScript side under the name <code>&quot;dataModel&quot;</code>.</p>
+</li>
+</ul>
+<p>Then, we configure the web view:</p>
+<ul>
+<li><p><code>webView_</code> is assigned a new instance of <code>QWebEngineView</code>, which will display web content within the application. The <code>webView_</code> is connected to the previously created <code>QWebChannel</code>.</p>
+</li>
+<li><p>The web view is set to load an HTML file (<code>chart.html</code>) from the application’s resources using the <code>qrc:/</code> URL scheme, which accesses files embedded in the application’s binary.</p>
+</li>
+</ul>
+<p>This setup creates a basic integrating web-based visualizations with C++ backend functionality in our Qt application.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mainWindow.cpp</span></span><br><span class="line"></span><br><span class="line">mainWindow::<span class="built_in">mainWindow</span>(QWidget \*parent)</span><br><span class="line">: <span class="built_in">QMainWindow</span>(parent), webView*(<span class="literal">nullptr</span>), model*(<span class="literal">nullptr</span>) &#123;</span><br><span class="line"></span><br><span class="line">    model_ = <span class="keyword">new</span> <span class="built_in">dataModel</span>(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> channel = <span class="keyword">new</span> <span class="built_in">QWebChannel</span>(<span class="keyword">this</span>);</span><br><span class="line">    channel-&gt;<span class="built_in">registerObject</span>(<span class="built_in">QStringLiteral</span>(<span class="string">&quot;dataModel&quot;</span>), model_);</span><br><span class="line"></span><br><span class="line">    webView_ = <span class="keyword">new</span> <span class="built_in">QWebEngineView</span>(<span class="keyword">this</span>);</span><br><span class="line">    webView_-&gt;<span class="built_in">page</span>()-&gt;<span class="built_in">setWebChannel</span>(channel);</span><br><span class="line">    webView_-&gt;<span class="built_in">setUrl</span>(<span class="built_in">QUrl</span>(<span class="string">&quot;qrc:/chart.html&quot;</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> randomButton = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="keyword">this</span>);</span><br><span class="line">    randomButton-&gt;<span class="built_in">setText</span>(<span class="string">&quot;Random&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> centralWidget = <span class="keyword">new</span> <span class="built_in">QWidget</span>(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">auto</span> layout = <span class="keyword">new</span> <span class="built_in">QVBoxLayout</span>(centralWidget);</span><br><span class="line">    layout-&gt;<span class="built_in">addWidget</span>(webView_);</span><br><span class="line">    layout-&gt;<span class="built_in">addWidget</span>(randomButton);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Expose-data-and-signal-via-dataModel"><a href="#Expose-data-and-signal-via-dataModel" class="headerlink" title="Expose data and signal via dataModel"></a>Expose data and signal via dataModel</h2><p>This section demonstrates how to create a data model class that exposes data to both C++ and JavaScript sides of the application using Qt’s property system.</p>
+<p>The essential setup for the <code>dataModel</code> class is defined as follows:</p>
+<ol>
+<li><p>A <code>Q_PROPERTY</code> macro is used to expose the <code>dataSet_</code> member variable as a property named <code>dataSet</code>.</p>
+<ul>
+<li>This property is of type <code>QJsonDocument</code>, allowing for flexible data structures.</li>
+<li>The <code>MEMBER</code> keyword directly binds the property to the <code>dataSet_</code> member variable.</li>
+<li>The <code>NOTIFY</code> keyword associates the property with the <code>dataSetChanged</code> signal.</li>
+</ul>
+</li>
+<li><p>A public <code>setData</code> method is provided to update the <code>dataSet_</code> and emit the <code>dataSetChanged</code> signal when data is changed on C++ side.</p>
+</li>
+</ol>
+<p>This setup allows for seamless data binding between C++ and JavaScript, with automatic notifications when the data changes.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// dataModel.hpp</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">dataModel</span> : <span class="keyword">public</span> QObject &#123;</span><br><span class="line">    <span class="function">Q_OBJECT</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">    <span class="title">Q_PROPERTY</span><span class="params">(QJsonDocument dataSet MEMBER dataSet_ NOTIFY dataSetChanged)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">dataModel</span><span class="params">(QObject *parent = <span class="literal">nullptr</span>)</span> : QObject(parent)&#123;</span>&#125;;</span><br><span class="line">    ~<span class="built_in">dataModel</span>() <span class="keyword">override</span> = <span class="keyword">default</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">setData</span><span class="params">(<span class="type">const</span> QJsonDocument &amp;data)</span> </span>&#123;</span><br><span class="line">        dataSet_ = data;</span><br><span class="line">        <span class="function">emit <span class="title">dataSetChanged</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    QJsonDocument dataSet_;</span><br><span class="line"></span><br><span class="line">signals:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">dataSetChanged</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Integrating-QWebChannel-with-Plotly"><a href="#Integrating-QWebChannel-with-Plotly" class="headerlink" title="Integrating QWebChannel with Plotly"></a>Integrating QWebChannel with Plotly</h2><p>In our chart.html file, we have a simple HTML structure with a head and body. The head section loads two crucial scripts:</p>
+<ol>
+<li>Plotly: A powerful library for creating interactive and visually appealing charts.</li>
+<li>QWebChannel: A Qt-specific script that enables seamless communication between our C++ backend and JavaScript frontend.</li>
+</ol>
+<p>We begin by establishing a connection to our dataModel object through QWebChannel. Once connected, we link the dataSetChanged signal from our dataModel to a function called onDataChanged. This setup ensures that whenever our data changes in C++, the onDataChanged function is automatically triggered.</p>
+<p>The onDataChanged function is responsible for plotting the chart. It first clears any existing content in the plot area. Then, it retrieves the new data from our dataModel and structures it for use with Plotly. In this example, we’re creating a 3D surface plot using x, y, and z data from our model.</p>
+<p>To render the chart, we create a new div element, append it to our plot area, and use Plotly.newPlot to generate the 3D surface chart.</p>
+<p>This implementation demonstrates a dynamic, data-driven 3D chart that updates automatically in response to changes in our C++ code. It showcases how Qt’s QWebChannel can be leveraged to create responsive, interactive web content within Qt applications, bridging the gap between C++ backend logic and JavaScript frontend visualization.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">// chart.html</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;qrc:/js/plotly&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;qrc:/qtwebchannel/qwebchannel.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;plot_area&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> dataModel;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">new</span> <span class="title class_">QWebChannel</span>(qt.<span class="property">webChannelTransport</span>, <span class="keyword">function</span> (<span class="params">channel</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            dataModel = channel.<span class="property">objects</span>.<span class="property">dataModel</span>;</span></span><br><span class="line"><span class="language-javascript">            dataModel.<span class="property">dataSetChanged</span>.<span class="title function_">connect</span>(onDataChanged);</span></span><br><span class="line"><span class="language-javascript">        &#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> onDataChanged = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> plotArea = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#plot_area&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">while</span> (plotArea.<span class="property">firstChild</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">                plotArea.<span class="title function_">removeChild</span>(plotArea.<span class="property">firstChild</span>);</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">var</span> data = &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">x</span>: dataModel.<span class="property">dataSet</span>[<span class="string">&quot;x&quot;</span>],</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">y</span>: dataModel.<span class="property">dataSet</span>[<span class="string">&quot;y&quot;</span>],</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">z</span>: dataModel.<span class="property">dataSet</span>[<span class="string">&quot;z&quot;</span>],</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">type</span>: <span class="string">&quot;surface&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">            &#125;;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> fig = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;div&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">            plotArea.<span class="title function_">appendChild</span>(fig);</span></span><br><span class="line"><span class="language-javascript">            <span class="title class_">Plotly</span>.<span class="title function_">newPlot</span>(fig, [data]);</span></span><br><span class="line"><span class="language-javascript">        &#125;;</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Generate-Data-and-Update-Chart"><a href="#Generate-Data-and-Update-Chart" class="headerlink" title="Generate Data and Update Chart"></a>Generate Data and Update Chart</h2><p>Now that we have set up our web view and data model, let’s bring everything together in our <code>mainWindow.cpp</code> file. We implement functionality to generate random data and ensure that initial data is created when the web view finishes loading.</p>
+<p>The <code>randomData</code> function generates a mesh grid with x and y coordinates, along with random z values. This data is then set to the <code>dataModel</code> and triggers the <code>dataSetChanged</code> signal, which we discussed earlier. This mechanism allows for dynamic updates of the 3D surface plot in response to user actions or automatic triggers.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mainWindow.cpp</span></span><br><span class="line"></span><br><span class="line">mainWindow::<span class="built_in">mainWindow</span>(QWidget *parent)</span><br><span class="line">    : <span class="built_in">QMainWindow</span>(parent), <span class="built_in">webView_</span>(<span class="literal">nullptr</span>), <span class="built_in">model_</span>(<span class="literal">nullptr</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> randomButton = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="keyword">this</span>);</span><br><span class="line">    randomButton-&gt;<span class="built_in">setText</span>(<span class="string">&quot;Random&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">connect</span>(randomButton, &amp;QPushButton::clicked, <span class="keyword">this</span>, &amp;mainWindow::randomData);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">connect</span>(webView_, &amp;QWebEngineView::loadFinished, <span class="keyword">this</span>,</span><br><span class="line">            &amp;mainWindow::randomData);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mainWindow::randomData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    QJsonObject data;</span><br><span class="line">    data[<span class="string">&quot;x&quot;</span>] = xArray;</span><br><span class="line">    data[<span class="string">&quot;y&quot;</span>] = yArray;</span><br><span class="line">    data[<span class="string">&quot;z&quot;</span>] = zArray;</span><br><span class="line"></span><br><span class="line">    model_-&gt;<span class="built_in">setData</span>(QJsonDocument&#123;data&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="image.png" 
+        alt="image"
+        width="50%" 
+        height="auto"
+        style="display: block; margin: 0 auto" /></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>In this article, we’ve explored the integration of interactive web visualizations into C++ applications using QWebEngineView. This powerful combination allows developers to leverage the rich ecosystem of web-based visualization libraries while maintaining the robustness and performance of C++ applications.</p>
+<p>By demonstrating how to incorporate Plotly charts into a Qt application, we’ve shown how to create dynamic, data-driven visualizations. This technique opens up a wide range of possibilities for creating sophisticated applications suitable for fields such as scientific visualization, data analysis, and interactive reporting.</p>
+<p>The QWebEngineView approach provides a flexible and efficient solution for developers looking to create powerful, interactive visualizations within robust C++ applications, meeting the evolving needs of our increasingly data-centric world.</p>
+<h2 id="Potential-Pitfalls-and-Solutions"><a href="#Potential-Pitfalls-and-Solutions" class="headerlink" title="Potential Pitfalls and Solutions"></a>Potential Pitfalls and Solutions</h2><ul>
+<li><p>Deployment Issues: Ensure that QtWebEngineProcess.exe is present in the same directory as your application executable. This dependency is handled by the CMakeLists.txt configuration in this demonstration.</p>
+</li>
+<li><p>Building QWebEngine with VCPKG: When using VCPKG to build QWebEngine, certain MSVC components are required:</p>
+<ul>
+<li>Active Template Library (ATL)</li>
+<li>Microsoft Foundation Class (MFC)</li>
+</ul>
+<p>If these components are not installed. follow the steps:</p>
+<ol>
+<li>Open Visual Studio Installer</li>
+<li>Modify your Visual Studio installation</li>
+<li>Navigate to “Individual Components”</li>
+<li>Search for and select both ATL and MFC</li>
+<li>Install the selected components</li>
+</ol>
+</li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://doc.qt.io/qt-5/qwebengineview.html">Qt Documentation: QWebEngineView</a></li>
+<li><a target="_blank" rel="noopener" href="https://doc.qt.io/qt-5/qtwebengine-index.html">Qt WebEngine Overview</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Qt/" rel="tag"># Qt</a>
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/Simeple-VTK-Transform-Widget/" rel="prev" title="Implement a Simple VTK Transform Widget">
+      <i class="fa fa-chevron-left"></i> Implement a Simple VTK Transform Widget
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Integrating-Interactive-Web-Visualizations-in-C-Applications-with-QWebEngineView"><span class="nav-number">1.</span> <span class="nav-text">Integrating Interactive Web Visualizations in C++ Applications with QWebEngineView</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QWebEngineView-A-Brief-Overview"><span class="nav-number">1.2.</span> <span class="nav-text">QWebEngineView: A Brief Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project-Setup"><span class="nav-number">1.3.</span> <span class="nav-text">Project Setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Initialize-QtWebEngine-in-Main-Window"><span class="nav-number">1.4.</span> <span class="nav-text">Initialize QtWebEngine in Main Window</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Expose-data-and-signal-via-dataModel"><span class="nav-number">1.5.</span> <span class="nav-text">Expose data and signal via dataModel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Integrating-QWebChannel-with-Plotly"><span class="nav-number">1.6.</span> <span class="nav-text">Integrating QWebChannel with Plotly</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generate-Data-and-Update-Chart"><span class="nav-number">1.7.</span> <span class="nav-text">Generate Data and Update Chart</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">1.8.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Potential-Pitfalls-and-Solutions"><span class="nav-number">1.9.</span> <span class="nav-text">Potential Pitfalls and Solutions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">1.10.</span> <span class="nav-text">References</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Bing Han Lin</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/BingHanLin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;BingHanLin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/binghanlin" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;binghanlin" rel="noopener" target="_blank"><i class="fab fa-linkedin-in fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bing Han Lin</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
