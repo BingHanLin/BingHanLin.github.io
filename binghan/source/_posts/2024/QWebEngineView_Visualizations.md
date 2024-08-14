@@ -1,7 +1,8 @@
 ---
 title: QWebView-QWebEngineView
 tags:
-    - Uncategorized
+    - Qt
+    - C++
 date: 2024-08-10 20:19:00
 ---
 
@@ -10,6 +11,8 @@ date: 2024-08-10 20:19:00
 ## Introduction
 
 Modern application development often requires the integration of rich, interactive data visualizations to enhance user experience. This article explores how to leverage `QWebEngineView` in a C++ application to display interactive Plotly charts, demonstrating a powerful way to combine web technologies with Qt applications.
+
+<!-- more -->
 
 ## QWebEngineView: A Brief Overview
 
@@ -242,11 +245,19 @@ void mainWindow::randomData() {
 
 ```
 
+<img src="image.png" 
+        alt="image"
+        width="50%" 
+        height="auto"
+        style="display: block; margin: 0 auto" />
+
 ## Conclusion
 
-`QWebEngineView` is a powerful tool for embedding web content in your C++ applications. Whether you're building a simple browser, integrating web services, or creating hybrid applications, it offers a rich set of features to meet your needs. This blog has only scratched the surface, and there are many more capabilities and customization options available in `QWebEngineView`.
+In this article, we've explored the integration of interactive web visualizations into C++ applications using QWebEngineView. This powerful combination allows developers to leverage the rich ecosystem of web-based visualization libraries while maintaining the robustness and performance of C++ applications.
 
-In future posts, we'll dive deeper into more advanced topics like customizing the rendering engine, handling web security, and optimizing performance. Stay tuned!
+By demonstrating how to incorporate Plotly charts into a Qt application, we've shown how to create dynamic, data-driven visualizations. This technique opens up a wide range of possibilities for creating sophisticated applications suitable for fields such as scientific visualization, data analysis, and interactive reporting.
+
+The QWebEngineView approach provides a flexible and efficient solution for developers looking to create powerful, interactive visualizations within robust C++ applications, meeting the evolving needs of our increasingly data-centric world.
 
 ## Potential Pitfalls and Solutions
 

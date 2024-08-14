@@ -1,18 +1,20 @@
 ---
 title: Implement a Simple VTK Transform Widget
 tags:
-  - Uncategorized
+    - VTK
+    - C++
 date: 2023-10-08 20:19:00
 ---
 
 # **VTK Widget**
+
 In three-dimensional visualization applications, VTK Widgets allow users to interact with visible components. Users can manipulate 3D data and models through these widgets by clicking, dragging, and pressing keys. These widgets make user interactions in the 3D scene intuitive and straightforward.
 
 <!-- more -->
 
 ---
 
-# Design Concept of VTK Widget 
+# Design Concept of VTK Widget
 
 ## vtk3DWidget
 
@@ -21,12 +23,11 @@ The design of VTK Widgets was introduced from VTK version 5.0. In the initial de
 1. Highly coupling between event handling and representation:
 
     The event handling logic of the widgets is tightly coupled with their representation, making it impossible to use different representations for the same event handling logic. For example, for a widget that measures distance, it should be possible to represent its endpoints either using crosses or spheres as representations.
-    
+
 2. Event binding cannot be changed:
 
     The event binding using hardwiring prevents the program from changing event bindings during execution based on user preferences or device differences. For example, replacing a left-click with a right-click to trigger widget selection should be feasible.
 
-    
 Therefore, starting from VTK version 5.1, VTK Widgets were redesigned to address the above issues, while still retaining vtk3DWidget and its subclasses.
 
 <img src="inherit2.png" 
@@ -34,7 +35,6 @@ Therefore, starting from VTK version 5.1, VTK Widgets were redesigned to address
         width="50%" 
         height="auto"
         style="display: block; margin: 0 auto" />
-
 
 ## vtkAbstractWidget and vtkWidgetRepresentation
 
@@ -55,7 +55,6 @@ Such decoupling allows for changing the widget's appearance without the need to 
 > Although the representation is externally viewed as a single vtkProp, it can actually be composited of multiple vtkProps.
 
 The following diagram provides a simple description of the association between vtkAbstractWidget and vtkWidgetRepresentation and their related classes. After the VTK events are passed to the widget by vtkRenderWindowInteractor, the widget calls methods on its representation based on event bindings. Then, the representation updates its state and triggers the view re-rendering.
-
 
 ![workflow.png](workflow.png)
 
@@ -171,11 +170,11 @@ enum INTERACTIONSTATE
 
 Within transformRepresentation, there are several important functions: ComputeInteractionState, BuildRepresentation, and GetTransform.
 
-- **ComputeInteractionState:** Compute and update the widget's state based on the display coordinates (x, y) of the rendering window.
-    
+-   **ComputeInteractionState:** Compute and update the widget's state based on the display coordinates (x, y) of the rendering window.
+
     ```cpp
     /* transformRepresentation.cpp */
-    
+
     int transformRepresentation::ComputeInteractionState(int x, int y,
                                                          int vtkNotUsed(modify))
     {
@@ -184,13 +183,13 @@ Within transformRepresentation, there are several important functions: ComputeIn
             this->InteractionState = INTERACTIONSTATE::outside;
             return this->InteractionState;
         }
-    
+
         auto path = this->GetAssemblyPath(x, y, 0., picker_);
         if (path != nullptr)
         {
             currActor_ =
                 reinterpret_cast<vtkProp3D *>(path->GetFirstNode()->GetViewProp());
-    
+
             if (currActor_ == rotateActors_[0])
             {
                 this->InteractionState = INTERACTIONSTATE::onXRing;
@@ -206,16 +205,16 @@ Within transformRepresentation, there are several important functions: ComputeIn
         {
             this->InteractionState = INTERACTIONSTATE::outside;
         }
-    
+
         return this->InteractionState;
     }
     ```
-    
-- **BuildRepresentation:** Update the geometric representation of the widget based on its current state and other conditions. Here, we need to adjust the positions and orientations of various vtkProps based on the widget's state and the mouse position. The specific calculation methods are not detailed here.
-    
+
+-   **BuildRepresentation:** Update the geometric representation of the widget based on its current state and other conditions. Here, we need to adjust the positions and orientations of various vtkProps based on the widget's state and the mouse position. The specific calculation methods are not detailed here.
+
     ```cpp
     /* transformRepresentation.cpp */
-    
+
     void transformRepresentation::BuildRepresentation()
     {
         if (this->GetMTime() > this->BuildTime ||
@@ -233,31 +232,30 @@ Within transformRepresentation, there are several important functions: ComputeIn
                      this->InteractionState == INTERACTIONSTATE::onYArrow ||
                      this->InteractionState == INTERACTIONSTATE::onZArrow)
             {
-                // ...          
+                // ...
             }
-    
+
             this->BuildTime.Modified();
         }
     }
     ```
-    
-- **GetTransform:** Provide a function to obtain the overall widget transform, allowing external code to retrieve a vtkTransform object and use it to update the target model.
-    
+
+-   **GetTransform:** Provide a function to obtain the overall widget transform, allowing external code to retrieve a vtkTransform object and use it to update the target model.
+
     ```cpp
     /* transformRepresentation.cpp */
-    
+
     void transformRepresentation::GetTransform(vtkTransform *t)
     {
         t->SetMatrix(dummyActor_->GetUserMatrix());
     }
     ```
-    
 
 ## Update Target Model
 
 In main.cpp, we need to create the widget and add callback functions to update the target model. When creating the model, we use the default representation on this widget, which is transformRepresentation. Then, we use the PlaceWidget method to set the initial position of the widget.
 
-> After different transformRepresentations are implemented, we can also use SetRepresentation method to specify different representations for the widget. 
+> After different transformRepresentations are implemented, we can also use SetRepresentation method to specify different representations for the widget.
 
 ```cpp
 /* main.cpp */
@@ -334,6 +332,6 @@ By now, the process and usage of implementing a simple transformWidget in VTK ar
 
 # Reference
 
-* [VTKWidgets - KitwarePublic](https://vtk.org/Wiki/VTKWidgets)
+-   [VTKWidgets - KitwarePublic](https://vtk.org/Wiki/VTKWidgets)
 
-* [VTK Rotate Cone With Ring](https://www.weiy.city/2019/08/vtk-rotate-cone-with-ring/)
+-   [VTK Rotate Cone With Ring](https://www.weiy.city/2019/08/vtk-rotate-cone-with-ring/)
